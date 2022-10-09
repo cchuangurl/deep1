@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- <script src="/javascripts/jquery-3.4.1.js"></script> -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<style type="text/css">
+body {  
+background-color: rgb(205, 226, 253);
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction:column;
+	 justify-content: flex-start;
+     align-items:center;
+  	margin: 0;
+}
+#bulletin {background:#def3f8;}
+#worktodo {background:#f8e8c5;}
+.navbar{background:#cff8c5;}
+.nav-link, .navbar-brand{color: #f4f4f4;cursor:pointer;}
+.nav-link{margin-right:1em !important;}
+.nav-link:hover{background: #f4f4f4;color:#f97300;}
+.navbar-collapse{justify-content:flex-end;}
+.navbar-toggler{background:#fff !important;}
+</style>
+
+  <title>內部系統員工首頁</title>
+  </head>
+  <body>
+    <div id="show_div">
+        <div class="row" align="justify">
+            <bander></bander>
+        </div>
+        <div class="row" align="justify">
+            <div class="col-lg-3 col-md-6 col-sm-12" id="sidearea">
+                <sidebar></sidebar> </div>
+            <div class="col-lg-9 col-md-6 col-sm-12">
+                <div class="row" align="justify">
+                    <div class="col-lg-6 col-md-6 col-sm-12" id="bulletin">
+                        <content1></content1> </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12" id="sharezone">
+                        <content2></content2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <inputer></inputer> -->
+    </div>
+ 
+    <template id="banderUI">
+        
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="row">
+            <div class="col-lg col-md-2 col-sm-6">
+        <a class="navbar-brand" href="/">{{brand}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        </div>
+        
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <div class="col-lg col-md-2 col-sm-6">
+            <li class="nav-item">
+              <a class="nav-link  active" href="#">{{affaire}}<span class="sr-only">(current)</span></a>
+            </li>
+        </div>
+        <div class="col-lg col-md-2 col-sm-6">
+            <li class="nav-item">
+              <a class="nav-link" href="/deep0/knowlege/">{{KM}}</a>
+            </li>
+        </div>
+        <div class="col-lg col-md-2 col-sm-6">
+            <li class="nav-item">
+              <a class="nav-link" href="/deep0/knowlege/integrate">{{KI}}</a>
+            </li>
+        </div>
+        <div class="col-lg col-md-2 col-sm-6">
+            <li class="nav-item">
+              <a class="nav-link" href="/deep0/branch/gomanage3">{{datamaintain}}</a>
+            </li>
+        </div>
+        <div class="col-lg col-md-2 col-sm-6">
+            <li class="nav-item">
+                <a class="nav-link" href="/deep0/branch/customer">{{customer}}</a>
+            </li>
+        </div>
+          </ul>
+        </div>
+        <div class="col-lg col-md-4 col-sm-12">
+          <span class="navbar-text">
+            <font size="1">{{statusreport}}</font>
+          </span>
+          </div>
+        </div>
+      </nav>
+    </template>
+     
+    <template id="content1UI">
+        <nav aria-label="...">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12" id="bulletin">
+                <table>
+                    <tr class="pagination">
+                      <td class="page-item" v-show="firstPage" @click="goFirstPage()">回第1頁</td>
+                      <td class="page-item" v-show="previousRound" @click="goPreviousRound()">上{{perRound}}頁</td>
+                      <div class="page index">
+                      <td class="page-item" :active="activeIndex[0]" v-show="showIndex[0]" @click="getShowData(0)">{{pageIndex[0]}}</td>
+                      <td class="page-item" :active="activeIndex[1]" v-show="showIndex[1]" @click="getShowData(1)">{{pageIndex[1]}}</td>
+                      <td class="page-item" :active="activeIndex[2]" v-show="showIndex[2]" @click="getShowData(2)">{{pageIndex[2]}}</td>
+                      <td class="page-item" :active="activeIndex[3]" v-show="showIndex[3]" @click="getShowData(3)">{{pageIndex[3]}}</td>
+                      <td class="page-item" :active="activeIndex[4]" v-show="showIndex[4]" @click="getShowData(4)">{{pageIndex[4]}}</td>
+                      <td class="page-item" :active="activeIndex[5]" v-show="showIndex[5]" @click="getShowData(5)">{{pageIndex[5]}}</td>
+                      <td class="page-item" :active="activeIndex[6]" v-show="showIndex[6]" @click="getShowData(6)">{{pageIndex[6]}}</td>
+                      <td class="page-item" :active="activeIndex[7]" v-show="showIndex[7]" @click="getShowData(7)">{{pageIndex[7]}}</td>
+                      <td class="page-item" :active="activeIndex[8]" v-show="showIndex[8]" @click="getShowData(8)">{{pageIndex[8]}}</td>
+                      <td class="page-item" :active="activeIndex[9]" v-show="showIndex[9]" @click="getShowData(9)">{{pageIndex[9]}}</td>
+                  </div>
+                      <td class="page-item" v-show="nextRound" @click="goNextRound()">下{{perRound}}頁</td>
+                      <td class="page-item" v-show="endPage" @click="goEndPage()">到最末頁</td>
+                    </tr>
+                    </table>
+                <table border="1" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>{{items1.item1}}</th>
+                        <th>{{items1.item2}}</th>
+                        <th>{{items1.item3}}</th>                          
+                        <th>{{items1.item4}}</th>    
+                      <!-- <th>特別註記</th> -->
+                    </tr>
+                    </thead>
+                    <tbody id="postlist">
+                        <tr v-for="post of postShow" :key="post._id">
+                        <td>{{post.a10posttype}}</td>                
+                        <td>{{post.a15poster}}</td>
+                        <td>{{post.postdate}}</td>
+                        <!--<td>{{post.a20postdate.getFullYear()}}/{{post.a20postdate.getMonth()}}/{{post.a20postdate.getDate()}}</td>-->
+                        <td>{{post.a25posttitle}}</td>  
+                        <!-- statusreport="由已擷取資料組清單頁進入本頁"> -->
+                        
+                          <td>
+                            <input type="submit" value="檢視" @click="lookonepost(post._id)">                   
+                          </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </nav>
+        </template>
+    
+        <template id="content2UI">
+            <nav aria-label="...">
+            <div class="row">             
+        <!-- 下一div為測試畫面分格, 正式版以其他內容替代 -->               
+            <div class="col-lg-4 col-md-6 col-sm-12" id="worktodo">
+                
+                <table>
+                    <tr class="pagination">
+                      <td class="page-item" v-show="firstPage" @click="goFirstPage()">回第1頁</td>
+                      <td class="page-item" v-show="previousRound" @click="goPreviousRound()">上{{perRound}}頁</td>
+                      <div class="page index">
+                      <td class="page-item" :active="activeIndex[0]" v-show="showIndex[0]" @click="getShowData(0)">{{pageIndex[0]}}</td>
+                      <td class="page-item" :active="activeIndex[1]" v-show="showIndex[1]" @click="getShowData(1)">{{pageIndex[1]}}</td>
+                      <td class="page-item" :active="activeIndex[2]" v-show="showIndex[2]" @click="getShowData(2)">{{pageIndex[2]}}</td>
+                      <td class="page-item" :active="activeIndex[3]" v-show="showIndex[3]" @click="getShowData(3)">{{pageIndex[3]}}</td>
+                      <td class="page-item" :active="activeIndex[4]" v-show="showIndex[4]" @click="getShowData(4)">{{pageIndex[4]}}</td>
+                      <td class="page-item" :active="activeIndex[5]" v-show="showIndex[5]" @click="getShowData(5)">{{pageIndex[5]}}</td>
+                      <td class="page-item" :active="activeIndex[6]" v-show="showIndex[6]" @click="getShowData(6)">{{pageIndex[6]}}</td>
+                      <td class="page-item" :active="activeIndex[7]" v-show="showIndex[7]" @click="getShowData(7)">{{pageIndex[7]}}</td>
+                      <td class="page-item" :active="activeIndex[8]" v-show="showIndex[8]" @click="getShowData(8)">{{pageIndex[8]}}</td>
+                      <td class="page-item" :active="activeIndex[9]" v-show="showIndex[9]" @click="getShowData(9)">{{pageIndex[9]}}</td>
+                  </div>
+                      <td class="page-item" v-show="nextRound" @click="goNextRound()">下{{perRound}}頁</td>
+                      <td class="page-item" v-show="endPage" @click="goEndPage()">到最末頁</td>
+                    </tr>
+                    </table>
+                  <table border="1" class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th>{{items2.item2}}</th>
+                          <th>{{items2.item5}}</th>                      
+                          <th>{{items2.item8}}</th>    
+                        <!-- <th>特別註記</th> -->
+                      </tr>
+                      </thead>
+                      <tbody id="projectlist">
+                        <!-- <tr v-for="project of projectshow" :key="project._id"> -->
+                          <tr v-for="project of projectShow" :key="project._id">
+                          <td>{{project.a15name}}</td>                
+                          <td>{{project.requestdate}}</td>
+                          <td>{{project.a45process}}</td>
+                          <!-- statusreport="由已擷取資料組清單頁進入本頁"> -->
+                          
+                            <td>
+                              <input type="submit" value="檢視或編輯" @click="editoneproject(project._id)">               
+                            </td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  <table>
+                      <tr class="pagination">
+                        <td class="page-item" v-show="firstPage" @click="goFirstPage()">回第1頁</td>
+                        <td class="page-item" v-show="previousRound" @click="goPreviousRound()">上{{perRound}}頁</td>
+                        <div class="page index"  >
+                        <td class="page-item" :active="activeIndex[0]" v-show="showIndex[0]" @click="getShowData(0)">{{pageIndex[0]}}</td>
+                        <td class="page-item" :active="activeIndex[1]" v-show="showIndex[1]" @click="getShowData(1)">{{pageIndex[1]}}</td>
+                        <td class="page-item" :active="activeIndex[2]" v-show="showIndex[2]" @click="getShowData(2)">{{pageIndex[2]}}</td>
+                        <td class="page-item" :active="activeIndex[3]" v-show="showIndex[3]" @click="getShowData(3)">{{pageIndex[3]}}</td>
+                        <td class="page-item" :active="activeIndex[4]" v-show="showIndex[4]" @click="getShowData(4)">{{pageIndex[4]}}</td>
+                        <td class="page-item" :active="activeIndex[5]" v-show="showIndex[5]" @click="getShowData(5)">{{pageIndex[5]}}</td>
+                        <td class="page-item" :active="activeIndex[6]" v-show="showIndex[6]" @click="getShowData(6)">{{pageIndex[6]}}</td>
+                        <td class="page-item" :active="activeIndex[7]" v-show="showIndex[7]" @click="getShowData(7)">{{pageIndex[7]}}</td>
+                        <td class="page-item" :active="activeIndex[8]" v-show="showIndex[8]" @click="getShowData(8)">{{pageIndex[8]}}</td>
+                        <td class="page-item" :active="activeIndex[9]" v-show="showIndex[9]" @click="getShowData(9)">{{pageIndex[9]}}</td>
+                    </div>
+                        <td class="page-item" v-show="nextRound" @click="goNextRound()">下{{perRound}}頁</td>
+                        <td class="page-item" v-show="endPage" @click="goEndPage()">到最末頁</td>
+                      </tr>
+                      </table>
+                </div>
+            </nav>
+      </template>
+      <template id="sidebarUI">
+        <nav aria-label="...">
+            </nav>
+      </template>
+
+      <template id="inputerUI">
+  
+      </template>
+  
+  <!-- Vue CDN-->
+  <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/qs/6.5.1/qs.min.js"></script>
+  <script>
+  Vue.component("bander",{
+      props:{},
+      data(){
+        return {
+            brand:"Deep內部網站",
+        affaire:"業務要覽",
+        KM:"專業知識管理",
+        KI:"專業知識整合",
+        datamaintain:"各種資料管理",
+        customer:"對外網站",
+        statusreport:'<%- JSON.stringify(statusreport) %>'
+        //statusreport:"顯示測試"
+        }
+      },
+      methods:{
+  
+      },
+      template:"#banderUI"
+    });
+    Vue.component("inputer",{
+      props:{},
+      data(){
+        return {
+        }   
+      },
+      methods:{
+  
+      },
+      template:"#inputerUI"
+    });
+    Vue.component("sidebar",{
+      props:{},
+      data(){
+        return {
+        }   
+      },
+      methods:{
+  
+      },
+      template:"#sidebarUI"
+    });
+    Vue.component("content1",{
+      props:{},
+      data(){
+        return{
+            perPage:8,
+          perRound:10,
+          maxRow:1,
+          maxPage:1,
+          maxRound:1,
+          modRow:1,
+          modPage:1,
+          currentIndex:1,
+          currentPage:1,
+          currentRound:1,
+          indexLength:1,
+          previousRound:false,
+          firstPage:false,
+          nextRound:false,
+          endPage:false,
+          fullPage:false,
+          pageIndex:[],
+          showIndex:[],
+          activeIndex:[],
+          postShow:[],
+          indexLength:0,
+          responsetext:"",
+          //statusreport:"顯示在第二處",
+          statusreport:'<%- JSON.stringify(statusreport) %>',
+        postlist:JSON.parse(decodeURIComponent('<%=postlist%>')),
+          items1:{
+            item:"ID",
+            item0:"公告代號",
+            item1:"內容類別",
+            item2:"公告者",
+            item3:"公告日期時間",
+            item4:"公告標題",
+            item5:"公告內容",
+            item6:"公告對象",
+            item7:"呈現方式",
+            item8:"預定下架時間",
+            item99:"管理註記"     
+        }
+        }    
+      },
+      mounted:function(){
+        this.maxRow=this.postlist.length;
+          this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
+          this.maxRound=Math.floor(this.maxPage/this.perRound)+1;
+          this.modRow=this.maxRow%this.perPage;
+          this.modPage=this.maxPage%this.perRound;
+          this.goFirstPage() 
+          /*
+        maxRow=projectlist.length;
+          maxPage=Math.floor(maxRow/perPage)+1;
+          maxRound=Math.floor(maxPage/perRound)+1;
+          modRow=maxRow%perPage;
+          modPage=maxPage%perRound;
+          goFirstPage()*/ 
+      },
+      methods:{
+        lookonepost:function(id){
+          let querytext="?statusreport='由post資料清單頁的編輯按鈕進入本頁'";
+          let url4='/deep0/post/lookpage/'+id+querytext;
+          window.location=url4;
+        },
+
+        getShowData:function(index){
+          this.currentIndex=index;
+          this.activeIndex.splice(0);
+          this.pageIndex.splice(0);
+          this.showIndex.splice(0);
+          for(let i=0;i<this.indexLength;i++){
+              this.pageIndex.push(((this.currentRound-1)*this.perRound)+i+1);
+              this.showIndex.push(true);
+              this.activeIndex.push(false)
+          }
+          this.activeIndex[index]=true;
+          for(let i=this.indexlength;i<this.perRound;i++){
+              this.showIndex.push(false)
+          };
+          this.currentPage=this.pageIndex[index]
+          console.log("currentPage is:"+this.currentPage)
+          this.fullPage=(this.maxRow>=(this.currentPage*this.perPage))?true:false;
+          this.postShow.splice(0);
+          let startRow=(this.currentPage-1)*this.perPage;
+            console.log("startRow is:"+startRow)          
+          let rowNo=this.fullPage?this.perPage:this.modRow;
+          console.log("rowNo is:"+rowNo);
+          //this.postShow=[];
+          this.postShow=this.postlist.slice(startRow,startRow+rowNo)
+          //this.postShow=this.postlist.slice(8,3)
+          console.log("11st postlist:"+this.postlist[10])          
+          console.log("1st postShow:"+this.postShow[0])
+          
+        },
+        goFirstPage:function(){
+          this.currentRound=1;
+          this.indexLength=(this.maxPage>this.perRound)?this.perRound:this.modPage;
+          this.previousRound=false;
+          this.firstPage=false;
+          this.nextRound=(this.maxPage<(this.perRound+1))?false:true;
+          this.endPage=(this.maxPage<(this.perRound+1))?false:true;
+          this.currentIndex=0;
+          this.getShowData(this.currentIndex)        
+        },
+        goEndPage:function(){
+          this.currentRound=this.maxRound;
+          this.indexLength=(this.modPage==0)?this.perRound:this.modPage;
+          this.previousRound=true;
+          this.firstPage=true;
+          this.nextRound=false;
+          this.endPage=false;
+          this.currentIndex=this.indexLength-1;
+          this.getShowData(this.currentIndex) 
+        },
+        goPreviousRound:function(){
+          if(this.currentRound>1){
+          this.currentRound--;
+          this.currentIndex=0;
+          this.indexLength=this.perRound;
+          this.previousRound=this.currentRound>1?true:false;
+          this.firstPage=this.currentRound>1?true:false;
+          this.nextRound=true;
+          this.endPage=true;
+          this.getShowData(this.currentIndex)
+          }else{
+              console.log("There is no previous round!!")
+              this.goFirstpage()
+          }
+        },
+        goNextRound:function(){
+          if(this.currentRound<this.maxRound){
+          this.currentRound++;
+          this.currentIndex=0;
+          this.indexLength=(this.maxPage>this.currentRound*this.perRound)?this.perRound:this.modPage;
+          this.previousRound=true;
+          this.firstPage=true;
+          this.nextRound=(this.maxPage>this.currentRound*this.perRound)?true:false;
+          this.endPage=(this.maxPage>this.currentRound*this.perRound)?true:false;
+          this.getShowData(this.currentIndex)
+          }else{
+            console.log("There is no next round!!")
+            this.goEndPage()
+          }
+        }
+      },
+    template:"#content1UI"
+  });
+  Vue.component("content2",{
+      props:{},
+      data(){
+        return{
+            perPage:8,
+          perRound:10,
+          maxRow:1,
+          maxPage:1,
+          maxRound:1,
+          modRow:1,
+          modPage:1,
+          currentIndex:1,
+          currentPage:1,
+          currentRound:1,
+          indexLength:1,
+          previousRound:false,
+          firstPage:false,
+          nextRound:false,
+          endPage:false,
+          fullPage:false,
+          pageIndex:[],
+          showIndex:[],
+          activeIndex:[],
+          projectShow:[],
+          indexLength:0,
+          responsetext:"",
+          //statusreport:"顯示在第二處",
+          statusreport:'<%- JSON.stringify(statusreport) %>',
+          //projectlist:[{},{}]             
+          projectlist:JSON.parse(decodeURIComponent('<%=projectlist%>')),
+          
+        items2:{
+                item0:"客戶識別碼",
+                item1:"主辦員工識別碼",
+                item2:"服務專案名稱",
+                item3:"服務類型",
+                item4:"需求內容簡述",
+                item5:"客戶提出日期",
+                item6:"解決構想發送日期",
+                item7:"服務契約合意日期",
+                item8:"進度紀錄",
+                item9:"驗收合格日期",
+                item10:"實際履行金額",
+                item11:"尾款收取日期",
+                item12:"結案註記",     
+        }
+        }    
+      },
+      mounted:function(){
+        this.maxRow=this.projectlist.length;
+          this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
+          this.maxRound=Math.floor(this.maxPage/this.perRound)+1;
+          this.modRow=this.maxRow%this.perPage;
+          this.modPage=this.maxPage%this.perRound;
+          this.goFirstPage() 
+          /*
+        maxRow=projectlist.length;
+          maxPage=Math.floor(maxRow/perPage)+1;
+          maxRound=Math.floor(maxPage/perRound)+1;
+          modRow=maxRow%perPage;
+          modPage=maxPage%perRound;
+          goFirstPage()*/ 
+      },
+      methods:{
+        editoneproject:function(id){
+          let querytext="?statusreport='由業務要覽project清單的編輯按鈕進入本頁'";
+          let url2='/deep0/project/editpage/'+id+querytext;
+          window.location=url2;
+        },
+        
+        getShowData:function(index){
+          this.currentIndex=index;
+          this.activeIndex.splice(0);
+          this.pageIndex.splice(0);
+          this.showIndex.splice(0);
+          for(let i=0;i<this.indexLength;i++){
+              this.pageIndex.push(((this.currentRound-1)*this.perRound)+i+1);
+              this.showIndex.push(true);
+              this.activeIndex.push(false)
+          }
+          this.activeIndex[index]=true;
+          for(let i=this.indexlength;i<this.perRound;i++){
+              this.showIndex.push(false)
+          };
+          this.currentPage=this.pageIndex[index]
+          console.log("currentPage is:"+this.currentPage)
+          this.fullPage=(this.maxRow>=(this.currentPage*this.perPage))?true:false;
+          this.projectShow.splice(0);
+          let startRow=(this.currentPage-1)*this.perPage;
+            console.log("startRow is:"+startRow)          
+          let rowNo=this.fullPage?this.perPage:this.modRow;
+          console.log("rowNo is:"+rowNo);
+          //this.projectShow=[];
+          this.projectShow=this.projectlist.slice(startRow,startRow+rowNo)
+          //this.projectShow=this.projectlist.slice(8,3)
+          console.log("11st projectlist:"+this.projectlist[10])          
+          console.log("1st projectShow:"+this.projectShow[0])
+          
+        },
+        goFirstPage:function(){
+          this.currentRound=1;
+          this.indexLength=(this.maxPage>this.perRound)?this.perRound:this.modPage;
+          this.previousRound=false;
+          this.firstPage=false;
+          this.nextRound=(this.maxPage<(this.perRound+1))?false:true;
+          this.endPage=(this.maxPage<(this.perRound+1))?false:true;
+          this.currentIndex=0;
+          this.getShowData(this.currentIndex)        
+        },
+        goEndPage:function(){
+          this.currentRound=this.maxRound;
+          this.indexLength=(this.modPage==0)?this.perRound:this.modPage;
+          this.previousRound=true;
+          this.firstPage=true;
+          this.nextRound=false;
+          this.endPage=false;
+          this.currentIndex=this.indexLength-1;
+          this.getShowData(this.currentIndex) 
+        },
+        goPreviousRound:function(){
+          if(this.currentRound>1){
+          this.currentRound--;
+          this.currentIndex=0;
+          this.indexLength=this.perRound;
+          this.previousRound=this.currentRound>1?true:false;
+          this.firstPage=this.currentRound>1?true:false;
+          this.nextRound=true;
+          this.endPage=true;
+          this.getShowData(this.currentIndex)
+          }else{
+              console.log("There is no previous round!!")
+              this.goFirstpage()
+          }
+        },
+        goNextRound:function(){
+          if(this.currentRound<this.maxRound){
+          this.currentRound++;
+          this.currentIndex=0;
+          this.indexLength=(this.maxPage>this.currentRound*this.perRound)?this.perRound:this.modPage;
+          this.previousRound=true;
+          this.firstPage=true;
+          this.nextRound=(this.maxPage>this.currentRound*this.perRound)?true:false;
+          this.endPage=(this.maxPage>this.currentRound*this.perRound)?true:false;
+          this.getShowData(this.currentIndex)
+          }else{
+            console.log("There is no next round!!")
+            this.goEndPage()
+          }
+        }
+      },
+    template:"#content2UI"
+  });
+    new Vue({
+        el:'#show_div',
+        data:{
+          testdata:'有執行到此。。。。'
+        },
+        /* computed:{
+
+        },
+        watch:{
+
+        },
+        filters:{
+
+        },
+        mixins:[
+
+        ],
+        template:" ",
+        
+        components:{
+          "bander":bander,
+          "outputer":outputer,
+          "inputer":inputer
+        },*/
+        beforeCreate:function(){
+          console.log("before create...")
+        },created:function(){
+          console.log("created...")
+        },
+        beforeMount:function(){
+          console.log("before mount...")
+        },
+        mounted:function(){
+          console.log("mounted...")
+        },
+        beforeUpdate:function(){
+          console.log("before update...")
+        },
+        updated:function(){
+          console.log("updated...")
+        },
+        beforeDestroy:function(){
+
+        } 
+    })
+</script>
+
+
+  </body>
+</html>

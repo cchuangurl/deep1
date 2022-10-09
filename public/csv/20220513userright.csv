@@ -1,0 +1,9 @@
+﻿admin,admin,1000,data4firm,deep,admin
+super,admin,1000,topsecret,deep,admin
+developer,fullright,100,data4firm,deep,fullright
+api,fullright,50,data4firm,deep,fullright
+management,audit,20,credential4dept,,
+staff,run,10,data4firm,,
+tester,run,5,data4firm,,
+client,read,5,limit,,
+guest,read,0,open,,

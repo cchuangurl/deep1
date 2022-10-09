@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="/javascripts/jquery-3.4.1.js"></script>
+<style type="text/css">
+body {
+  background-color: #d6d6d3;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+     flex-direction:column;
+	 justify-content: flex-start;
+     align-items:center;
+  	margin: 0;
+}
+.navbar{background:#e5f8cd;}
+.nav-link, .navbar-brand{color: #f4f4f4;cursor:pointer;}
+.nav-link{margin-right:1em !important;}
+.nav-link:hover{background: #f4f4f4;color:#f97300;}
+.navbar-collapse{justify-content:flex-end;}
+.navbar-toggler{background:#fff !important;}
+</style>
+
+  <title>修正指定之process</title>
+  </head>
+  <body>
+    <div id="show_div">
+      <bander></bander>
+        <inputer></inputer>
+        <!-- <outputer></outputer> -->
+    </div>
+ 
+    <template id="banderUI">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">{{brand}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/deep0/process">{{lastpage}}</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">{{edit1}} <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{editbatch}}</a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            {{statusreport}}
+          </span>
+        </div>
+      </nav>
+    </template>
+    
+    <template id="inputerUI" >
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">修正{{process.a05name}}之資料</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
+          <form action="/deep0/process/update" method="post">
+            <div class="form-group" :key="inputerUIkey">
+            <label for="formGroupExampleInput2">{{items.item}}</label>
+            <input type="text" name="_id" class="form-control" id="formGroupExampleInput" :value="process._id">
+            
+              <label for="formGroupExampleInput2">{{items.item0}}</label>
+              <input type="text" name="a05project_id" class="form-control" id="formGroupExampleInput0" :value="process.a05project_id">
+
+              <label for="formGroupExampleInput2">{{items.item1}}</label>
+              <input type="text" name="a10stage" class="form-control" id="formGroupExampleInput1" :value="process.a10stage">
+           
+              <label for="formGroupExampleInput2">{{items.item2}}</label>
+              <input type="text" name="a15action" class="form-control" id="formGroupExampleInput2" :value="process.a15action">
+            
+              <label for="formGroupExampleInput2">{{items.item3}}</label>
+              <input type="text" name="a20doer" class="form-control" id="formGroupExampleInput3" :value="process.a20doer">
+            
+              <label for="formGroupExampleInput2">{{items.item4}}</label>
+              <input type="text" name="a25startdate" class="form-control" id="formGroupExampleInput4" :value="process.a25startdate">
+           
+              <label for="formGroupExampleInput2">{{items.item5}}</label>
+              <input type="text" name="a30timeconsume" class="form-control" id="formGroupExampleInput5" :value="process.a30timeconsume">
+            
+              <label for="formGroupExampleInput2">{{items.item6}}</label>
+              <input type="text" name="a35cost" class="form-control" id="formGroupExampleInput6" :value="process.a35cost">
+            
+              <label for="formGroupExampleInput2">{{items.item7}}</label>
+              <input type="text" name="a40delay" class="form-control" id="formGroupExampleInput7" :value="process.a40delay">
+            
+              <label for="formGroupExampleInput2">{{items.item8}}</label>
+              <input type="text" name="a45status" class="form-control" id="formGroupExampleInput8" :value="process.a45status">
+           
+              <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正process後進入本頁">
+            
+              <input type="submit" id="button1" value="確定送出" class="btn btn-info">
+            </div>
+          </form>
+          <input type="submit" id="button2" value="重新輸入" class="btn btn-info" @click="rerender()">
+          <!-- <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a> -->
+        </div>
+      </div> 
+    </template>
+
+ 
+<!-- Vue CDN-->
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+<script>
+Vue.component("bander",{
+    props:{},
+    data(){
+      return {
+        brand:"Deep內部功能",
+        lastpage:"回前頁",
+        edit1:"修正1筆",
+        editbatch:"修正多筆",
+        statusreport:'<%= JSON.stringify(statusreport) %>'
+      }
+    },
+    methods:{
+
+    },
+    template:"#banderUI"
+  });
+  Vue.component("inputer",{
+    props:{},
+    data(){
+      return {
+        card_title:"",
+        card_subtitle:"請修正以下各項資料:",
+        items:{
+            item0:"專案識別碼",
+            item1:"執行階段",
+            item2:"行動",
+            item3:"執行者",
+            item4:"開始日期",
+            item5:"所需時間(日)",
+            item6:"所需成本(元)",
+            item7:"是否落遲",
+            item8:"完成註記",
+            item99:"特別註記"     
+      },
+      process:JSON.parse(decodeURIComponent('<%=process%>')),
+      inputerUIkey:0
+      
+  }//EOF return 
+    }, //EOF data()
+    methods:{
+        rerender:function() {
+      this.inputerUIkey += 1;
+      console.log("inputerUIkey:"+this.inputerUIkey) 
+    }
+    }, 
+      
+    template:"#inputerUI"
+  });
+    new Vue({
+        el:'#show_div',
+        data:{
+          testdata:'有執行到此。。。。'
+        },
+        /* computed:{
+
+        },
+        watch:{
+
+        },
+        filters:{
+
+        },
+        mixins:[
+
+        ],
+        template:" ",
+        components:{
+
+        },*/
+        beforeCreate:function(){
+          console.log("before create...")
+        },created:function(){
+          console.log("created...")
+        },
+        beforeMount:function(){
+          console.log("before mount...")
+        },
+        mounted:function(){
+          console.log("mounted...")
+        },
+        beforeUpdate:function(){
+          console.log("before update...")
+        },
+        updated:function(){
+          console.log("updated...")
+        },
+        beforeDestroy:function(){
+
+        } 
+    })
+</script>
+
+
+  </body>
+</html>
