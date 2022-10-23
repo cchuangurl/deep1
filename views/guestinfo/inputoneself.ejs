@@ -41,7 +41,7 @@ body {
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/deep0/branch/customer">{{lastpage}}</a>
+                <a class="nav-link" href="/deep1/branch/customer">{{lastpage}}</a>
               </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">{{input1}}<span class="sr-only">(current)</span></a>
@@ -65,7 +65,7 @@ body {
         <div class="card-body">
           <h5 class="card-title">{{card_title}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
-          <!--<form action="/deep0/guestinfo/addbyquest" method="post">-->
+          <!--<form action="/deep1/guestinfo/addbyquest" method="post">-->
             <div class="form-group" :key="inputerUIkey">              
             
               <label for="formGroupExampleInput2">{{items.item0}}</label>
@@ -173,7 +173,7 @@ Vue.component("bander",{
       console.log("inputerUIkey:"+this.inputerUIkey)  
         },
         isdouble:function(){
-            let url="/deep0/guestinfo/addbyguest";
+            let url="/deep1/guestinfo/addbyguest";
             let guestinfox=encodeURIComponent(JSON.stringify(this.guestinfo));            
             if(this.accountarray.indexOf(guestinfo.a20account)>-1){
                 axios.post('url',guestinfox)

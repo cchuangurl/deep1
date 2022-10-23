@@ -42,7 +42,7 @@ body {
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branch/customer">{{lastpage}}</a>
+              <a class="nav-link" href="/deep1/branch/customer">{{lastpage}}</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">{{look1}} <span class="sr-only">(current)</span></a>
@@ -64,7 +64,7 @@ body {
           <h5 class="card-title">檢視{{knowlege.a05name}}之資料</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
             <div class="form-group" :key="inputerUIkey">
-                <form action="/deep0/branch/customer" method="get">
+                <form action="/deep1/branch/customer" method="get">
                     <label for="formGroupExampleInput2">{{items.item1}}</label>
                     <input type="text" name="a10code" class="form-control" id="formGroupExampleInput1" :value="knowlege.a10code">
                  
@@ -97,7 +97,7 @@ body {
                <!--
                 <iframe name="myIframe" style="display:none"></iframe>
                 
-              <a href="/deep0/public/knowlegefile/20200422blockchain01.ppt" download="20200422blockchain01.ppt"></a>
+              <a href="/deep1/public/knowlegefile/20200422blockchain01.ppt" download="20200422blockchain01.ppt"></a>
                 <input type="submit" value="下載本知識檔" @click="download()"> -->
                 
                 </div>
@@ -156,7 +156,7 @@ Vue.component("bander",{
       console.log("inputerUIkey:"+this.inputerUIkey) 
     },
     download:function(){
-        let routerstring="/deep0/knowlege/download/"+"20200422blockchain01.ppt";
+        let routerstring="/deep1/knowlege/download/"+"20200422blockchain01.ppt";
         window.open(routerstring, '_self');
     }
     }, 

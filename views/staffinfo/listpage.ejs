@@ -51,19 +51,19 @@ background-color: rgb(205, 226, 253);
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branch/affaire">{{affaire}}</a>
+              <a class="nav-link" href="/deep1/branch/affaire">{{affaire}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branch/gomanage2">{{otherdata}}</a>
+              <a class="nav-link" href="/deep1/branch/gomanage2">{{otherdata}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branck">{{entry}}</a>
+              <a class="nav-link" href="/deep1/branck">{{entry}}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link  active" href="#">{{modeltype}}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/deep0/branch/customer">{{customer}}</a>
+                <a class="nav-link" href="/deep1/branch/customer">{{customer}}</a>
           </ul>
           <span class="navbar-text">
             <font size="1">{{statusreport}}</font>
@@ -77,13 +77,13 @@ background-color: rgb(205, 226, 253);
           <table>        
             <tr>
             <td>
-            <form  action="/deep0/staffinfo/inputpage" method="get" >
+            <form  action="/deep1/staffinfo/inputpage" method="get" >
             <input type="hidden" name="statusreport" value="由單筆手動新增按鈕進來">
             <input type="submit" value="單筆手動新增">
             </form> 
             </td>
             <td>
-              <form  action="/deep0/staffinfo/inputbatch" method="get" >
+              <form  action="/deep1/staffinfo/inputbatch" method="get" >
              資料主檔名：<input type="text" name="datafile" required>
              <input type="hidden" name="statusreport" value="由批次新增進入本頁">
              <input type="submit" value="批次新增">
@@ -125,9 +125,9 @@ background-color: rgb(205, 226, 253);
             <thead>
             <tr>
                 <th>{{items.item0}}{{items.item1}}</th>
-                <th>{{items.item5}}</th>
-                <th>{{items.item6}}</th>                          
-                <th>{{items.item11}}</th>   
+                <th>{{items.item7}}</th>
+                <th>{{items.item9}}</th>                          
+                <th>{{items.item14}}</th>   
               <!-- <th>特別註記</th> -->
             </tr>
             </thead>
@@ -240,17 +240,20 @@ background-color: rgb(205, 226, 253);
         items:{
             item0:"姓",
             item1:"名",
-            item2:"性別",
-            item3:"出生年月日",
-            item4:"加入事業時間",
-            item5:"單位及職稱",
-            item6:"公私電話",
-            item7:"Email",
-            item8:"地址",
-            item9:"學歷",
-            item10:"經歷",
-            item11:"專長",
-            item12:"其他",
+            item2:"身分證字號",
+            item3:"性別",
+            item4:"出生年月日",
+            item5:"加入事業時間",
+            item6:"現職單位",
+            item7:"現職職稱",
+            item8:"電話",
+            item9:"手機",
+            item10:"Email",
+            item11:"地址",
+            item12:"主要學歷",
+            item13:"主要經歷",
+            item14:"主要專長",
+            item15:"其他",            
             item99:"特別註記"     
             }
         }      
@@ -267,12 +270,12 @@ background-color: rgb(205, 226, 253);
       methods:{
         editone:function(id){
           let querytext="?statusreport='由staffinfo資料清單頁的編輯按鈕進入本頁'";
-          let url2='/deep0/staffinfo/editpage/'+id+querytext;
+          let url2='/deep1/staffinfo/editpage/'+id+querytext;
           window.location=url2;
         }, 
         deleteone:function(id){
           let querytext="?statusreport='由staffinfo資料清單頁的刪除按鈕進入本頁'";
-          let url3='/deep0/staffinfo/delete/'+id+querytext;
+          let url3='/deep1/staffinfo/delete/'+id+querytext;
           window.location=url3
            },
         

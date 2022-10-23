@@ -18,18 +18,6 @@ router.get('/editpage/:id', async (ctx, next)=> {
 router.get('/register', async (ctx, next)=> {
     await guestinfoController.register(ctx,next)
 });
-//批次新增資料
-router.get('/inputbatch', async (ctx, next)=> {
-    await guestinfoController.batchinput(ctx,next)
-});
-//依參數id取得資料
-router.get('/:id', (ctx, next)=> {
-	await guestinfoController.retrieve(ctx)
-});
-//依參數no取得一筆資料
-router.get('/find/:no', (ctx, next)=> {
-	await guestinfoController.findByNo(ctx)
-});
 //寫入一筆資料
 router.post('/add', async (ctx, next)=> {
 	console.log(ctx.request.body);
@@ -38,6 +26,25 @@ router.post('/add', async (ctx, next)=> {
 //寫入guest註冊資料
 router.post('/addbyguest', async (ctx, next)=> {
 	console.log(ctx.request.body);
+	await guestinfoController.createuser(ctx)
+});
+//批次新增資料
+router.get('/inputbatch', async (ctx, next)=> {
+    await guestinfoController.batchinput(ctx,next)
+});
+
+//依參數id取得資料
+router.get('/:id', (ctx, next)=> {
+	await guestinfoController.retrieve(ctx)
+});
+//依參數no取得一筆資料
+router.get('/find/:no', (ctx, next)=> {
+	await guestinfoController.findByNo(ctx)
+});
+
+
+//寫入guest註冊資料並轉換為user
+router.post('/trans2user', async (ctx, next)=> {
 	await guestinfoController.createuser(ctx)
 });
 //依參數id刪除資料

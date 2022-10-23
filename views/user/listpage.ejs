@@ -51,19 +51,19 @@ background-color: rgb(205, 226, 253);
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branch/affaire">{{affaire}}</a>
+              <a class="nav-link" href="/deep1/branch/affaire">{{affaire}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branch/gomanage1">{{otherdata}}</a>
+              <a class="nav-link" href="/deep1/branch/gomanage1">{{otherdata}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branch">{{entry}}</a>
+              <a class="nav-link" href="/deep1/branch">{{entry}}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link  active" href="#">{{modeltype}}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/deep0/branch/customer">{{customer}}</a>
+                <a class="nav-link" href="/deep1/branch/customer">{{customer}}</a>
           </ul>
           <span class="navbar-text">
             <font size="1">{{statusreport}}</font>
@@ -77,13 +77,13 @@ background-color: rgb(205, 226, 253);
           <table>        
             <tr>
             <td>
-            <form  action="/deep0/user/inputpage" method="get" >
+            <form  action="/deep1/user/inputpage" method="get" >
             <input type="hidden" name="statusreport" value="由單筆手動新增按鈕進來">
             <input type="submit" value="單筆手動新增">
             </form> 
             </td>
             <td>
-              <form  action="/deep0/user/inputbatch" method="get" >
+              <form  action="/deep1/user/inputbatch" method="get" >
              資料主檔名：<input type="text" name="datafile" required>
              <input type="hidden" name="statusreport" value="由批次新增進入本頁">
              <input type="submit" value="批次新增">
@@ -125,17 +125,15 @@ background-color: rgb(205, 226, 253);
             <thead>
             <tr>
                 <th>{{items.item}}</th>
-                <th>{{items.item0}}</th>
-                <th>{{items.item1}}</th>                          
-                <th>{{items.item8}}</th>    
+                <th>{{items.item2</th>
+                <th>{{items.item4}}</th> 
               <!-- <th>特別註記</th> -->
             </tr>
             </thead>
             <tbody id="userlist">
               <!-- <tr v-for="user of usershow" :key="user._id"> -->
                 <tr v-for="user of userShow" :key="user._id">
-                <td>{{user._id}}</td>                
-                <td>{{user.a05name}}</td>
+                <td>{{user._id}}</td>
                 <td>{{user.a10account}}</td>
                 <td>{{user.a45group}}</td>  
                 <!-- statusreport="由已擷取資料組清單頁進入本頁"> -->
@@ -239,15 +237,11 @@ background-color: rgb(205, 226, 253);
           userlist:JSON.parse(decodeURIComponent('<%=userlist%>')),
         items:{
             item:"ID",
-            item0:"使用者姓名",
-            item1:"使用者使用帳號",
-            item2:"使用者登入密碼",
-            item3:"使用者單位",
-            item4:"使用者職稱",
-            item5:"使用者電郵",
-            item6:"使用者辦公室電話",
-            item7:"使用者手機",
-            item8:"使用者群組別",
+            item0:"資格狀態",
+            item1:"對應之個資",
+            item2:"使用者使用帳號",
+            item3:"使用者登入密碼",
+            item4:"使用者群組別",
             item99:"使用者特別註記"     
             }
         }      
@@ -264,12 +258,12 @@ background-color: rgb(205, 226, 253);
       methods:{
         editone:function(id){
           let querytext="?statusreport='由user資料清單頁的編輯按鈕進入本頁'";
-          let url2='/deep0/user/editpage/'+id+querytext;
+          let url2='/deep1/user/editpage/'+id+querytext;
           window.location=url2;
         }, 
         deleteone:function(id){
           let querytext="?statusreport='由user資料清單頁的刪除按鈕進入本頁'";
-          let url3='/deep0/user/delete/'+id+querytext;
+          let url3='/deep1/user/delete/'+id+querytext;
           window.location=url3
            },
         

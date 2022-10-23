@@ -1,23 +1,6 @@
 var router = require('@koa/router')();
 var views=require("koa-views");
 const outerwebController = require('../controllers/index').outerweb;
-const userController = require('../controllers/index').user;
-const postController = require('../controllers/index').post;
-const accountController = require('../controllers/index').account;
-const User = require('../models/index').user;
-
-//判定登入人群組
-router.post("/", async (ctx, next)=> {
-    var {statusreport}=ctx.request.body;
-    var {account}=ctx.request.body;
-    console.log("gotten query:"+statusreport);
-    console.log("gotten account:"+account);
-    //ctx.request.query=statusreport;
-    //await ctx.render("branch/account/account")
-    await outerwebController.group(ctx, next)
-    //await accountController.list(ctx, next)
-});
-
 
 //到對外首頁
 router.get('/', async (ctx, next)=> {
@@ -40,9 +23,5 @@ router.get('/outerweb/share', async (ctx, next)=> {
 router.get('/outerweb/aboutus', async (ctx, next)=> {
     console.log("going in router aboutus!!")
 	await outerwebController.aboutus(ctx, next)
-});
-//到內部首頁
-router.get('/innerweb', async (ctx, next)=> {
-	await innerwebController.register(ctx, next)
 });
 module.exports = router;

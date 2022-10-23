@@ -3,7 +3,7 @@ const Staffinfo = require('../models/index').staffinfo;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
-    console.log("found route /deep0/staffinfo !!");
+    console.log("found route /deep1/staffinfo !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await Staffinfo.find({}).then(async staffinfos=>{
@@ -78,7 +78,7 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_staffinfo....");
     statusreport="儲存單筆員工資料後進入本頁";
-    ctx.redirect("/deep0/staffinfo/?statusreport="+statusreport)
+    ctx.redirect("/deep1/staffinfo/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -101,7 +101,7 @@ async batchinput(ctx, next){
     let filepath=path.join(__dirname,"../public/csv/");
     setTimeout(function(){
         console.log("10 more second later...");
-         ctx.redirect("/deep0/staffinfo/?statusreport="+statusreport)
+         ctx.redirect("/deep1/staffinfo/?statusreport="+statusreport)
         },10000);//EOF setTimeOut middle
     var lineReader = readline.createInterface({            
         input: fs.createReadStream(filepath+datafile+'.csv') 
@@ -185,7 +185,7 @@ async batchinput(ctx, next){
                 .catch(err=>{
                     console.log(err)
                 })
-                //await ctx.redirect("/deep0/staffinfo/?statusreport="+statusreport)
+                //await ctx.redirect("/deep1/staffinfo/?statusreport="+statusreport)
             })//EOF sequence
             })//EOF forEach
             resolve();
@@ -197,7 +197,7 @@ async batchinput(ctx, next){
     })
     .then(async ()=>{
         //console.log("going to list prject....");
-        //ctx.redirect("/deep0/project/?statusreport="+statusreport)
+        //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage2.ejs");
         await ctx.render("datamanage2",{
             statusreport
@@ -217,7 +217,7 @@ async destroy(ctx,next){
         console.log("Deleted a staffinfo....");
     statusreport="刪除單筆員工資料後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep0/staffinfo/?statusreport="+statusreport)
+    ctx.redirect("/deep1/staffinfo/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -233,7 +233,7 @@ async update(ctx,next){
     .then((newstaffinfo)=>{
         console.log("Saving new_staffinfo....:"+newstaffinfo);
     statusreport="更新單筆員工資料後進入本頁";
-    ctx.redirect("/deep0/staffinfo/?statusreport="+statusreport)
+    ctx.redirect("/deep1/staffinfo/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

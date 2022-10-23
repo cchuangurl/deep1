@@ -3,7 +3,7 @@ const User = require('../models/index').user;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
-    console.log("found route /deep0/user !!");
+    console.log("found route /deep1/user !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await User.find({}).then(async users=>{
@@ -78,7 +78,7 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_user....");
     statusreport="儲存單筆使用者帳號後進入本頁";
-    ctx.redirect("/deep0/user/?statusreport="+statusreport)
+    ctx.redirect("/deep1/user/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -184,7 +184,7 @@ async batchinput(ctx, next){
     })
     .then(async ()=>{
         //console.log("going to list prject....");
-        //ctx.redirect("/deep0/project/?statusreport="+statusreport)
+        //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage1.ejs");
         await ctx.render("datamanage1",{
             statusreport
@@ -204,7 +204,7 @@ async destroy(ctx,next){
         console.log("Deleted a user....");
     statusreport="刪除單筆使用者帳號後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep0/user/?statusreport="+statusreport)
+    ctx.redirect("/deep1/user/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -220,7 +220,7 @@ async update(ctx,next){
     .then((newuser)=>{
         console.log("Saving new_user....:"+newuser.a05name);
     statusreport="更新單筆使用者帳號後進入本頁";
-    ctx.redirect("/deep0/user/?statusreport="+statusreport)
+    ctx.redirect("/deep1/user/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

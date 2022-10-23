@@ -3,7 +3,7 @@ const Project = require('../models/index').project;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
-    console.log("found route /deep0/project !!");
+    console.log("found route /deep1/project !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await Project.find({}).then(async projects=>{
@@ -78,7 +78,7 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_project....");
     statusreport="儲存單筆專案管理資料後進入本頁";
-    ctx.redirect("/deep0/project/?statusreport="+statusreport)
+    ctx.redirect("/deep1/project/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -190,7 +190,7 @@ async batchinput(ctx, next){
     })
     .then(async ()=>{
         //console.log("going to list prject....");
-        //ctx.redirect("/deep0/project/?statusreport="+statusreport)
+        //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage3.ejs");
         await ctx.render("datamanage3",{
             statusreport
@@ -210,7 +210,7 @@ async destroy(ctx,next){
         console.log("Deleted a project....");
     statusreport="刪除單筆專案管理資料後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep0/project/?statusreport="+statusreport)
+    ctx.redirect("/deep1/project/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -226,7 +226,7 @@ async update(ctx,next){
     .then((newproject)=>{
         console.log("Saving new_project....:"+newproject);
     statusreport="更新單筆專案管理資料後進入本頁";
-    ctx.redirect("/deep0/project/?statusreport="+statusreport)
+    ctx.redirect("/deep1/project/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

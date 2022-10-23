@@ -4,7 +4,7 @@ const User=require('../models/index').user;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
-    console.log("found route /deep0/guestinfo !!");
+    console.log("found route /deep1/guestinfo !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await Guestinfo.find({}).then(async guestinfos=>{
@@ -29,8 +29,6 @@ async list(ctx,next){
         console.log(err)
     })
 },
-
-
 //到新增資料頁
 async inputpage(ctx, next) {
     var {statusreport}=ctx.request.body;
@@ -94,14 +92,6 @@ async register(req, res) {
             console.log(err)
         })
 },
-//依參數id取得資料
-retrieve(req,res){
-
-},
-//依參數no取得一筆資料
-findByNo(req,res){
-
-},
 
 //寫入一筆資料
 async create(ctx,next){
@@ -111,7 +101,7 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_guestinfo....");
     statusreport="儲存單筆客戶資料後進入本頁";
-    ctx.redirect("/deep0/guestinfo/?statusreport="+statusreport)
+    ctx.redirect("/deep1/guestinfo/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -149,7 +139,7 @@ async createuser(ctx,next){
     .then(()=>{
         console.log("Saving new_guestinfo....");
         statusreport="成功註冊會員資料後回到本頁";
-        ctx.redirect("/deep0/branch/customer?statusreport="+statusreport)
+        ctx.redirect("/deep1/branch/customer?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log("Guestinfo.save({}) failed !!");        
@@ -258,7 +248,7 @@ async batchinput(ctx, next){
     })
     .then(async ()=>{
         //console.log("going to list prject....");
-        //ctx.redirect("/deep0/project/?statusreport="+statusreport)
+        //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage2.ejs");
         await ctx.render("datamanage2",{
             statusreport
@@ -269,6 +259,15 @@ async batchinput(ctx, next){
         console.log(err)
     })
 },
+//依參數id取得資料
+async retrieve(ctx,next){
+
+},
+//依參數no取得一筆資料
+async findByNo(ctx,next){
+    
+},
+
 //依參數id刪除資料
 async destroy(ctx,next){
     var statusreport=ctx.query.statusreport;
@@ -278,7 +277,7 @@ async destroy(ctx,next){
         console.log("Deleted a guestinfo....");
     statusreport="刪除單筆客戶資料後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep0/guestinfo/?statusreport="+statusreport)
+    ctx.redirect("/deep1/guestinfo/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -293,7 +292,7 @@ async update(ctx,next){
     .then((newguestinfo)=>{
         console.log("Saving new_guestinfo....:"+newguestinfo);
     statusreport="更新單筆客戶資料後進入本頁";
-    ctx.redirect("/deep0/guestinfo/?statusreport="+statusreport)
+    ctx.redirect("/deep1/guestinfo/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

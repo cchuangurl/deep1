@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<style type="text/css">
+body {
+  background-color: #d6d6d3;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+     flex-direction:column;
+	 justify-content: flex-start;
+     align-items:center;
+  	margin: 0;
+}
+.navbar{background:#cff8c5;}
+.nav-link, .navbar-brand{color: #f4f4f4;cursor:pointer;}
+.nav-link{margin-right:1em !important;}
+.nav-link:hover{background: #f4f4f4;color:#f97300;}
+.navbar-collapse{justify-content:flex-end;}
+.navbar-toggler{background:#fff !important;}
+</style>
+    <title>各類資料管理功能選單</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="show_div">
+        <bander></bander>        
+          <outputer></outputer>
+          <!-- <inputer></inputer> -->
+      </div>
+   
+      <template id="banderUI">
+          
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="row">
+              <div class="col-lg=1 col-md-2 col-sm-6">
+          <a class="navbar-brand" href="/">{{brand}}</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          </div>
+          
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              <div class="col-lg=1 col-md-2 col-sm-6">
+              <li class="nav-item">
+                <a class="nav-link" href="/deep1/branch/affaire">{{affaire}}</a>
+              </li>
+          </div>
+          <div class="col-lg col-md-2 col-sm-6">
+              <li class="nav-item">
+                <a class="nav-link" href="/deep1/knowlege/">{{KM}}</a>
+              </li>
+          </div>
+          <div class="col-lg col-md-2 col-sm-6">
+              <li class="nav-item">
+                <a class="nav-link" href="/deep1/knowlege/integrate">{{KI}}</a>
+              </li>
+          </div>
+          <div class="col-lg col-md-2 col-sm-6">
+              <li class="nav-item">
+                <a class="nav-link   active" href="#">{{datamanage}}<span class="sr-only">(current)</span></a>
+              </li>
+          </div>
+          <div class="col-lg col-md-2 col-sm-6">
+              <li class="nav-item">
+                  <a class="nav-link" href="/deep1/branch/customer">{{customer}}</a>
+              </li>
+          </div>
+            </ul>
+          </div>
+          <div class="col-lg col-md-4 col-sm-12">
+            <span class="navbar-text">
+              <font size="1">{{statusreport}}</font>
+            </span>
+            </div>
+          </div>
+        </nav>
+      </template>
+
+      <template id="outputerUI">
+        <nav class="navbar navbar-expand-lg navbar-light">   
+        <table class="menu">
+            <tr><td><h5>請點選主功能選項</h5></td></tr>
+        
+        <tr height="60px">
+        <td width="300px">
+        <form  action="/deep1/post" method="get">
+        <input type="hidden" name="statusreport" value="由布告資料維管按鈕進入本頁">
+        <input type="submit" value="布告資料維管 " class="btn btn-info">        
+        </form>      
+        </td>
+        <td  width="300px">
+          <form  action="/deep1/knowlege" method="get">
+            <input type="hidden" name="statusreport" value="由專業知識資料維管按鈕進入本頁">
+        <input type="submit" value="專業知識資料維管 " class="btn btn-info">       
+            </form> 
+        </td>
+      </tr>
+      
+      <tr height="60px">
+        <td  width="300px">
+          <form  action="/deep1/request" method="get">
+            <input type="hidden" name="statusreport" value="由服務需求資料維管按鈕進入本頁">
+            <input type="submit" value="服務需求資料維管 " class="btn btn-info">       
+            </form> 
+            <td  width="300px">
+                <form  action="/deep1/message" method="get">
+                  <input type="hidden" name="statusreport" value="由留言資料維管按鈕進入本頁">
+                  <input type="submit" value="留言資料維管 " class="btn btn-info">       
+                  </form> 
+              </td>  </td>
+      </tr>  
+      <tr>
+        <td  width="300px">
+          <form  action="/deep1/project" method="get">
+            <input type="hidden" name="statusreport" value="由專案管理資料維管按鈕進入本頁">
+            <input type="submit" value="專案管理資料維管 " class="btn btn-info">     
+            </form> 
+        </td>
+        <td  width="300px">
+            <form  action="/deep1/process" method="get">
+                <input type="hidden" name="statusreport" value="由處理流程資料維管按鈕進入本頁">
+                <input type="submit" value="處理流程資料維管 " class="btn btn-info">       
+        </form>
+        </td>
+        </tr>
+        
+        </table>
+        </fieldset>
+    </nav>
+    </template>
+        <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script src="https://cdn.bootcss.com/qs/6.5.1/qs.min.js"></script>
+        <script>
+        Vue.component("bander",{
+            props:{},
+            data(){
+              return {
+                  brand:"Deep內部網站",
+              affaire:"業務要覽",
+              KM:"專業知識管理",
+              KI:"專業知識整合",
+              datamanage:"各種資料管理",
+              customer:"對外網站",
+              statusreport:'<%- JSON.stringify(statusreport) %>'
+              //statusreport:"顯示測試"
+              }
+            },
+            methods:{
+        
+            },
+            template:"#banderUI"
+          });
+    Vue.component("outputer",{
+      props:{},
+      data(){
+        return {
+        }   
+      },
+      methods:{
+  
+      },
+      template:"#outputerUI"
+    }); 
+    new Vue({
+        el:'#show_div',
+        data:{
+          testdata:'有執行到此。。。。'
+        },
+        /* computed:{
+
+        },
+        watch:{
+
+        },
+        filters:{
+
+        },
+        mixins:[
+
+        ],
+        template:" ",
+        
+        components:{
+          "bander":bander,
+          "outputer":outputer,
+          "inputer":inputer
+        },*/
+        beforeCreate:function(){
+          console.log("before create...")
+        },created:function(){
+          console.log("created...")
+        },
+        beforeMount:function(){
+          console.log("before mount...")
+        },
+        mounted:function(){
+          console.log("mounted...")
+        },
+        beforeUpdate:function(){
+          console.log("before update...")
+        },
+        updated:function(){
+          console.log("updated...")
+        },
+        beforeDestroy:function(){
+
+        } 
+    })
+</script>                       
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- <script src="/javascripts/jquery-3.4.1.js"></script> -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<style type="text/css">
+body {  
+background-color: rgb(205, 226, 253);
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction:column;
+	 justify-content: flex-start;
+     align-items:center;
+  	margin: 0;
+}
+.navbar{background:#cff8c5;}
+.nav-link, .navbar-brand{color: #f4f4f4;cursor:pointer;}
+.nav-link{margin-right:1em !important;}
+.nav-link:hover{background: #f4f4f4;color:#f97300;}
+.navbar-collapse{justify-content:flex-end;}
+.navbar-toggler{background:#fff !important;}
+</style>
+
+  <title>客服作業區--回答訪客留言</title>
+  </head>
+  <body>
+    <div id="show_div">
+      <bander></bander>        
+        <outputer></outputer>
+        <!-- <inputer></inputer> -->
+    </div>
+ 
+    <template id="banderUI">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">{{brand}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/deep1/innerweb/workzone">回到{{operate}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{reply}}<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/deep1/innerweb/workzone/bellcall">{{response}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link  active" href="/deep1/innerweb/workzone/analysis">{{ocosa}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  active" href="/deep1/innerweb/workzone/planning">{{plan}}</a>
+              </li>            
+            <li class="nav-item">
+                <a class="nav-link" href="/deep1/outerweb">{{outerweb}}</a>
+          </ul>
+          <span class="navbar-text">
+            <font size="1">{{statusreport}}</font>
+          </span>
+        </div>
+      </nav>
+    </template>
+     
+    <template id="outputerUI">
+        <nav aria-label="...">
+            <h1>本頁製作中。。。<br>
+                請先瀏覽其他網頁</h1>
+            </div>
+      </nav>
+      </template>
+  
+      <template id="outputerUI">
+  
+      </template>
+  
+  <!-- Vue CDN-->
+  <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/qs/6.5.1/qs.min.js"></script>
+  <script>
+  Vue.component("bander",{
+      props:{},
+      data(){
+        return {
+        brand:"Deep內部網站",
+        workzone:"客服作業區",
+        reply:"回答訪客留言",
+        response:"回應服務需求",
+        ocosa:"需求方案分析",
+        plan:"研擬行動計畫",
+        outerweb:"對外網站",
+        statusreport:'<%- JSON.stringify(statusreport) %>'
+        //statusreport:"顯示測試"
+        }
+      },
+      methods:{
+  
+      },
+      template:"#banderUI"
+    });
+    Vue.component("inputer",{
+      props:{},
+      data(){
+        return {
+        }   
+      },
+      methods:{
+  
+      },
+      template:"#inputerUI"
+    });
+    Vue.component("outputer",{
+      props:{},
+      data(){
+        return{
+            perPage:15,
+          perRound:10,
+          maxRow:1,
+          maxPage:1,
+          maxRound:1,
+          modRow:1,
+          modPage:1,
+          currentIndex:1,
+          currentPage:1,
+          currentRound:1,
+          indexLength:1,
+          previousRound:false,
+          firstPage:false,
+          nextRound:false,
+          endPage:false,
+          fullPage:false,
+          pageIndex:[],
+          showIndex:[],
+          activeIndex:[],
+          knowlegeShow:[],
+          indexLength:0,
+          responsetext:"",
+          //statusreport:"顯示在第二處",
+          statusreport:'<%- JSON.stringify(statusreport) %>',
+          //knowlegelist:[{},{}]             
+          knowlegelist:JSON.parse(decodeURIComponent('<%=knowlegelist%>')),
+          //knowlegelist:JSON.parse('<%=knowlegelist%>')
+          //knowlegelist:'<%=knowlegelist%>'
+          items1:{
+            item0:"知識領域",
+            item1:"分類代碼",
+            item2:"材料標題",
+            item3:"檔案主檔名",
+            item4:"檔案附檔名",
+            item5:"類別",
+            item6:"上傳者ID",
+            item7:"上傳日期",
+            item8:"揭露等級",
+            item9:"是否提供下載"
+          }
+        }      
+      },
+      mounted:function(){
+        this.maxRow=this.knowlegelist.length;
+          this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
+          this.maxRound=Math.floor(this.maxPage/this.perRound)+1;
+          this.modRow=this.maxRow%this.perPage;
+          this.modPage=this.maxPage%this.perRound;
+          this.goFirstPage() 
+          /*
+        maxRow=knowlegelist.length;
+          maxPage=Math.floor(maxRow/perPage)+1;
+          maxRound=Math.floor(maxPage/perRound)+1;
+          modRow=maxRow%perPage;
+          modPage=maxPage%perRound;
+          goFirstPage()*/ 
+      },
+      methods:{
+        editone:function(id){
+          let querytext="?statusreport='由knowlege資料清單頁的編輯按鈕進入本頁'";
+          let url2='/deep0/knowlege/editpage/'+id+querytext;
+          window.location=url2;
+        }, 
+        deleteone:function(id){
+          let querytext="?statusreport='由knowlege資料清單頁的刪除按鈕進入本頁'";
+          let url3='/deep0/knowlege/delete/'+id+querytext;
+          window.location=url3;
+          /*
+          axios.get(url2).then(()=>{
+            let id_index=knowlegelist.findIndex(knowlege=>{
+                return knowlege._id=id
+            })
+            knowlegelist.splice(id_index,1)
+            statusreport="刪除單筆使用者帳號後更新本頁"
+            setlistrender()
+            })*/
+           },
+        
+           getShowData:function(index){
+          this.currentIndex=index;
+          this.activeIndex.splice(0);
+          this.pageIndex.splice(0);
+          this.showIndex.splice(0);
+          for(let i=0;i<this.indexLength;i++){
+              this.pageIndex.push((this.currentRound-1)*this.perRound+i+1);
+              this.activeIndex.push(false)
+          }
+          this.activeIndex.splice(this.currentIndex,1,true);
+          for(let i=0;i<this.indexLength;i++){
+              this.showIndex.push(true)
+          }
+          for(let i=this.indexlength;i<this.perRound;i++){
+              this.showIndex.push(false)
+          }  
+          this.knowlegeShow.splice(0);
+          let startRow=((this.currentRound-1)*this.perRound+this.currentIndex)*this.perPage;
+          let rowNo=this.fullPage?this.perPage:this.modRow;
+          this.knowlegeShow=this.knowlegelist.slice(startRow,rowNo)
+        },
+        goFirstPage:function(){
+          this.currentPage=1;
+          this.currentRound=1;
+          this.indexLength=(this.maxPage>this.perRound)?this.perRound:this.maxPage;
+          this.previousRound=false;
+          this.firstPage=false;
+          this.nextRound=(this.maxPage<this.perRound+1)?false:true;
+          this.endPage=(this.maxPage<this.perRound+1)?false:true;
+          this.currentIndex=1;
+          this.fullPage=(this.maxRow<this.perPage)?false:true; 
+          this.getShowData(this.currentIndex)        
+        },
+        goEndPage:function(){
+          this.currentPage=this.maxPage;
+          this.currentRound=this.maxRound;
+          this.indexLength=(this.modPage=0)?this.perRound:this.modPage;
+          this.fullPage=(this.indexLength=this.perRound)?true:false;
+          this.previousRound=true;
+          this.firstPage=true;
+          this.nextRound=false;
+          this.endPage=false;
+          this.currentIndex=1;
+          this.fullPage=(this.maxRow<this.perPage)?false:true; 
+          this.getShowData(this.currentIndex) 
+        },
+        goPreviousRound:function(){
+          if(this.currentRound>1){
+          this.currentRound--;
+          this.currentIndex=1;
+          }
+            this.currentPage=(this.currentRound-1)*perRounf+1;
+          this.indexLength=this.perRound;
+          this.fullPage=true;
+          this.previousRound=this.currentRound>1?true:false;
+          this.firstPage=this.currentRound>1?true:false;
+          this.nextRound=true;
+          this.endPage=true;
+          this.getShowData(this.currentIndex)
+        },
+        goNextRound:function(){
+          if(this.currentRound<this.maxRound){
+          this.currentRound++;
+          this.currentIndex=1;
+          }
+            this.currentPage=(this.currentRound+1)*perRounf+1;
+          this.indexLength=(this.maxPage>this.currentRound*this.perRound)?this.perRound:this.modPage;
+          this.fullPage=(this.indexLength=this.perRound)?true:false;
+          this.previousRound=true;
+          this.firstPage=true;
+          this.nextRound=(this.maxPage>this.currentRound*this.perRound)?true:false;
+          this.endPage=(this.maxPage>this.currentRound*this.perRound)?true:false;
+          this.getShowData(this.currentIndex)    
+        }
+      },
+    template:"#outputerUI"
+  });
+    new Vue({
+        el:'#show_div',
+        data:{
+          testdata:'有執行到此。。。。'
+        },
+        /* computed:{
+
+        },
+        watch:{
+
+        },
+        filters:{
+
+        },
+        mixins:[
+
+        ],
+        template:" ",
+        
+        components:{
+          "bander":bander,
+          "outputer":outputer,
+          "inputer":inputer
+        },*/
+        beforeCreate:function(){
+          console.log("before create...")
+        },created:function(){
+          console.log("created...")
+        },
+        beforeMount:function(){
+          console.log("before mount...")
+        },
+        mounted:function(){
+          console.log("mounted...")
+        },
+        beforeUpdate:function(){
+          console.log("before update...")
+        },
+        updated:function(){
+          console.log("updated...")
+        },
+        beforeDestroy:function(){
+
+        } 
+    })
+</script>
+
+
+  </body>
+</html>

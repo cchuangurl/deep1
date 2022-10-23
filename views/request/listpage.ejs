@@ -51,19 +51,19 @@ background-color: rgb(205, 226, 253);
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branch/affaire">{{affaire}}</a>
+              <a class="nav-link" href="/deep1/branch/affaire">{{affaire}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branch/gomanage3">{{otherdata}}</a>
+              <a class="nav-link" href="/deep1/branch/gomanage3">{{otherdata}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/deep0/branck">{{entry}}</a>
+              <a class="nav-link" href="/deep1/branck">{{entry}}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link  active" href="#">{{modeltype}}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/deep0/branch/customer">{{customer}}</a>
+                <a class="nav-link" href="/deep1/branch/customer">{{customer}}</a>
           </ul>
           <span class="navbar-text">
             <font size="1">{{statusreport}}</font>
@@ -77,13 +77,13 @@ background-color: rgb(205, 226, 253);
           <table>        
             <tr>
             <td>
-            <form  action="/deep0/request/inputpage" method="get" >
+            <form  action="/deep1/request/inputpage" method="get" >
             <input type="hidden" name="statusreport" value="由單筆手動新增按鈕進來">
             <input type="submit" value="單筆手動新增">
             </form> 
             </td>
             <td>
-              <form  action="/deep0/request/inputbatch" method="get" >
+              <form  action="/deep1/request/inputbatch" method="get" >
              資料主檔名：<input type="text" name="datafile" required>
              <input type="hidden" name="statusreport" value="由批次新增進入本頁">
              <input type="submit" value="批次新增">
@@ -125,9 +125,9 @@ background-color: rgb(205, 226, 253);
             <thead>
             <tr>
                 <th>{{items.item1}}</th>
-                <th>{{items.item4}}</th>
-                <th>{{items.item7}}</th>                          
-                <th>{{items.item8}}</th>   
+                <th>{{items.item5}}</th>
+                <th>{{items.item8}}</th>                          
+                <th>{{items.item9}}</th>   
               <!-- <th>特別註記</th> -->
             </tr>
             </thead>
@@ -241,17 +241,18 @@ background-color: rgb(205, 226, 253);
             item0:"來客IP",
             item1:"稱呼或已註冊帳號",
             item2:"提出日期",
-            item3:"公私電話",
-            item4:"Email",
-            item5:"地址",
-            item6:"服務需求",
-            item7:"期望完成期限",
-            item8:"處理進度",
-            item9:"服務窗口人員",
-            item10:"內部處理模式",
-            item11:"初步解決構想",
-            item12:"處理後追踪",
-            item13:"其他",
+            item3:"手機",
+            item4:"電話",
+            item5:"Email",
+            item6:"地址",
+            item7:"服務需求",
+            item8:"期望完成期限",
+            item9:"處理進度",
+            item10:"服務窗口人員",
+            item11:"內部處理模式",
+            item12:"初步解決構想",
+            item13:"處理後追踪",
+            item14:"其他",
             item99:"特別註記"     
             }
         }      
@@ -268,12 +269,12 @@ background-color: rgb(205, 226, 253);
       methods:{
         editone:function(id){
           let querytext="?statusreport='由request資料清單頁的編輯按鈕進入本頁'";
-          let url2='/deep0/request/editpage/'+id+querytext;
+          let url2='/deep1/request/editpage/'+id+querytext;
           window.location=url2;
         }, 
         deleteone:function(id){
           let querytext="?statusreport='由request資料清單頁的刪除按鈕進入本頁'";
-          let url3='/deep0/request/delete/'+id+querytext;
+          let url3='/deep1/request/delete/'+id+querytext;
           window.location=url3
            },
         

@@ -3,7 +3,7 @@ const Process = require('../models/index').process;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
-    console.log("found route /deep0/process !!");
+    console.log("found route /deep1/process !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await Process.find({}).then(async processs=>{
@@ -78,7 +78,7 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_process....");
     statusreport="儲存單筆程序資料後進入本頁";
-    ctx.redirect("/deep0/process/?statusreport="+statusreport)
+    ctx.redirect("/deep1/process/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -184,7 +184,7 @@ async batchinput(ctx, next){
     })
     .then(async ()=>{
         //console.log("going to list prject....");
-        //ctx.redirect("/deep0/project/?statusreport="+statusreport)
+        //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage3.ejs");
         await ctx.render("datamanage3",{
             statusreport
@@ -204,7 +204,7 @@ async destroy(ctx,next){
         console.log("Deleted a process....");
     statusreport="刪除單筆程序資料後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep0/process/?statusreport="+statusreport)
+    ctx.redirect("/deep1/process/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -220,7 +220,7 @@ async update(ctx,next){
     .then((newprocess)=>{
         console.log("Saving new_process....:"+newprocess);
     statusreport="更新單筆程序資料後進入本頁";
-    ctx.redirect("/deep0/process/?statusreport="+statusreport)
+    ctx.redirect("/deep1/process/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

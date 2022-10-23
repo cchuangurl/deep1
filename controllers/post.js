@@ -3,7 +3,7 @@ const Post = require('../models/index').post;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
-    console.log("found route /deep0/post !!");
+    console.log("found route /deep1/post !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await Post.find({}).then(async posts=>{
@@ -104,7 +104,7 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_post....");
     statusreport="儲存單筆布告資料後進入本頁";
-    ctx.redirect("/deep0/post/?statusreport="+statusreport)
+    ctx.redirect("/deep1/post/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -196,7 +196,7 @@ async batchinput(ctx, next){
                     a99footnote:postj[9]
                 });//EOF new post
                     saveone(new_post)
-                    //await ctx.redirect("/deep0/post/?statusreport="+statusreport)
+                    //await ctx.redirect("/deep1/post/?statusreport="+statusreport)
                 .catch(err=>{
                     console.log(err)
                 })
@@ -211,7 +211,7 @@ async batchinput(ctx, next){
     })
     .then(async ()=>{
         //console.log("going to list prject....");
-        //ctx.redirect("/deep0/project/?statusreport="+statusreport)
+        //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage2.ejs");
         await ctx.render("datamanage2",{
             statusreport
@@ -231,7 +231,7 @@ async destroy(ctx,next){
         console.log("Deleted a post....");
     statusreport="刪除單筆布告資料後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep0/post/?statusreport="+statusreport)
+    ctx.redirect("/deep1/post/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -247,7 +247,7 @@ async update(ctx,next){
     .then((newpost)=>{
         console.log("Saving new_post....:"+newpost.a25posttitle);
     statusreport="更新單筆布告資料後進入本頁";
-    ctx.redirect("/deep0/post/?statusreport="+statusreport)
+    ctx.redirect("/deep1/post/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

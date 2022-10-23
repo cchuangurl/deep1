@@ -3,7 +3,7 @@ const Userright = require('../models/index').userright;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
-    console.log("found route /deep0/userright !!");
+    console.log("found route /deep1/userright !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await Userright.find({}).then(async userrights=>{
@@ -78,7 +78,7 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_userright....");
     statusreport="儲存單筆群組權限後進入本頁";
-    ctx.redirect("/deep0/userright/?statusreport="+statusreport)
+    ctx.redirect("/deep1/userright/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -165,7 +165,7 @@ async batchinput(ctx, next){
                 });//EOF new userright
                     saveone(new_userright)
                 .then(async ()=>{
-                    await ctx.redirect("/deep0/userright/?statusreport="+statusreport)
+                    await ctx.redirect("/deep1/userright/?statusreport="+statusreport)
                 })
                 .catch(err=>{
                     console.log(err)
@@ -181,7 +181,7 @@ async batchinput(ctx, next){
     })
     .then(async ()=>{
         //console.log("going to list prject....");
-        //ctx.redirect("/deep0/project/?statusreport="+statusreport)
+        //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage1.ejs");
         await ctx.render("datamanage1",{
             statusreport
@@ -201,7 +201,7 @@ async destroy(ctx,next){
         console.log("Deleted a userright....");
     statusreport="刪除單筆群組權限後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep0/userright/?statusreport="+statusreport)
+    ctx.redirect("/deep1/userright/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -217,7 +217,7 @@ async update(ctx,next){
     .then((newuserright)=>{
         console.log("Saving new_userright....:"+newuserright);
     statusreport="更新單筆群組權限後進入本頁";
-    ctx.redirect("/deep0/userright/?statusreport="+statusreport)
+    ctx.redirect("/deep1/userright/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

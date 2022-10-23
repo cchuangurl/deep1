@@ -4,7 +4,7 @@ const User=require('../models/index').user;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
-    console.log("found route /deep0/ocosa !!");
+    console.log("found route /deep1/ocosa !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await Ocosa.find({}).then(async ocosas=>{
@@ -104,7 +104,7 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_ocosa....");
     statusreport="儲存單筆客戶資料後進入本頁";
-    ctx.redirect("/deep0/ocosa/?statusreport="+statusreport)
+    ctx.redirect("/deep1/ocosa/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -142,7 +142,7 @@ async createuser(ctx,next){
     .then(()=>{
         console.log("Saving new_ocosa....");
         statusreport="成功註冊會員資料後回到本頁";
-        ctx.redirect("/deep0/branch/customer?statusreport="+statusreport)
+        ctx.redirect("/deep1/branch/customer?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log("Ocosa.save({}) failed !!");        
@@ -189,7 +189,7 @@ async batchinput(ctx, next){
         tempstore[7][lineno]=values[7].trim();
         tempstore[8][lineno]=values[8].trim();
         tempstore[9][lineno]=values[9].trim();
-        tempstore[10][lineno]=values[10].trim();
+        tempstore[10][lineno]=values[10].trim();        
         lineno++;
         console.log("read line:"+data)
     });//EOF lineReader.on
@@ -224,17 +224,17 @@ async batchinput(ctx, next){
         ocosaArray.forEach(function(ocosaj){
             sequence=sequence.then(function(){
                 var new_ocosa = new Ocosa({
-                    a05ipofvisitor:ocosaj[0],
-                    a10visitor:ocosaj[1],
-                    a15dateofreg:ocosaj[2],
-                    a20accout:ocosaj[3],
-                    a25password:ocosaj[4],
-                    a30phoneno:ocosaj[5],
-                    a35email:ocosaj[6],
-                    a40address:ocosaj[7],
-                    a45business:ocosaj[8],
-                    a50extra:ocosaj[9],
-                    a99footnote:ocosaj[10]
+                    a05project_id:req.body.a05project_id,
+                    a10object:req.body.a10object,
+                    a15CSF:req.body.a15CSF,
+                    a20CSForder:req.body.a20CSForder,
+                    a25obstacle:req.body.a25obstacle,
+                    a30obstacleorder:req.body.a30obstacleorder,
+                    a35strategy:req.body.a35strategy,
+                    a40strategyorder:req.body.a40strategyorder,
+                    a45action:req.body.a45action,
+                    a50actiondoer:req.body.a50actiondoer,
+                    a99footnote:req.body.a99footnote
                 });//EOF new ocosa
                     saveone(new_ocosa)
                 .catch(err=>{
@@ -251,7 +251,7 @@ async batchinput(ctx, next){
     })
     .then(async ()=>{
         //console.log("going to list prject....");
-        //ctx.redirect("/deep0/project/?statusreport="+statusreport)
+        //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage2.ejs");
         await ctx.render("datamanage2",{
             statusreport
@@ -271,7 +271,7 @@ async destroy(ctx,next){
         console.log("Deleted a ocosa....");
     statusreport="刪除單筆客戶資料後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep0/ocosa/?statusreport="+statusreport)
+    ctx.redirect("/deep1/ocosa/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -286,7 +286,7 @@ async update(ctx,next){
     .then((newocosa)=>{
         console.log("Saving new_ocosa....:"+newocosa);
     statusreport="更新單筆客戶資料後進入本頁";
-    ctx.redirect("/deep0/ocosa/?statusreport="+statusreport)
+    ctx.redirect("/deep1/ocosa/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

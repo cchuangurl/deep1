@@ -6,12 +6,12 @@ var ProcessSchema = new Schema(
   {
     a10stage:{type:String,required:false},
     a15action_id:{type:Schema.Types.ObjectID,required:false},
-    a55doer:{type:Schema.Types.ObjectID,required:false},
-    a60startdate:{type:Date,required:false},
-    a65timeconsume:{type:Number,required:false},
-    a70cost:{type:Number,required:false},
-    a75preceding:{type:Boolean,required:false},
-    a80status:{type:Boolean,required:false},
+    a20doer:{type:Schema.Types.ObjectID,required:false},
+    a25startdate:{type:Date,required:false},
+    a30timeconsume:{type:Number,required:false},
+    a35cost:{type:Number,required:false},
+    a40preceding:{type:Boolean,required:false},
+    a45status:{type:Boolean,required:false},
     a99footnote:{type:String,required:false}
   }
 );

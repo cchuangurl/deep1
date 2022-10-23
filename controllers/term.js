@@ -3,7 +3,7 @@ const Term = require('../models/index').term;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
-    console.log("found route /deep0/term !!");
+    console.log("found route /deep1/term !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await Term.find({}).then(async terms=>{
@@ -78,7 +78,7 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_term....");
     statusreport="儲存單筆客戶資料後進入本頁";
-    ctx.redirect("/deep0/term/?statusreport="+statusreport)
+    ctx.redirect("/deep1/term/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log("Term.save() failed !!")
@@ -179,7 +179,7 @@ async batchinput(ctx, next){
     })
     .then(async ()=>{
         //console.log("going to list prject....");
-        //ctx.redirect("/deep0/project/?statusreport="+statusreport)
+        //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage1.ejs");
         await ctx.render("datamanage1",{
             statusreport
@@ -199,7 +199,7 @@ async destroy(ctx,next){
         console.log("Deleted a term....");
     statusreport="刪除單筆名詞對照後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep0/term/?statusreport="+statusreport)
+    ctx.redirect("/deep1/term/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log("Term.deleteOne() failed !!")        
@@ -216,7 +216,7 @@ async update(ctx,next){
     .then((newterm)=>{
         console.log("Saving new_term....:"+newterm);
     statusreport="更新單筆名詞對照後進入本頁";
-    ctx.redirect("/deep0/term/?statusreport="+statusreport)
+    ctx.redirect("/deep1/term/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log("Term.findOneAndUpdate() failed !!")

@@ -125,7 +125,7 @@ async getchosen(ctx, next){
         if(statusreport===undefined){
             statusreport="未截到status"
         }
-        await ctx.render("branch/customer/chosenpage",{
+        await ctx.render("outerweb/chosenpage",{
             knowlegelist:knowlegelist,
             statusreport:statusreport
         })
@@ -273,7 +273,7 @@ async update(ctx,next){
     .then((newknowlege)=>{
         console.log("Saving new_knowlege....:"+newknowlege);
     statusreport="更新單筆知識資料後進入本頁";
-    ctx.redirect("/deep0/knowlege/?statusreport="+statusreport)
+    ctx.redirect("/deep1/knowlege/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
