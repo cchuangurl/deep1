@@ -77,13 +77,13 @@ background-color: rgb(205, 226, 253);
           <table>        
             <tr>
             <td>
-            <form  action="/deep1/message/inputpage" method="get" >
+            <form  action="/deep1/idea/inputpage" method="get" >
             <input type="hidden" name="statusreport" value="由單筆手動新增按鈕進來">
             <input type="submit" value="單筆手動新增">
             </form> 
             </td>
             <td>
-              <form  action="/deep1/message/inputbatch" method="get" >
+              <form  action="/deep1/idea/inputbatch" method="get" >
              資料主檔名：<input type="text" name="datafile" required>
              <input type="hidden" name="statusreport" value="由批次新增進入本頁">
              <input type="submit" value="批次新增">
@@ -131,20 +131,20 @@ background-color: rgb(205, 226, 253);
               <!-- <th>特別註記</th> -->
             </tr>
             </thead>
-            <tbody id="messagelist">
-              <!-- <tr v-for="message of messageshow" :key="message._id"> -->
-                <tr v-for="message of messageShow" :key="message._id">
-                <td>{{message.a10writer}}</td>                
-                <td>{{message.dateofidea}}</td>
-                <td>{{message.a20titleofidea}}</td>
-                <td>{{message.a40responsor}}</td>  
+            <tbody id="idealist">
+              <!-- <tr v-for="idea of ideashow" :key="idea._id"> -->
+                <tr v-for="idea of ideaShow" :key="idea._id">
+                <td>{{idea.a10writer}}</td>                
+                <td>{{idea.dateofidea}}</td>
+                <td>{{idea.a20titleofidea}}</td>
+                <td>{{idea.a40responsor}}</td>  
                 <!-- statusreport="由已擷取資料組清單頁進入本頁"> -->
                 
                   <td>
-                    <input type="submit" value="檢視或編輯" @click="editone(message._id)">                   
+                    <input type="submit" value="檢視或編輯" @click="editone(idea._id)">                   
                   </td>
                   <td>
-                    <input type="submit" value="刪除" @click="deleteone(message._id)">
+                    <input type="submit" value="刪除" @click="deleteone(idea._id)">
                   </td>
                 </tr>
             </tbody>
@@ -234,9 +234,9 @@ background-color: rgb(205, 226, 253);
           pageIndex:[],
           showIndex:[],
           activeIndex:[],
-          messageShow:[],
+          ideaShow:[],
           statusreport:'<%- JSON.stringify(statusreport) %>',
-          messagelist:JSON.parse(decodeURIComponent('<%=messagelist%>')),
+          idealist:JSON.parse(decodeURIComponent('<%=idealist%>')),
         items:{
             item0:"留言者IP",
             item1:"留言者",
@@ -253,7 +253,7 @@ background-color: rgb(205, 226, 253);
         }      
       },
       mounted:function(){
-        this.maxRow=this.messagelist.length;
+        this.maxRow=this.idealist.length;
         this.modRow=this.maxRow%this.perPage;
         this.maxPage=this.modRow==0?this.maxRow/this.perPage:Math.floor(this.maxRow/this.perPage)+1;
         this.modPage=this.maxPage%this.perRound;
@@ -263,13 +263,13 @@ background-color: rgb(205, 226, 253);
       },
       methods:{
         editone:function(id){
-          let querytext="?statusreport='由message資料清單頁的編輯按鈕進入本頁'";
-          let url2='/deep1/message/editpage/'+id+querytext;
+          let querytext="?statusreport='由idea資料清單頁的編輯按鈕進入本頁'";
+          let url2='/deep1/idea/editpage/'+id+querytext;
           window.location=url2;
         }, 
         deleteone:function(id){
-          let querytext="?statusreport='由message資料清單頁的刪除按鈕進入本頁'";
-          let url3='/deep1/message/delete/'+id+querytext;
+          let querytext="?statusreport='由idea資料清單頁的刪除按鈕進入本頁'";
+          let url3='/deep1/idea/delete/'+id+querytext;
           window.location=url3
            },
         
@@ -290,16 +290,16 @@ background-color: rgb(205, 226, 253);
           this.currentPage=this.pageIndex[index]
           console.log("currentPage is:"+this.currentPage)
           this.fullPage=(this.maxRow>=(this.currentPage*this.perPage))?true:false;
-          this.messageShow.splice(0);
+          this.ideaShow.splice(0);
           let startRow=(this.currentPage-1)*this.perPage;
             console.log("startRow is:"+startRow)          
           let rowNo=this.fullPage?this.perPage:this.modRow;
           console.log("rowNo is:"+rowNo);
-          //this.messageShow=[];
-          this.messageShow=this.messagelist.slice(startRow,startRow+rowNo)
-          //this.messageShow=this.messagelist.slice(8,3)
-          console.log("11st messagelist:"+this.messagelist[10])          
-          console.log("1st messageShow:"+this.messageShow[0])
+          //this.ideaShow=[];
+          this.ideaShow=this.idealist.slice(startRow,startRow+rowNo)
+          //this.ideaShow=this.idealist.slice(8,3)
+          console.log("11st idealist:"+this.idealist[10])          
+          console.log("1st ideaShow:"+this.ideaShow[0])
           
         },
         goFirstPage:function(){

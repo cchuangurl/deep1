@@ -104,8 +104,8 @@ async batchinput(ctx, next){
     });
     var lineno=0;
     var userArray;
-    var tempstore=new Array(10);
-    for (let i=0;i<10;i++){
+    var tempstore=new Array(6);
+    for (let i=0;i<6;i++){
         tempstore[i]=new Array(); 
     };
     let readfile=(()=>{
@@ -114,16 +114,9 @@ async batchinput(ctx, next){
     //當讀入一行資料時
     lineReader.on('line', function(data) {            
         var values = data.split(',');
-        tempstore[0][lineno]=values[0].trim();
-        tempstore[1][lineno]=values[1].trim();
-        tempstore[2][lineno]=values[2].trim();
-        tempstore[3][lineno]=values[3].trim();
-        tempstore[4][lineno]=values[4].trim();
-        tempstore[5][lineno]=values[5].trim();
-        tempstore[6][lineno]=values[6].trim();
-        tempstore[7][lineno]=values[7].trim();
-        tempstore[8][lineno]=values[8].trim();
-        tempstore[9][lineno]=values[9].trim();
+        for (let i=0;i<6;i++){
+            tempstore[i][lineno]=values[i].trim();
+        }
         lineno++;
         console.log("read line:"+data)
     });//EOF lineReader.on
@@ -145,8 +138,8 @@ async batchinput(ctx, next){
                 })       
         });//EOF saveone
         for (let k=0;k<lineno;k++){
-            userArray[k]=new Array(10);
-            for (let m=0;m<10;m++){
+            userArray[k]=new Array(6);
+            for (let m=0;m<6;m++){
                 userArray[k][m]=tempstore[m][k]
                 //console.log(userArray[k])
             }
@@ -158,16 +151,12 @@ async batchinput(ctx, next){
         userArray.forEach(function(userj){
             sequence=sequence.then(function(){
                 var new_user = new User({
-                    a05name:userj[0],
-                    a10account:userj[1],
-                    a15password:userj[2],
-                    a20department:userj[3],
-                    a25position:userj[4],
-                    a30email:userj[5],
-                    a35tel:userj[6],
-                    a40mobile:userj[7],
-                    a45group:userj[8],
-                    a99footnote:userj[9]
+                    a03status:userj[0],
+                    a08infoID:userj[1],
+                    a10account:userj[2],
+                    a15password:userj[3],
+                    a45group:userj[4],
+                    a99footnote:userj[5]
                 });//EOF new user
                     saveone(new_user)
                 .catch(err=>{
@@ -186,7 +175,8 @@ async batchinput(ctx, next){
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage1.ejs");
-        await ctx.render("datamanage1",{
+        statusreport="完成user批次輸入";      
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })

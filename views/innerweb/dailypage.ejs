@@ -66,34 +66,34 @@ background-color: rgb(205, 226, 253);
           <ul class="navbar-nav mr-auto">
             <div class="col-lg col-md-2 col-sm-6">
                 <li class="nav-item">
-                    <a class="nav-link  active" href="/deep1/innerweb">{{daily}}<span class="sr-only">(current)</span></a>
-                  </li>
-              </div>
-              <div class="col-lg col-md-2 col-sm-6">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/deep1/innerweb/workzone">{{workzone}}</a>
-                  </li>
-              </div>
-              <div class="col-lg col-md-2 col-sm-6">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/deep1/innerweb/general">{{affaire}}</a>
-                  </li>
-              </div>
-              <div class="col-lg col-md-2 col-sm-6">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/deep1/innerweb/KI">{{KI}}</a>
-                  </li>
-              </div>
-              <div class="col-lg col-md-2 col-sm-6">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/deep1/innerweb/datamanage">{{datamaintain}}</a>
-                  </li>
-              </div>
-              <div class="col-lg col-md-2 col-sm-6">
-                  <li class="nav-item">
-                      <a class="nav-link" href="/deep1/outerweb">{{outerweb}}</a>
-                  </li>
-        </div>
+                  <a class="nav-link  active" href="#">{{daily}}<span class="sr-only">(current)</span></a>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                  <a class="nav-link" href="/deep1/innerweb/workzone">{{workzone}}</a>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                  <a class="nav-link" href="/deep1/innerweb/general">{{affaire}}</a>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                  <a class="nav-link" href="/deep1/innerweb/KI">{{KI}}</a>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                  <a class="nav-link" href="/deep1/innerweb/datamanage">{{datamaintain}}</a>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                    <a class="nav-link" href="/deep1/outerweb">{{outerweb}}</a>
+                </li>
+            </div>
           </ul>
         </div>
         <div class="col-lg col-md-4 col-sm-12">
@@ -248,12 +248,13 @@ background-color: rgb(205, 226, 253);
       props:{},
       data(){
         return {
-            brand:"Deep內部網站",
-        affaire:"業務要覽",
-        KM:"專業知識管理",
+        brand:"Deep內部網站",
+        daily:"業務要覽",
+        workzone:"客服作業區",
+        affaire:"行政支援區",
         KI:"專業知識整合",
         datamaintain:"各種資料管理",
-        customer:"對外網站",
+        outerweb:"對外網站",
         statusreport:'<%- JSON.stringify(statusreport) %>'
         //statusreport:"顯示測試"
         }

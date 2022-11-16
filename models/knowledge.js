@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var KnowlegeSchema = new Schema(
+var KnowledgeSchema = new Schema(
   {
     a05domain:{type:String,required:false},
     a15describe:{type:String,required:false},
@@ -19,17 +19,17 @@ var KnowlegeSchema = new Schema(
 );
 
 // Virtual for knowlege's URL
-KnowlegeSchema
+KnowledgeSchema
 .virtual('url')
 .get(function () {
-  return '/deep1/knowlege/' + this._id;
+  return '/deep1/knowledge/' + this._id;
 });
-KnowlegeSchema
+KnowledgeSchema
         .virtual('date')
         .get(function () {
         return this.a40date.getFullYear()+"/"+this.a40date.getMonth()+"/"+this.a40date.getDate();
 });
-KnowlegeSchema.set("toJSON",{getters:true,virtual:true});
-KnowlegeSchema.set("toObject",{getters:true,virtual:true});
+KnowledgeSchema.set("toJSON",{getters:true,virtual:true});
+KnowledgeSchema.set("toObject",{getters:true,virtual:true});
 //Export model
-module.exports = mongoose.model('Knowlege', KnowlegeSchema);
+module.exports = mongoose.model('Knowledge', KnowledgeSchema);

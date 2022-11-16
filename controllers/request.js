@@ -111,6 +111,7 @@ async create1(ctx,next){
         a10client:got_request.a10client,
         a15requestdate:requestdate,
         a20phoneno:got_request.a20phoneno,
+        a23phoneno:got_request.a23tel,        
         a25email:got_request.a25email,
         a30address:got_request.a30address,
         a35request:got_request.a35request,
@@ -153,8 +154,8 @@ async batchinput(ctx, next){
     });
     var lineno=0;
     var requestArray;
-    var tempstore=new Array(15);
-    for (let i=0;i<15;i++){
+    var tempstore=new Array(16);
+    for (let i=0;i<16;i++){
         tempstore[i]=new Array(); 
     };
     let readfile=(()=>{
@@ -163,21 +164,9 @@ async batchinput(ctx, next){
     //當讀入一行資料時
     lineReader.on('line', function(data) {            
         var values = data.split(',');
-        tempstore[0][lineno]=values[0].trim();
-        tempstore[1][lineno]=values[1].trim();
-        tempstore[2][lineno]=values[2].trim();
-        tempstore[3][lineno]=values[3].trim();
-        tempstore[4][lineno]=values[4].trim();
-        tempstore[5][lineno]=values[5].trim();
-        tempstore[6][lineno]=values[6].trim();
-        tempstore[7][lineno]=values[7].trim();
-        tempstore[8][lineno]=values[8].trim();
-        tempstore[9][lineno]=values[9].trim();
-        tempstore[10][lineno]=values[10].trim();
-        tempstore[11][lineno]=values[11].trim();
-        tempstore[12][lineno]=values[12].trim();
-        tempstore[13][lineno]=values[13].trim();
-        tempstore[14][lineno]=values[14].trim();
+        for (let i=0;i<16;i++){
+            tempstore[i][lineno]=values[i].trim();
+        }
         lineno++;
         console.log("read line:"+data)
     });//EOF lineReader.on
@@ -199,8 +188,8 @@ async batchinput(ctx, next){
                 })       
         });//EOF saveone
         for (let k=0;k<lineno;k++){
-            requestArray[k]=new Array(15);
-            for (let m=0;m<15;m++){
+            requestArray[k]=new Array(16);
+            for (let m=0;m<16;m++){
                 requestArray[k][m]=tempstore[m][k]
                 //console.log(requestArray[k])
             }
@@ -216,17 +205,18 @@ async batchinput(ctx, next){
                     a10client:requestj[1],
                     a15requestdate:requestj[2],
                     a20phoneno:requestj[3],
-                    a25email:requestj[4],
-                    a30address:requestj[5],
-                    a35request:requestj[6],
-                    a40deadline:requestj[7],
-                    a45stage:requestj[8],
-                    a50contactor:requestj[9],
-                    a55howtodo:requestj[10],
-                    a60initial:requestj[11],
-                    a65followact:requestj[12],
-                    a70extra:requestj[13],
-                    a99footnote:requestj[14]
+                    a23tel:requestj[4],
+                    a25email:requestj[5],
+                    a30address:requestj[6],
+                    a35request:requestj[7],
+                    a40deadline:requestj[8],
+                    a45status:requestj[9],
+                    a50contactor:requestj[10],
+                    a55howtodo:requestj[11],
+                    a60initial:requestj[12],
+                    a65followup:requestj[13],
+                    a70extra:requestj[14],
+                    a99footnote:requestj[15]
                 });//EOF new request
                     saveone(new_request)
                 .catch(err=>{
@@ -245,7 +235,7 @@ async batchinput(ctx, next){
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage2.ejs");
-        await ctx.render("datamanage2",{
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })

@@ -67,7 +67,7 @@ background-color: rgb(205, 226, 253);
           <ul class="navbar-nav mr-auto">
             <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-              <a class="nav-link  active" href="/deep1/innerweb/">{{daily}}</a>
+              <a class="nav-link  active" href="/deep1/innerweb">{{daily}}</a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
@@ -108,10 +108,8 @@ background-color: rgb(205, 226, 253);
      
     <template id="content1UI">
         <nav aria-label="...">
-          <div class="row">
             <fieldset>
                 <table>
-                
                 <tr id="rowtitle">
                     <td></td>
                     <td>請再次輸入帳號密碼</td>
@@ -141,6 +139,8 @@ background-color: rgb(205, 226, 253);
                 </tr>
                 </form>
                 </div>
+                </table>
+                </fieldset>
             </nav>
         </template>
     
@@ -239,7 +239,6 @@ background-color: rgb(205, 226, 253);
           responsetext:"",
           //statusreport:"顯示在第二處",
           statusreport:'<%- JSON.stringify(statusreport) %>',
-        postlist:JSON.parse(decodeURIComponent('<%=postlist%>')),
           items1:{
             item:"ID",
             item0:"公告代號",
@@ -256,13 +255,14 @@ background-color: rgb(205, 226, 253);
         }    
       },
       mounted:function(){
+        /*
         this.maxRow=this.postlist.length;
           this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
           this.maxRound=Math.floor(this.maxPage/this.perRound)+1;
           this.modRow=this.maxRow%this.perPage;
           this.modPage=this.maxPage%this.perRound;
           this.goFirstPage() 
-          /*
+          
         maxRow=projectlist.length;
           maxPage=Math.floor(maxRow/perPage)+1;
           maxRound=Math.floor(maxPage/perRound)+1;
@@ -387,8 +387,7 @@ background-color: rgb(205, 226, 253);
           responsetext:"",
           //statusreport:"顯示在第二處",
           statusreport:'<%- JSON.stringify(statusreport) %>',
-          //projectlist:[{},{}]             
-          projectlist:JSON.parse(decodeURIComponent('<%=projectlist%>')),
+          //projectlist:[{},{}]
           
         items2:{
                 item0:"客戶識別碼",
@@ -408,6 +407,7 @@ background-color: rgb(205, 226, 253);
         }    
       },
       mounted:function(){
+         /*  
         this.maxRow=this.projectlist.length;
           this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
           this.maxRound=Math.floor(this.maxPage/this.perRound)+1;

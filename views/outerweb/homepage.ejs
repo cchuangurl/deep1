@@ -231,16 +231,16 @@ background-color: rgb(213, 218, 210);
                   <!-- <th>特別註記</th> -->
                 </tr>
                 </thead>
-                <tbody id="knowlegelist">
-                  <!-- <tr v-for="knowlege of knowlegeshow" :key="knowlege._id"> -->
-                    <tr v-for="knowlege of knowlegeShow" :key="knowlege._id">
-                    <td>{{knowlege.a05domain}}</td>
-                    <td>{{knowlege.a15describe}}</td>
-                    <td>{{knowlege.date}}</td>  
+                <tbody id="knowledgelist">
+                  <!-- <tr v-for="knowledge of knowledgeshow" :key="knowledge._id"> -->
+                    <tr v-for="knowledge of knowledgeShow" :key="knowledge._id">
+                    <td>{{knowledge.a05domain}}</td>
+                    <td>{{knowledge.a15describe}}</td>
+                    <td>{{knowledge.date}}</td>  
                     <!-- statusreport="由已擷取資料組清單頁進入本頁"> -->
                     
                       <td>
-                        <input type="submit" value="檢視" @click="lookoneknowlege(knowlege._id)">                   
+                        <input type="submit" value="檢視" @click="lookoneknowledge(knowledge._id)">                   
                       </td>
                     </tr>
                 </tbody>
@@ -546,9 +546,9 @@ Vue.component("bander",{
           pageIndex:[],
           showIndex:[],
           activeIndex:[],
-          knowlegeShow:[],
+          knowledgeShow:[],
           indexLength:0, 
-        knowlegelist:JSON.parse(decodeURIComponent('<%=knowlegelist%>')),
+        knowledgelist:JSON.parse(decodeURIComponent('<%=knowledgelist%>')),
           items2:{
             item0:"知識領域",
             item1:"分類代碼",
@@ -564,7 +564,7 @@ Vue.component("bander",{
       }      
     },
     mounted:function(){
-        this.maxRow=this.knowlegelist.length;
+        this.maxRow=this.knowledgelist.length;
           this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
           this.maxRound=Math.floor(this.maxPage/this.perRound)+1;
           this.modRow=this.maxRow%this.perPage;
@@ -572,9 +572,9 @@ Vue.component("bander",{
           this.goFirstPage() 
       },
     methods:{
-        lookoneknowlege:function(id){
-          let querytext="?statusreport='由knowlege資料清單頁的檢視按鈕進入本頁'";
-          let url2='/deep1/knowlege/lookpage/'+id+querytext;
+        lookoneknowledge:function(id){
+          let querytext="?statusreport='由knowledge資料清單頁的檢視按鈕進入本頁'";
+          let url2='/deep1/knowledge/lookpage/'+id+querytext;
           window.location=url2;
         },
         getShowData:function(index){
@@ -594,16 +594,16 @@ Vue.component("bander",{
           this.currentPage=this.pageIndex[index]
           console.log("currentPage is:"+this.currentPage)
           this.fullPage=(this.maxRow>=(this.currentPage*this.perPage))?true:false;
-          this.knowlegeShow.splice(0);
+          this.knowledgeShow.splice(0);
           let startRow=(this.currentPage-1)*this.perPage;
             console.log("startRow is:"+startRow)          
           let rowNo=this.fullPage?this.perPage:this.modRow;
           console.log("rowNo is:"+rowNo);
-          //this.knowlegeShow=[];
-          this.knowlegeShow=this.knowlegelist.slice(startRow,startRow+rowNo)
-          //this.knowlegeShow=this.knowlegelist.slice(8,3)
-          console.log("11st knowlegelist:"+this.knowlegelist[10])          
-          console.log("1st knowlegeShow:"+this.knowlegeShow[0])
+          //this.knowledgeShow=[];
+          this.knowledgeShow=this.knowledgelist.slice(startRow,startRow+rowNo)
+          //this.knowledgeShow=this.knowledgelist.slice(8,3)
+          console.log("11st knowledgelist:"+this.knowledgelist[10])          
+          console.log("1st knowledgeShow:"+this.knowledgeShow[0])
           
         },
         goFirstPage:function(){

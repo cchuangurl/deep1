@@ -130,26 +130,19 @@ async batchinput(ctx, next){
     });
     var lineno=0;
     var postArray;
-    var tempstore=new Array(10);
-    for (let i=0;i<10;i++){
+    var tempstore=new Array(9);
+    for (let i=0;i<9;i++){
         tempstore[i]=new Array(); 
     };
     let readfile=(()=>{
         console.log("reading..."+datafile+".csv");
         return new Promise((resolve,reject)=>{       
     //當讀入一行資料時
-    lineReader.on('line', function(data) {            
+    lineReader.on('line', function(data) {
         var values = data.split(',');
-        tempstore[0][lineno]=values[0].trim();
-        tempstore[1][lineno]=values[1].trim();
-        tempstore[2][lineno]=values[2].trim();
-        tempstore[3][lineno]=values[3].trim();
-        tempstore[4][lineno]=values[4].trim();
-        tempstore[5][lineno]=values[5].trim();
-        tempstore[6][lineno]=values[6].trim();
-        tempstore[7][lineno]=values[7].trim();
-        tempstore[8][lineno]=values[8].trim();
-        tempstore[9][lineno]=values[9].trim();        
+        for (let i=0;i<9;i++){
+            tempstore[i][lineno]=values[i].trim();
+        }
         lineno++;
         console.log("read line:"+data)
     });//EOF lineReader.on
@@ -171,8 +164,8 @@ async batchinput(ctx, next){
                 })       
         });//EOF saveone
         for (let k=0;k<lineno;k++){
-            postArray[k]=new Array(10);
-            for (let m=0;m<10;m++){
+            postArray[k]=new Array(9);
+            for (let m=0;m<9;m++){
                 postArray[k][m]=tempstore[m][k]
                 //console.log(postArray[k])
             }
@@ -184,16 +177,15 @@ async batchinput(ctx, next){
         postArray.forEach(function(postj){
             sequence=sequence.then(function(){
                 var new_post = new Post({
-                    a05postcode:postj[0],
-                    a10posttype:postj[1],
-                    a15poster:postj[2],
-                    a20postdate:postj[3],
-                    a25posttitle:postj[4],
-                    a30postcontent:postj[5],
-                    a35reader:postj[6],
-                    a40showtype:postj[7],
-                    a45datetodown:postj[8],
-                    a99footnote:postj[9]
+                    a10posttype:postj[0],
+                    a15poster:postj[1],
+                    a20postdate:postj[2],
+                    a25posttitle:postj[3],
+                    a30postcontent:postj[4],
+                    a35reader:postj[5],
+                    a40showtype:postj[6],
+                    a45datetodown:postj[7],
+                    a99footnote:postj[8]
                 });//EOF new post
                     saveone(new_post)
                     //await ctx.redirect("/deep1/post/?statusreport="+statusreport)
@@ -213,7 +205,7 @@ async batchinput(ctx, next){
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage2.ejs");
-        await ctx.render("datamanage2",{
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })

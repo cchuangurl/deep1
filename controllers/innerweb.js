@@ -1,7 +1,7 @@
 //載入相對應的model
 const User = require('../models/index').user;
 const Post = require('../models/index').post;
-const Knowlege = require('../models/index').knowlege;
+const Knowledge = require('../models/index').knowledge;
 const Project = require('../models/index').project;
 module.exports = {
 
@@ -49,10 +49,54 @@ async daily(ctx,next){
         console.log(err)
     }) 
 },
+//由本企業內部網頁回到員工業務要覽
+async gobackdaily(ctx,next){
+    var statusreport=ctx.query.statusreport;
+    var postlist;
+    console.log("gotten query:"+statusreport);
+    await Post.find({})    
+    .then(async posts=>{;
+        console.log("1st post:"+posts[0]);
+        console.log("No. of post:"+posts.length);
+        let postchosen=new Array();
+        for(let post of posts){
+            if(post.a35reader=="staff"||post.a35reader=="all"){
+                postchosen.push(post)
+            }
+        }
+        console.log("No. of postchosen:"+postchosen.length);
+        postlist=encodeURIComponent(JSON.stringify(postchosen));
+        console.log("type of postlist:"+typeof(postlist))
+    })
+    .catch(err=>{
+        console.log("Post.find({}) failed !!");
+        console.log(err)
+    })
+    await Project.find({})
+    .then(async projects=>{;
+        console.log("1st project:"+projects[0])
+        console.log("No. of project:"+projects.length)
+        let projectlist=encodeURIComponent(JSON.stringify(projects));
+        console.log("type of projectlist:"+typeof(projectlist));
+        if(statusreport===undefined){
+            statusreport="未截到status";
+            console.log("未截到status!!");
+        }
+        await ctx.render("innerweb/dailypage",{
+            postlist:postlist,
+            projectlist:projectlist,
+            statusreport:statusreport
+        })
+    })
+    .catch(err=>{
+        console.log("Post.find({}) or Project.find({}) failed !!");
+        console.log(err)
+    }) 
+},
 //到客服業務處理
 async operate(ctx, next){
     statusreport="";
-    await ctx.render("innerweb/operateentry" ,{
+    await ctx.render("innerweb/operate/operateentry" ,{
         statusreport
     });
 },
@@ -88,14 +132,15 @@ async actionplan(ctx, next){
 //到知識整合
 async integrate(ctx, next){
     statusreport="";
-    await ctx.render("innerweb/KIentry" ,{
+    await ctx.render("innerweb/KI/KIentry" ,{
         statusreport
     });
 },
 //到行政作業
 async affaire(ctx, next){
     statusreport="";
-    await ctx.render("innerweb/affaireentry" ,{
+    console.log("進入controller的affaire");
+    await ctx.render("innerweb/affaire/affaireentry" ,{
         statusreport
     });
 },
@@ -121,14 +166,17 @@ async ICT(ctx, next){
     });
 },
 //到資料庫維管
-async datamange(ctx, next){
+async datamanage(ctx, next){    
     statusreport="";
-    await ctx.render("innerweb/datamanageentry" ,{
+    console.log("進入controller的datamanage");
+    //await ctx.render("innerweb/datamanage/datamanageentry" ,{
+    await ctx.render("innerweb/datamanage/datamanagetemp" ,{    
         statusreport
     });
 },
 //判定登入人群組
 async group(ctx,next){
+    console.log("進入controller的group");    
     let {statusreport}=ctx.request.body;
     let {account}=ctx.request.body;
     console.log("gotten query:"+statusreport);

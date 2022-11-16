@@ -28,7 +28,7 @@ background-color: rgb(205, 226, 253);
 .navbar-toggler{background:#fff !important;}
 </style>
 
-  <title>內部系統--客服作業區入口</title>
+  <title>內部系統--資料庫維管入口</title>
   </head>
   <body>
     <div id="show_div">
@@ -67,12 +67,12 @@ background-color: rgb(205, 226, 253);
           <ul class="navbar-nav mr-auto">
             <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-              <a class="nav-link  active" href="/deep1/innerweb">{{daily}}</a>
+              <a class="nav-link  active" href="/deep1/innerweb/">{{daily}}</a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-              <a class="nav-link" href="#">{{workzone}}<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/deep1/innerweb/workzone">{{workzone}}</a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
@@ -87,7 +87,7 @@ background-color: rgb(205, 226, 253);
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb/datamanage">{{datamaintain}}</a>
+              <a class="nav-link" href="#">{{datamaintain}}<span class="sr-only">(current)</span></a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
@@ -109,8 +109,36 @@ background-color: rgb(205, 226, 253);
     <template id="content1UI">
         <nav aria-label="...">
           <div class="row">
-                <h1>本頁製作中。。。<br>
-                    請先瀏覽其他網頁</h1>
+            <fieldset>
+                <table>
+                <tr id="rowtitle">
+                    <td></td>
+                    <td>請再次輸入帳號密碼</td>
+                </tr>
+                <form action="/deep1/innerweb/datamanage/group" method="post">
+                <tr id="rowinputid">
+                    <td> 
+                    <label>使用者帳號：</label>
+                    </td>
+                    <td>
+                    <input type="text" name="account" required/>
+                    </td>
+                </tr>
+                <tr id="rowinputpw">
+                    <td>
+                    <label>使用者密碼：</label>
+                    </td>
+                    <td>
+                    <input type="password" name="password"/>
+                    </td>
+                </tr>
+                <tr id="rowsubmitid">
+                    <td>
+                    <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由資料庫維管入口進入本頁">        
+                    <input type="submit" value="確認" style="float:right" >
+                    </td>
+                </tr>
+                </form>
                 </div>
             </nav>
         </template>

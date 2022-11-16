@@ -24,7 +24,7 @@ body {
 .navbar-toggler{background:#fff !important;}
 </style>
 
-  <title>檢視指定之knowlege</title>
+  <title>修正指定之knowledge</title>
   </head>
   <body>
     <div id="show_div">
@@ -42,10 +42,10 @@ body {
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/deep1/branch/customer">{{lastpage}}</a>
+              <a class="nav-link" href="/deep1/knowledge">{{lastpage}}</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">{{look1}} <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#">{{edit1}} <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">{{editbatch}}</a>
@@ -61,48 +61,51 @@ body {
     <template id="inputerUI" >
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">檢視{{knowlege.a05name}}之資料</h5>
+          <h5 class="card-title">修正{{knowledge.a05name}}之資料</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
+          <form action="/deep1/knowledge/update" method="post">
             <div class="form-group" :key="inputerUIkey">
-                <form action="/deep1/branch/customer" method="get">
-                    <label for="formGroupExampleInput2">{{items.item1}}</label>
-                    <input type="text" name="a10code" class="form-control" id="formGroupExampleInput1" :value="knowlege.a10code">
-                 
-                    <label for="formGroupExampleInput2">{{items.item2}}</label>
-                    <input type="text" name="a15describe" class="form-control" id="formGroupExampleInput2" :value="knowlege.a15describe">
-                  
-                    <label for="formGroupExampleInput2">{{items.item3}}</label>
-                    <input type="text" name="a20filename" class="form-control" id="formGroupExampleInput3" :value="knowlege.a20filename">
-                  
-                    <label for="formGroupExampleInput2">{{items.item4}}</label>
-                    <input type="text" name="a25filealias" class="form-control" id="formGroupExampleInput4" :value="knowlege.a25filealias">
-                 
-                    <label for="formGroupExampleInput2">{{items.item5}}</label>
-                    <input type="text" name="a30category" class="form-control" id="formGroupExampleInput5" :value="knowlege.a30category">
-                  
-                    <label for="formGroupExampleInput2">{{items.item6}}</label>
-                    <input type="text" name="a35uploader" class="form-control" id="formGroupExampleInput6" :value="knowlege.a35uploader">
-                  
-                    <label for="formGroupExampleInput2">{{items.item7}}</label>
-                    <input type="text" name="a40date" class="form-control" id="formGroupExampleInput7" :value="knowlege.a40date">
-                  
-                    <label for="formGroupExampleInput2">{{items.item8}}</label>
-                    <input type="text" name="a45reveal" class="form-control" id="formGroupExampleInput8" :value="knowlege.a45reveal">
-                  
-                    <label for="formGroupExampleInput2">{{items.item9}}</label>
-                    <input type="text" name="a504download" class="form-control" id="formGroupExampleInput9" :value="knowlege.a504download">
+                <label for="formGroupExampleInput2">{{items.item}}</label>
+                <input type="text" name="_id" class="form-control" id="formGroupExampleInput0" :value="knowledge._id">              
+              
+                <label for="formGroupExampleInput2">{{items.item1}}</label>
+                <input type="text" name="a05domain" class="form-control" id="formGroupExampleInput0" :value="knowledge.a05domain">
+  
+                <label for="formGroupExampleInput2">{{items.item1}}</label>
+                <input type="text" name="a10code" class="form-control" id="formGroupExampleInput1" :value="knowledge.a10code">
+             
+                <label for="formGroupExampleInput2">{{items.item2}}</label>
+                <input type="text" name="a15describe" class="form-control" id="formGroupExampleInput2" :value="knowledge.a15describe">
+              
+                <label for="formGroupExampleInput2">{{items.item3}}</label>
+                <input type="text" name="a20filename" class="form-control" id="formGroupExampleInput3" :value="knowledge.a20filename">
+              
+                <label for="formGroupExampleInput2">{{items.item4}}</label>
+                <input type="text" name="a25filealias" class="form-control" id="formGroupExampleInput4" :value="knowledge.a25filealias">
+             
+                <label for="formGroupExampleInput2">{{items.item5}}</label>
+                <input type="text" name="a30category" class="form-control" id="formGroupExampleInput5" :value="knowledge.a30category">
+              
+                <label for="formGroupExampleInput2">{{items.item6}}</label>
+                <input type="text" name="a35uploader" class="form-control" id="formGroupExampleInput6" :value="knowledge.a35uploader">
+              
+                <label for="formGroupExampleInput2">{{items.item7}}</label>
+                <input type="text" name="a40date" class="form-control" id="formGroupExampleInput7" :value="knowledge.a40date">
+              
+                <label for="formGroupExampleInput2">{{items.item8}}</label>
+                <input type="text" name="a45reveal" class="form-control" id="formGroupExampleInput8" :value="knowledge.a45reveal">
+              
+                <label for="formGroupExampleInput2">{{items.item9}}</label>
+                <input type="text" name="a504download" class="form-control" id="formGroupExampleInput9" :value="knowledge.a504download">
            
-                <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由檢視knowlege後進入本頁">
-                <input type="submit" id="button1" value="回上頁" class="btn btn-info">
-               <!--
-                <iframe name="myIframe" style="display:none"></iframe>
-                
-              <a href="/deep1/public/knowlegefile/20200422blockchain01.ppt" download="20200422blockchain01.ppt"></a>
-                <input type="submit" value="下載本知識檔" @click="download()"> -->
-                
-                </div>
-            </form>
-            <button @click="download()">下載本知識檔</button>
+              <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正knowledge後進入本頁">
+            
+              <input type="submit" id="button1" value="確定送出" class="btn btn-info">
+            </div>
+          </form>
+          <input type="submit" id="button2" value="重新輸入" class="btn btn-info" @click="rerender()">
+          <!-- <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a> -->
         </div>
       </div> 
     </template>
@@ -117,9 +120,9 @@ Vue.component("bander",{
       return {
         brand:"Deep內部功能",
         lastpage:"回前頁",
-        look1:"檢視1筆",
-        editbatch:"",
-        statusreport:'<%- JSON.stringify(statusreport) %>'
+        edit1:"修正1筆",
+        editbatch:"修正多筆",
+        statusreport:'<%= JSON.stringify(statusreport) %>'
       }
     },
     methods:{
@@ -131,8 +134,8 @@ Vue.component("bander",{
     props:{},
     data(){
       return {
-        card_title:"(僅供檢視，修改無效)",
-        card_subtitle:"各項資料如下:",
+        card_title:"",
+        card_subtitle:"請修正以下各項資料:",
         items:{
             item0:"知識領域",
             item1:"分類代碼",
@@ -144,27 +147,38 @@ Vue.component("bander",{
             item7:"上傳日期",
             item8:"揭露等級",
             item9:"是否提供下載",
-            item99:"特別註記" 
+            item99:"特別註記"     
       },
-      knowlege:JSON.parse(decodeURIComponent('<%=knowlege%>')),
+      knowledge:JSON.parse(decodeURIComponent('<%=knowledge%>')),
       inputerUIkey:0
+      /*
+      values:{
+        
+         value:knowledge._id
+         value0:knowledge.a05name,
+            value1:knowledge.a10account,
+            value2:knowledge.a15password,
+            value3:knowledge.a20department,
+            value4:knowledge.a25position,
+            value5:knowledge.a30email,
+            value6:knowledge.a35tel,
+            value7:knowledge.a40mobile,
+            value8:knowledge.a45group,
+            value99:knowledge.a99footnote         
+    } */
   }//EOF return 
     }, //EOF data()
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;
       console.log("inputerUIkey:"+this.inputerUIkey) 
-    },
-    download:function(){
-        let routerstring="/deep1/knowlege/download/"+"20200422blockchain01.ppt";
-        window.open(routerstring, '_self');
     }
     }, 
     /*
     mounted:{
         this:{
             values:{
-                value0:knowlege.a05name 
+                value0:knowledge.a05name 
             }}
         }, */   
     template:"#inputerUI"

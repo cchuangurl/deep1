@@ -28,7 +28,7 @@ background-color: rgb(205, 226, 253);
 .navbar-toggler{background:#fff !important;}
 </style>
 
-  <title>內部系統--客服作業區入口</title>
+  <title>內部系統--資料庫維管入口</title>
   </head>
   <body>
     <div id="show_div">
@@ -40,10 +40,10 @@ background-color: rgb(205, 226, 253);
                 <sidebar></sidebar> </div>
             <div class="col-lg-9 col-md-6 col-sm-12">
                 <div class="row" align="justify">
-                    <div class="col-lg-6 col-md-6 col-sm-12" id="bulletin">
+                    <div class="col-lg-8 col-md-8 col-sm-12" id="bulletin">
                         <content1></content1> 
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12" id="sharezone">
+                    <div class="col-lg-4 col-md-4 col-sm-12" id="sharezone">
                         <content2></content2>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ background-color: rgb(205, 226, 253);
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-              <a class="nav-link" href="#">{{workzone}}<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/deep1/innerweb/workzone">{{workzone}}</a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
@@ -87,7 +87,7 @@ background-color: rgb(205, 226, 253);
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb/datamanage">{{datamaintain}}</a>
+              <a class="nav-link" href="#">{{datamaintain}}<span class="sr-only">(current)</span></a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
@@ -108,10 +108,99 @@ background-color: rgb(205, 226, 253);
      
     <template id="content1UI">
         <nav aria-label="...">
-          <div class="row">
-                <h1>本頁製作中。。。<br>
-                    請先瀏覽其他網頁</h1>
-                </div>
+            <fieldset>
+                <table class="menu">
+                    <tr><td><h5>請點選主功能選項</h5></td></tr>
+                <tr height="60px">
+                    <td width="300px">
+                    <form  action="/deep1/user" method="get">
+                        <input type="hidden" name="statusreport" value="由使用者帳號資料維管按鈕進入本頁">
+                        <input type="submit" value="使用者帳號資料維管 " class="btn btn-info">       
+                    </form>      
+                    </td>
+                    <td width="300px"><form  action="/deep1/userright" method="get">
+                        <input type="hidden" name="statusreport" value="由使用權資料維管按鈕進入本頁">
+                        <input type="submit" value="使用者權資料維管 " class="btn btn-info">       
+                    </form>
+                    </td>
+                    <td width="300px"><form  action="/deep1/term" method="get">
+                        <input type="hidden" name="statusreport" value="由用詞對照維管按鈕進入本頁">
+                        <input type="submit" value="用詞對照資料維管 " class="btn btn-info">       
+                    </form>
+                    </td>           
+                    </tr>
+                <tr height="60px">
+                <td width="300px">
+                <form  action="/deep1/post" method="get">
+                <input type="hidden" name="statusreport" value="由布告資料維管按鈕進入本頁">
+                <input type="submit" value="布告資料維管 " class="btn btn-info">        
+                </form>      
+                </td>
+                <td  width="300px">
+                  <form  action="/deep1/knowledge" method="get">
+                    <input type="hidden" name="statusreport" value="由專業知識資料維管按鈕進入本頁">
+                <input type="submit" value="專業知識資料維管 " class="btn btn-info">       
+                    </form> 
+                </td>
+              </tr>
+              
+              <tr height="60px">
+                <td  width="300px">
+                  <form  action="/deep1/request" method="get">
+                    <input type="hidden" name="statusreport" value="由服務需求資料維管按鈕進入本頁">
+                    <input type="submit" value="服務需求資料維管 " class="btn btn-info">       
+                    </form> 
+                    <td  width="300px">
+                        <form  action="/deep1/message" method="get">
+                          <input type="hidden" name="statusreport" value="由留言資料維管按鈕進入本頁">
+                          <input type="submit" value="留言資料維管 " class="btn btn-info">       
+                          </form> 
+                      </td>  </td>
+              </tr>  
+              <tr>
+                <td  width="300px">
+                  <form  action="/deep1/project" method="get">
+                    <input type="hidden" name="statusreport" value="由專案管理資料維管按鈕進入本頁">
+                    <input type="submit" value="專案管理資料維管 " class="btn btn-info">     
+                    </form> 
+                </td>
+                <td  width="300px">
+                    <form  action="/deep1/process" method="get">
+                        <input type="hidden" name="statusreport" value="由處理流程資料維管按鈕進入本頁">
+                        <input type="submit" value="處理流程資料維管 " class="btn btn-info">       
+                </form>
+                </td>
+                </tr>
+                <tr>
+                  <td  width="300px">
+                    <form  action="/deep1/staffinfo" method="get">
+                        <input type="hidden" name="statusreport" value="由員工資料維管按鈕進入本頁">
+                        <input type="submit" value="員工資料維管 " class="btn btn-info">      
+                      </form> 
+                  </td>
+                  <td  width="300px">
+                    <form  action="/deep1/guestinfo" method="get">
+                      <input type="hidden" name="statusreport" value="由客戶資料維管按鈕進入本頁">
+                      <input type="submit" value="客戶資料維管 " class="btn btn-info">       
+                </form>
+                </td>
+                  </tr>
+                  <tr>
+                    <td  width="300px">
+                      <form  action="/deep1/ocosa" method="get">
+                          <input type="hidden" name="statusreport" value="由解決方案資料維管按鈕進入本頁">
+                          <input type="submit" value="解決方案資料維管 " class="btn btn-info">      
+                        </form> 
+                    </td>
+                    <td  width="300px">
+                      <form  action="/deep1/idea" method="get">
+                        <input type="hidden" name="statusreport" value="由員工建言資料維管按鈕進入本頁">
+                        <input type="submit" value="員工建言資料維管 " class="btn btn-info">       
+                  </form>
+                  </td>
+                    </tr>
+                </table>
+                </fieldset>
             </nav>
         </template>
     
@@ -226,13 +315,14 @@ background-color: rgb(205, 226, 253);
         }    
       },
       mounted:function(){
+        /*
         this.maxRow=this.postlist.length;
           this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
           this.maxRound=Math.floor(this.maxPage/this.perRound)+1;
           this.modRow=this.maxRow%this.perPage;
           this.modPage=this.maxPage%this.perRound;
           this.goFirstPage() 
-          /*
+          
         maxRow=projectlist.length;
           maxPage=Math.floor(maxRow/perPage)+1;
           maxRound=Math.floor(maxPage/perRound)+1;
@@ -377,6 +467,7 @@ background-color: rgb(205, 226, 253);
         }    
       },
       mounted:function(){
+         /*  
         this.maxRow=this.projectlist.length;
           this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
           this.maxRound=Math.floor(this.maxPage/this.perRound)+1;

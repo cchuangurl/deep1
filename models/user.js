@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema(
   {
     a03status:{type:String,required:true},
-    a08infoID:{type:ObjectID,required:false},
+    a08infoID:{type:Schema.Types.ObjectID,required:false},
     a10account:{type:String,required:true},
     a15password:{type:String,required:false},
     a45group:{type:String,required:false},

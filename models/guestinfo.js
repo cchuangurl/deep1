@@ -6,7 +6,7 @@ var GuestinfoSchema = new Schema(
   {
     a05ipofvisitor:{type:String,required:false},
     a10visitor:{type:String,required:false},
-    a15dateofreg:{type:Date,required:true},
+    a15dateofreg:{type:Date,required:false},
     a30phoneno:{type:String,required:false},
     a35email:{type:String,required:false},
     a40address:{type:String,required:false},

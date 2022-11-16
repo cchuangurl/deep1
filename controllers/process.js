@@ -104,8 +104,8 @@ async batchinput(ctx, next){
     });
     var lineno=0;
     var processArray;
-    var tempstore=new Array(10);
-    for (let i=0;i<10;i++){
+    var tempstore=new Array(9);
+    for (let i=0;i<9;i++){
         tempstore[i]=new Array(); 
     };
     let readfile=(()=>{
@@ -114,16 +114,9 @@ async batchinput(ctx, next){
     //當讀入一行資料時
     lineReader.on('line', function(data) {            
         var values = data.split(',');
-        tempstore[0][lineno]=values[0].trim();
-        tempstore[1][lineno]=values[1].trim();
-        tempstore[2][lineno]=values[2].trim();
-        tempstore[3][lineno]=values[3].trim();
-        tempstore[4][lineno]=values[4].trim();
-        tempstore[5][lineno]=values[5].trim();
-        tempstore[6][lineno]=values[6].trim();
-        tempstore[7][lineno]=values[7].trim();
-        tempstore[8][lineno]=values[8].trim();
-        tempstore[9][lineno]=values[9].trim();
+        for (let i=0;i<9;i++){
+            tempstore[i][lineno]=values[i].trim();
+        }
         lineno++;
         console.log("read line:"+data)
     });//EOF lineReader.on
@@ -145,8 +138,8 @@ async batchinput(ctx, next){
                 })       
         });//EOF saveone
         for (let k=0;k<lineno;k++){
-            processArray[k]=new Array(10);
-            for (let m=0;m<10;m++){
+            processArray[k]=new Array(9);
+            for (let m=0;m<9;m++){
                 processArray[k][m]=tempstore[m][k]
                 //console.log(processArray[k])
             }
@@ -158,16 +151,15 @@ async batchinput(ctx, next){
         processArray.forEach(function(processj){
             sequence=sequence.then(function(){
                 var new_process = new Process({
-                    a05project_id:processj[0],
-                    a10stage:processj[1],
-                    a15action:processj[2],
-                    a20doer:processj[3],
-                    a25startdate:processj[4],
-                    a30timeconsume:processj[5],
-                    a35cost:processj[6],
-                    a40delay:processj[7],
-                    a45status:processj[8],
-                    a99footnote:processj[9]
+                    a10stage:processj[0],
+                    a15action_id:processj[1],
+                    a20doer:processj[2],
+                    a25startdate:processj[3],
+                    a30timeconsume:processj[4],
+                    a35cost:processj[5],
+                    a40preceding:processj[6],
+                    a45status:processj[7],
+                    a99footnote:processj[8]
                 });//EOF new process
                     saveone(new_process)
                 .catch(err=>{
@@ -186,7 +178,7 @@ async batchinput(ctx, next){
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage3.ejs");
-        await ctx.render("datamanage3",{
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })

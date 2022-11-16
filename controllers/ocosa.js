@@ -110,45 +110,7 @@ async create(ctx,next){
         console.log(err)
     })
 },
-//寫入guest註冊資料並轉換為user
-async createuser(ctx,next){
-    var ocosax=JSON.parse(decodeURIComponent(ctx.request.body));
-    var new_ocosa = new Ocosa(ocosax);
-    console.log("get new_ocosa"+new_ocosa.a20account);
-    await new_ocosa.save()
-    .then(async ()=>{
-      let guest2user={
-        a05name:ocosax.a05visitor,
-        a10account:ocosax.a20account,
-        a15password:ocosax.a25password,
-        a20department:"",
-        a25position:"",
-        a30email:ocosax.a35email,
-        a35tel:ocosax.a30phoneno,
-        a40mobile:ocosax.a30phoneno,
-        a45group:"member",
-        a99footnote:ocosax.a45business+ocosax.a50extra
-      }
-      var new_user=new User(guest2user);
-      await new_user.save()
-        .then(()=>{
-            console.log("Saving new_ocosa as user....");
-        })
-        .catch((err)=>{
-            console.log("User.save({}) failed !!");
-            console.log(err)
-        }) 
-    })
-    .then(()=>{
-        console.log("Saving new_ocosa....");
-        statusreport="成功註冊會員資料後回到本頁";
-        ctx.redirect("/deep1/branch/customer?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log("Ocosa.save({}) failed !!");        
-        console.log(err)
-    })
-},
+
 //批次新增資料
 async batchinput(ctx, next){
     var statusreport=ctx.query.statusreport;
@@ -179,17 +141,9 @@ async batchinput(ctx, next){
     //當讀入一行資料時
     lineReader.on('line', function(data) {            
         var values = data.split(',');
-        tempstore[0][lineno]=values[0].trim();
-        tempstore[1][lineno]=values[1].trim();
-        tempstore[2][lineno]=values[2].trim();
-        tempstore[3][lineno]=values[3].trim();
-        tempstore[4][lineno]=values[4].trim();
-        tempstore[5][lineno]=values[5].trim();
-        tempstore[6][lineno]=values[6].trim();
-        tempstore[7][lineno]=values[7].trim();
-        tempstore[8][lineno]=values[8].trim();
-        tempstore[9][lineno]=values[9].trim();
-        tempstore[10][lineno]=values[10].trim();        
+        for (let i=0;i<11;i++){
+            tempstore[i][lineno]=values[i].trim();
+        }
         lineno++;
         console.log("read line:"+data)
     });//EOF lineReader.on
@@ -224,17 +178,17 @@ async batchinput(ctx, next){
         ocosaArray.forEach(function(ocosaj){
             sequence=sequence.then(function(){
                 var new_ocosa = new Ocosa({
-                    a05project_id:req.body.a05project_id,
-                    a10object:req.body.a10object,
-                    a15CSF:req.body.a15CSF,
-                    a20CSForder:req.body.a20CSForder,
-                    a25obstacle:req.body.a25obstacle,
-                    a30obstacleorder:req.body.a30obstacleorder,
-                    a35strategy:req.body.a35strategy,
-                    a40strategyorder:req.body.a40strategyorder,
-                    a45action:req.body.a45action,
-                    a50actiondoer:req.body.a50actiondoer,
-                    a99footnote:req.body.a99footnote
+                    a05project_id:ocosaj[0],
+                    a10object:ocosaj[1],
+                    a15CSF:ocosaj[2],
+                    a20CSForder:ocosaj[3],
+                    a25obstacle:ocosaj[4],
+                    a30obstacleorder:ocosaj[5],
+                    a35strategy:ocosaj[6],
+                    a40strategyorder:ocosaj[7],
+                    a45action:ocosaj[8],
+                    a50actiondoer:ocosaj[9],
+                    a99footnote:ocosaj[10]
                 });//EOF new ocosa
                     saveone(new_ocosa)
                 .catch(err=>{
@@ -253,7 +207,7 @@ async batchinput(ctx, next){
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage2.ejs");
-        await ctx.render("datamanage2",{
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })

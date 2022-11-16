@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var StaffinfoSchema = new Schema(
   {
     a05lastname:{type:String,required:false},
-    a10fistname:{type:String,required:true},
+    a10firstname:{type:String,required:true},
     a13identity:{type:String,required:false},
     a15gender:{type:String,required:false},
     a20birthday:{type:Date,required:false},
@@ -39,6 +39,11 @@ StaffinfoSchema
         .virtual('dateofjoin')
         .get(function () {
         return this.a25dateofjoin.getFullYear()+"/"+this.a25dateofjoin.getMonth()+"/"+this.a25dateofjoin.getDate();
+});
+StaffinfoSchema
+        .virtual('fullname')
+        .get(function () {
+        return this.a05lastname+this.a10firstname;
 });
 StaffinfoSchema.set("toJSON",{getters:true,virtual:true});
 StaffinfoSchema.set("toObject",{getters:true,virtual:true});

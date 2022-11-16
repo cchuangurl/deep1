@@ -115,14 +115,10 @@ async createuser(ctx,next){
     await new_guestinfo.save()
     .then(async ()=>{
       let guest2user={
-        a05name:guestinfox.a05visitor,
+        a03status:"client",
+        a08infoID:guestinfox._id,
         a10account:guestinfox.a20account,
         a15password:guestinfox.a25password,
-        a20department:"",
-        a25position:"",
-        a30email:guestinfox.a35email,
-        a35tel:guestinfox.a30phoneno,
-        a40mobile:guestinfox.a30phoneno,
         a45group:"member",
         a99footnote:guestinfox.a45business+guestinfox.a50extra
       }
@@ -166,8 +162,8 @@ async batchinput(ctx, next){
     });
     var lineno=0;
     var guestinfoArray;
-    var tempstore=new Array(11);
-    for (let i=0;i<11;i++){
+    var tempstore=new Array(9);
+    for (let i=0;i<9;i++){
         tempstore[i]=new Array(); 
     };
     let readfile=(()=>{
@@ -176,17 +172,9 @@ async batchinput(ctx, next){
     //當讀入一行資料時
     lineReader.on('line', function(data) {            
         var values = data.split(',');
-        tempstore[0][lineno]=values[0].trim();
-        tempstore[1][lineno]=values[1].trim();
-        tempstore[2][lineno]=values[2].trim();
-        tempstore[3][lineno]=values[3].trim();
-        tempstore[4][lineno]=values[4].trim();
-        tempstore[5][lineno]=values[5].trim();
-        tempstore[6][lineno]=values[6].trim();
-        tempstore[7][lineno]=values[7].trim();
-        tempstore[8][lineno]=values[8].trim();
-        tempstore[9][lineno]=values[9].trim();
-        tempstore[10][lineno]=values[10].trim();
+        for (let i=0;i<9;i++){
+            tempstore[i][lineno]=values[i].trim();
+        }
         lineno++;
         console.log("read line:"+data)
     });//EOF lineReader.on
@@ -208,8 +196,8 @@ async batchinput(ctx, next){
                 })       
         });//EOF saveone
         for (let k=0;k<lineno;k++){
-            guestinfoArray[k]=new Array(11);
-            for (let m=0;m<11;m++){
+            guestinfoArray[k]=new Array(6);
+            for (let m=0;m<6;m++){
                 guestinfoArray[k][m]=tempstore[m][k]
                 //console.log(guestinfoArray[k])
             }
@@ -224,14 +212,12 @@ async batchinput(ctx, next){
                     a05ipofvisitor:guestinfoj[0],
                     a10visitor:guestinfoj[1],
                     a15dateofreg:guestinfoj[2],
-                    a20accout:guestinfoj[3],
-                    a25password:guestinfoj[4],
-                    a30phoneno:guestinfoj[5],
-                    a35email:guestinfoj[6],
-                    a40address:guestinfoj[7],
-                    a45business:guestinfoj[8],
-                    a50extra:guestinfoj[9],
-                    a99footnote:guestinfoj[10]
+                    a30phoneno:guestinfoj[3],
+                    a35email:guestinfoj[4],
+                    a40address:guestinfoj[5],
+                    a45business:guestinfoj[6],
+                    a50extra:guestinfoj[7],
+                    a99footnote:guestinfoj[8]
                 });//EOF new guestinfo
                     saveone(new_guestinfo)
                 .catch(err=>{
@@ -250,7 +236,7 @@ async batchinput(ctx, next){
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage2.ejs");
-        await ctx.render("datamanage2",{
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })

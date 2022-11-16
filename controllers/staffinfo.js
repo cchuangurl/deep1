@@ -108,8 +108,8 @@ async batchinput(ctx, next){
     });
     var lineno=0;
     var staffinfoArray;
-    var tempstore=new Array(14);
-    for (let i=0;i<14;i++){
+    var tempstore=new Array(17);
+    for (let i=0;i<17;i++){
         tempstore[i]=new Array(); 
     };
     let readfile=(()=>{
@@ -118,20 +118,9 @@ async batchinput(ctx, next){
     //當讀入一行資料時
     lineReader.on('line', function(data) {            
         var values = data.split(',');
-        tempstore[0][lineno]=values[0].trim();
-        tempstore[1][lineno]=values[1].trim();
-        tempstore[2][lineno]=values[2].trim();
-        tempstore[3][lineno]=values[3].trim();
-        tempstore[4][lineno]=values[4].trim();
-        tempstore[5][lineno]=values[5].trim();
-        tempstore[6][lineno]=values[6].trim();
-        tempstore[7][lineno]=values[7].trim();
-        tempstore[8][lineno]=values[8].trim();
-        tempstore[9][lineno]=values[9].trim();
-        tempstore[10][lineno]=values[10].trim();
-        tempstore[11][lineno]=values[11].trim();
-        tempstore[12][lineno]=values[12].trim();
-        tempstore[13][lineno]=values[13].trim();
+        for (let i=0;i<17;i++){
+        tempstore[i][lineno]=values[i].trim();
+        }
         lineno++;
         console.log("read line:"+data)
     });//EOF lineReader.on
@@ -153,8 +142,8 @@ async batchinput(ctx, next){
                 })       
         });//EOF saveone
         for (let k=0;k<lineno;k++){
-            staffinfoArray[k]=new Array(14);
-            for (let m=0;m<14;m++){
+            staffinfoArray[k]=new Array(17);
+            for (let m=0;m<17;m++){
                 staffinfoArray[k][m]=tempstore[m][k]
                 //console.log(staffinfoArray[k])
             }
@@ -168,18 +157,21 @@ async batchinput(ctx, next){
                 var new_staffinfo = new Staffinfo({
                     a05lastname:staffinfoj[0],
                     a10firstname:staffinfoj[1],
-                    a15gender:staffinfoj[2],
-                    a20birthday:staffinfoj[3],
-                    a25dateofjoin:staffinfoj[4],
-                    a30position:staffinfoj[5],
-                    a35phoneno:staffinfoj[6],
-                    a40email:staffinfoj[7],
-                    a45address:staffinfoj[8],
-                    a50degree:staffinfoj[9],
-                    a55resume:staffinfoj[10],
-                    a60expertise:staffinfoj[11],
-                    a65extra:staffinfoj[12],
-                    a99footnote:staffinfoj[13]
+                    a13identity:staffinfoj[2],
+                    a15gender:staffinfoj[3],
+                    a20birthday:staffinfoj[4],
+                    a25dateofjoin:staffinfoj[5],
+                    a28department:staffinfoj[6],
+                    a30position:staffinfoj[7],
+                    a33tel:staffinfoj[8],
+                    a35phoneno:staffinfoj[9],
+                    a40email:staffinfoj[10],
+                    a45address:staffinfoj[11],
+                    a50degree:staffinfoj[12],
+                    a55resume:staffinfoj[13],
+                    a60expertise:staffinfoj[14],
+                    a65extra:staffinfoj[15],
+                    a99footnote:staffinfoj[16]
                     });//EOF new staffinfo
                     saveone(new_staffinfo)
                 .catch(err=>{
@@ -198,8 +190,9 @@ async batchinput(ctx, next){
     .then(async ()=>{
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
-        console.log("go back to datamanage2.ejs");
-        await ctx.render("datamanage2",{
+        console.log("go back to datamanage.ejs");
+        statusreport="完成staffinfo批次輸入";      
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })

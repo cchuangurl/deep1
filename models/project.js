@@ -42,6 +42,7 @@ ProjectSchema
         .get(function () {
         return this.a40contractdate.getFullYear()+"/"+this.a40contractdate.getMonth()+"/"+this.a40contractdate.getDate();
 });
+/*
 ProjectSchema
         .virtual('fullfitdate')
         .get(function () {
@@ -52,6 +53,7 @@ ProjectSchema
         .get(function () {
         return this.a60paydate.getFullYear()+"/"+this.a60paydate.getMonth()+"/"+this.a60paydate.getDate();
 });
+*/
 ProjectSchema.set("toJSON",{getters:true,virtual:true});
 ProjectSchema.set("toObject",{getters:true,virtual:true});
 //Export model

@@ -27,8 +27,8 @@ app.use(json());
 app.use(logger());
 //app.use(koa.urlencoded({ extended: false }));
 //app.use(cookieParser());
-app.use(koastatic(__dirname + '/public'));
-
+//app.use(koastatic('https://storage.googleapis.com/cchuang_deep1/public'));
+app.use(koastatic(__dirname+'/public'));
 //console.log("content of allRouters 1:"+allRouters['post']);
 var router=new koarouter();
 //home rouer
@@ -55,7 +55,7 @@ for(var key in otherRouters) {
 	let temp=key+"temp";
         temp=new koarouter();
         temp =otherRouters[key];
-        router.use('/deep0/'+key, temp.routes(), temp.allowedMethods());
+        router.use('/deep1/'+key, temp.routes(), temp.allowedMethods());
 }
 app.use(router.routes()).use(router.allowedMethods());
 

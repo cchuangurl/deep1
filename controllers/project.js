@@ -115,20 +115,9 @@ async batchinput(ctx, next){
             //當讀入一行資料時
             lineReader.on('line', function(data) {            
                 var values = data.split(',');
-                tempstore[0][lineno]=values[0].trim();
-                tempstore[1][lineno]=values[1].trim();
-                tempstore[2][lineno]=values[2].trim();
-                tempstore[3][lineno]=values[3].trim();
-                tempstore[4][lineno]=values[4].trim();
-                tempstore[5][lineno]=values[5].trim();
-                tempstore[6][lineno]=values[6].trim();
-                tempstore[7][lineno]=values[7].trim();
-                tempstore[8][lineno]=values[8].trim();
-                tempstore[9][lineno]=values[9].trim();
-                tempstore[10][lineno]=values[10].trim();
-                tempstore[11][lineno]=values[11].trim();
-                tempstore[12][lineno]=values[12].trim();
-                tempstore[13][lineno]=values[13].trim();
+                for (let i=0;i<14;i++){
+                    tempstore[i][lineno]=values[i].trim();
+                }
                 lineno++;
                 console.log("read line:"+data)
             })//EOF lineReader.on
@@ -191,8 +180,8 @@ async batchinput(ctx, next){
     .then(async ()=>{
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
-        console.log("go back to datamanage3.ejs");
-        await ctx.render("datamanage3",{
+        console.log("go back to datamanage.ejs");
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })

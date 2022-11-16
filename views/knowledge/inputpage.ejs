@@ -24,7 +24,7 @@ body {
 .navbar-toggler{background:#fff !important;}
 </style>
 
-  <title>單筆knowlege資料</title>
+  <title>單筆knowledge資料</title>
   </head>
   <body>
     <div id="show_div">
@@ -41,7 +41,7 @@ body {
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/deep1/knowlege">{{lastpage}}<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/deep1/knowledge">{{lastpage}}<span class="sr-only">(current)</span></a>
               </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">{{input1}}<span class="sr-only">(current)</span></a>
@@ -65,7 +65,7 @@ body {
         <div class="card-body">
           <h5 class="card-title">{{card_title}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
-          <form action="/deep1/knowlege/add" method="post">
+          <form action="/deep1/knowledge/add" method="post">
             <div class="form-group" :key="inputerUIkey">              
             
                 <label for="formGroupExampleInput2">{{items.item0}}</label>
@@ -101,7 +101,7 @@ body {
                 <label for="formGroupExampleInput">{{items.item99}}</label>
                 <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput11" :placeholder="holders.holder99">
             
-              <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由單筆knowlege輸入後進入本頁">
+              <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由單筆knowledge輸入後進入本頁">
             
               <input type="submit" id="button1" value="確定送出" class="btn btn-info">
             </div>

@@ -23,11 +23,11 @@ router.get('/inputbatch', async (ctx, next)=> {
     await ocosaController.batchinput(ctx,next)
 });
 //依參數id取得資料
-router.get('/:id', (ctx, next)=> {
+router.get('/:id', async(ctx, next)=> {
 	await ocosaController.retrieve(ctx)
 });
 //依參數no取得一筆資料
-router.get('/find/:no', (ctx, next)=> {
+router.get('/find/:no', async(ctx, next)=> {
 	await ocosaController.findByNo(ctx)
 });
 //寫入一筆資料

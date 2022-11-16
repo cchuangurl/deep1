@@ -1,7 +1,7 @@
 //載入相對應的model
 const User = require('../models/index').user;
 const Post = require('../models/index').post;
-const Knowlege = require('../models/index').knowlege;
+const Knowledge = require('../models/index').knowledge;
 const Project = require('../models/index').project;
 module.exports = {
 //判定登入人群組
@@ -30,24 +30,24 @@ async homepage(ctx,next){
         console.log("Post.find({}) failed !!");
         console.log(err)
     })
-    await Knowlege.find({})
-    .then(async knowleges=>{;
-        console.log("1st knowlege:"+knowleges[0])
-        console.log("No. of knowlege:"+knowleges.length)
-        let knowlegelist=encodeURIComponent(JSON.stringify(knowleges));
-        console.log("type of knowlegelist:"+typeof(knowlegelist));
+    await Knowledge.find({})
+    .then(async knowledges=>{;
+        console.log("1st knowledge:"+knowledges[0])
+        console.log("No. of knowledge:"+knowledges.length)
+        let knowledgelist=encodeURIComponent(JSON.stringify(knowledges));
+        console.log("type of knowledgelist:"+typeof(knowledgelist));
         if(statusreport===undefined){
             statusreport="未截到status";
             console.log("未截到status!!");
         }
         await ctx.render("outerweb/homepage",{
             postlist:postlist,
-            knowlegelist:knowlegelist,
+            knowledgelist:knowledgelist,
             statusreport:statusreport
         })
     })
     .catch(err=>{
-        console.log("Knowlege.find({}) failed !!");
+        console.log("Knowledge.find({}) failed !!");
         console.log(err)
     })
 },

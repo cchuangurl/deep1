@@ -183,7 +183,8 @@ async batchinput(ctx, next){
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage1.ejs");
-        await ctx.render("datamanage1",{
+        statusreport="完成userright批次輸入";      
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })
