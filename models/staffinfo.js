@@ -33,18 +33,30 @@ StaffinfoSchema
 StaffinfoSchema
         .virtual('birthdate')
         .get(function () {
+            //if(this.a20birthday.getFullYear()>0||typeof(this.a20birthday)!="null"){
+            if(this.a20birthday!=null&&typeof(this.a20birthday)!="undefined"){
         return this.a20birthday.getFullYear()+"/"+this.a20birthday.getMonth()+"/"+this.a20birthday.getDate();
-});
+    }
+    else{
+        return typeof(this.a20birthday);
+    }
+    });
 StaffinfoSchema
         .virtual('dateofjoin')
         .get(function () {
+            if(this.a25dateofjoin!=null&&typeof(this.a25dateofjoin)!="undefined"){
         return this.a25dateofjoin.getFullYear()+"/"+this.a25dateofjoin.getMonth()+"/"+this.a25dateofjoin.getDate();
-});
+    }
+    else{
+        return typeof(this.a25dateofjoin);
+    }
+    });
 StaffinfoSchema
         .virtual('fullname')
         .get(function () {
         return this.a05lastname+this.a10firstname;
-});
+    
+    });
 StaffinfoSchema.set("toJSON",{getters:true,virtual:true});
 StaffinfoSchema.set("toObject",{getters:true,virtual:true});
 //Export model

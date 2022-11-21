@@ -25,8 +25,13 @@ ProcessSchema
 ProcessSchema
         .virtual('startdate')
         .get(function () {
+            if (this.a60startdate!=null&&typeof(this.a60startdate)!="undefined"){
         return this.a60startdate.getFullYear()+"/"+this.a60startdate.getMonth()+"/"+this.a60startdate.getDate();
-});
+    }
+    else{
+        return typeof(this.a60startdate);
+    }
+    });
 ProcessSchema.set("toJSON",{getters:true,virtual:true});
 ProcessSchema.set("toObject",{getters:true,virtual:true});
 //Export model

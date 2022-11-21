@@ -27,8 +27,13 @@ IdeaSchema
 IdeaSchema
         .virtual('dateofidea')
         .get(function () {
-        return this.a15dateofidea.getFullYear()+"/"+this.a15dateofidea.getMonth()+"/"+this.a15dateofidea.getDate();
-});
+        if (this.a15dateofidea!=null&&typeof(this.a15dateofidea)!="undefined"){            
+            return this.a15dateofidea.getFullYear()+"/"+this.a15dateofidea.getMonth()+"/"+this.a15dateofidea.getDate();
+        }
+        else{
+            return typeof(this.a15dateofidea);
+    }
+    });
 IdeaSchema.set("toJSON",{getters:true,virtual:true});
 IdeaSchema.set("toObject",{getters:true,virtual:true});
 //Export model

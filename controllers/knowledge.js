@@ -246,7 +246,7 @@ async batchinput(ctx, next){
         //console.log("going to list prject....");
         //ctx.redirect("/deep0/project/?statusreport="+statusreport)
         console.log("go back to datamanage.ejs");
-        ctx.render("innerweb/datamanage/datamanagetemp",{
+        await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
     })

@@ -27,7 +27,12 @@ KnowledgeSchema
 KnowledgeSchema
         .virtual('date')
         .get(function () {
+            if (this.a40date!=null&&typeof(this.a40date)!="undefined"){
         return this.a40date.getFullYear()+"/"+this.a40date.getMonth()+"/"+this.a40date.getDate();
+    }
+    else{
+        return typeof(this.a40date);
+    }
 });
 KnowledgeSchema.set("toJSON",{getters:true,virtual:true});
 KnowledgeSchema.set("toObject",{getters:true,virtual:true});

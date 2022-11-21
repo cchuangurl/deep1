@@ -1,3 +1,4 @@
+
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
@@ -24,14 +25,25 @@ PostSchema
     });
 PostSchema
         .virtual('postdate')
-        .get(function () {
+        .get(function () {          
+            if (this.a20postdate!=null&&typeof(this.a20postdate)!="undefined"){
         return this.a20postdate.getFullYear()+"/"+this.a20postdate.getMonth()+"/"+this.a20postdate.getDate();
-});
+    }
+    else{
+        return typeof(this.a20postdate);
+    }
+    });
 PostSchema
         .virtual('datetodown')
         .get(function () {
+            if (this.a45datetodown!=null&&typeof(this.a45datetodown)!="undefined"){
+                
         return this.a45datetodown.getFullYear()+"/"+this.a45datetodown.getMonth()+"/"+this.a45datetodown.getDate();
-});
+            }    
+        else{
+                return typeof(this.a45datetodown);
+            }
+    });
 PostSchema.set("toJSON",{getters:true,virtual:true});
 PostSchema.set("toObject",{getters:true,virtual:true});
 //Export model

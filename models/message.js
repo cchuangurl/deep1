@@ -27,8 +27,13 @@ MessageSchema
 MessageSchema
         .virtual('dateofmsg')
         .get(function () {
+           if(this.a15dateofmsg!=null&&typeof(this.a15dateofmsg)){
         return this.a15dateofmsg.getFullYear()+"/"+this.a15dateofmsg.getMonth()+"/"+this.a15dateofmsg.getDate();
-});
+    }
+    else{
+        return typeof(this.a15dateofmsg);
+    }
+    });
 MessageSchema.set("toJSON",{getters:true,virtual:true});
 MessageSchema.set("toObject",{getters:true,virtual:true});
 //Export model

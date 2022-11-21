@@ -25,8 +25,13 @@ GuestinfoSchema
 GuestinfoSchema
         .virtual('dateofreg')
         .get(function () {
-        return this.a15dateofreg.getFullYear()+"/"+this.a15dateofreg.getMonth()+"/"+this.a15dateofreg.getDate();
-});
+        if (this.a15dateofreg!=null&&typeof(this.a15dateofreg)!="undefined"){          
+            return this.a15dateofreg.getFullYear()+"/"+this.a15dateofreg.getMonth()+"/"+this.a15dateofreg.getDate();
+        }
+        else{
+            return typeof(this.a15dateofreg);
+        }
+    });
 GuestinfoSchema.set("toJSON",{getters:true,virtual:true});
 GuestinfoSchema.set("toObject",{getters:true,virtual:true});
 //Export model

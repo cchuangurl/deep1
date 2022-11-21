@@ -32,13 +32,24 @@ RequestSchema
 RequestSchema
         .virtual('requestdate')
         .get(function () {
+            if (this.a15requestdate!=null&&typeof(this.a15requestdate)!="undefined"){            
         return this.a15requestdate.getFullYear()+"/"+this.a15requestdate.getMonth()+"/"+this.a15requestdate.getDate();
-});
+    }
+    else{
+        return typeof(this.a15requestdate);
+    }
+    });
 RequestSchema
         .virtual('deadline')
         .get(function () {
+            if(this.a40deadline!=null&&typeof(this.a40deadline)!="undefined"){
         return this.a40deadline.getFullYear()+"/"+this.a40deadline.getMonth()+"/"+this.a40deadline.getDate();
-});
+    }
+    else{
+        return typeof(this.a40deadline);
+    }
+
+    });
 RequestSchema.set("toJSON",{getters:true,virtual:true});
 RequestSchema.set("toObject",{getters:true,virtual:true});
 //Export model
