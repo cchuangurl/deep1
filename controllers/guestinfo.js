@@ -1,5 +1,6 @@
 //載入相對應的model
 const Guestinfo = require('../models/index').guestinfo;
+const Term = require('../models/index').term;
 const User=require('../models/index').user;
 module.exports = {
 //列出清單list(req,res)

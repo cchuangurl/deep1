@@ -1,5 +1,6 @@
 //載入相對應的model
 const Knowledge = require('../models/index').knowledge;
+const Term = require('../models/index').term;
 const send = require('koa-send');
 module.exports = {
 //列出清單list(req,res)

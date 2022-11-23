@@ -1,5 +1,6 @@
 //載入相對應的model
 const Idea = require('../models/index').idea;
+const Term = require('../models/index').term;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
@@ -31,8 +32,15 @@ async list(ctx,next){
 
 
 //到新增資料頁
-inputpage(req, res) {
-    //在router設定了
+async inputpage(ctx, next) {
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    if(statusreport===undefined){
+        statusreport="status未傳成功!"
+    }    
+	await ctx.render("idea/inputpage",{
+		statusreport:ctx.request.body.statusreport
+	})
 },
 
 //到修正單筆資料頁

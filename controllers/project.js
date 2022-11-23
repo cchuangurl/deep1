@@ -1,5 +1,6 @@
 //載入相對應的model
 const Project = require('../models/index').project;
+const Term = require('../models/index').term;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
