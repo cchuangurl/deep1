@@ -1,13 +1,16 @@
 //載入相對應的model
 const Project = require('../models/index').project;
 const Term = require('../models/index').term;
+const Staffinfo = require('../models/index').staffinfo;
+const Guestinfo = require('../models/index').guestinfo;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
     console.log("found route /deep1/project !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
-    await Project.find({}).then(async projects=>{
+    await Project.find({})
+    .then(async projects=>{
         //console.log("found projects:"+projects);
         console.log("type of projects:"+typeof(projects));
         console.log("type of 1st project:"+typeof(projects[0]));
@@ -32,10 +35,61 @@ async list(ctx,next){
 
 
 //到新增資料頁
-inputpage(req, res) {
-    //在router設定了
+async inputpage(ctx, next) {
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    var termlist;
+    var staffinfolist;
+    var guestinfolist;
+    await Term.find({a15model:"project"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
+    await Guestinfo.find({})
+    .then(async guests=>{
+        console.log("type of guestfs:"+typeof(guests));
+        console.log("type of 1st guest:"+typeof(guests[0]));
+        console.log("1st guest:"+guests[0])
+        console.log("No. of guest:"+guests.length)
+        guestinfolist=encodeURIComponent(JSON.stringify(guests));
+        console.log("type of guestlist:"+typeof(guestinfolist));
+    })
+    .catch(err=>{
+        console.log("Guestinfo.find({}) failed !!");
+        console.log(err)
+    })
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist));
+        await ctx.render("project/inputpage",{
+            statusreport:ctx.request.body.statusreport,
+            termlist,
+            staffinfolist,
+            guestinfolist
+        })
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    }) 
 },
-
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
@@ -45,15 +99,64 @@ async editpage(ctx, next) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }
+    var termlist;
+    var staffinfolist;
+    var guestinfolist;
+    var project;
+    await Term.find({a15model:"project"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
+    await Guestinfo.find({})
+    .then(async guests=>{
+        console.log("type of guestfs:"+typeof(guests));
+        console.log("type of 1st guest:"+typeof(guests[0]));
+        console.log("1st guest:"+guests[0])
+        console.log("No. of guest:"+guests.length)
+        guestinfolist=encodeURIComponent(JSON.stringify(guests));
+        console.log("type of guestlist:"+typeof(guestinfolist));
+    })
+    .catch(err=>{
+        console.log("Guestinfo.find({}) failed !!");
+        console.log(err)
+    })
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist))
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    })   
     await Project.findById(ctx.params.id)
         .then(async projectx=>{
             console.log("projectx:"+projectx);
-            let project=encodeURIComponent(JSON.stringify(projectx));
+            project=encodeURIComponent(JSON.stringify(projectx));
             console.log("project:"+project);
             console.log("type of project:"+typeof(project));
             await ctx.render("project/editpage",{
-                project:project,
-                statusreport:statusreport
+                termlist,
+                staffinfolist,
+                guestinfolist,
+                project,
+                statusreport
             })
         })
         .catch(err=>{

@@ -1,6 +1,8 @@
 //載入相對應的model
 const Process = require('../models/index').process;
 const Term = require('../models/index').term;
+const Staffinfo = require('../models/index').staffinfo;
+const Ocosa = require('../models/index').ocosa;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
@@ -32,10 +34,62 @@ async list(ctx,next){
 
 
 //到新增資料頁
-inputpage(req, res) {
-    //在router設定了
-},
+async inputpage(ctx, next) {
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    var termlist;
+    var staffinfolist;
+    var ocosalist;
+    await Term.find({a15model:"process"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
 
+    await Ocosa.find({})
+    .then(async ocosas=>{
+        console.log("type of ocosas:"+typeof(ocosas));
+        console.log("type of 1st ocosa:"+typeof(ocosas[0]));
+        console.log("1st ocosa:"+ocosas[0])
+        console.log("No. of ocosa:"+ocosas.length)
+        ocosalist=encodeURIComponent(JSON.stringify(ocosas));
+        console.log("type of ocosalist:"+typeof(ocosalist));
+    })
+    .catch(err=>{
+        console.log("Ocosa.find({}) failed !!");
+        console.log(err)
+    })    
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist));
+        await ctx.render("process/inputpage",{
+            statusreport:ctx.request.body.statusreport,
+            termlist,
+            staffinfolist,
+            ocosalist
+        })
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    }) 
+},
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
@@ -45,13 +99,63 @@ async editpage(ctx, next) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }
+    var termlist;
+    var staffinfolist;
+    var ocosalist;
+    var process;
+    await Term.find({a15model:"process"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
+
+    await Ocosa.find({})
+    .then(async ocosas=>{
+        console.log("type of ocosas:"+typeof(ocosas));
+        console.log("type of 1st ocosa:"+typeof(ocosas[0]));
+        console.log("1st ocosa:"+ocosas[0])
+        console.log("No. of ocosa:"+ocosas.length)
+        ocosalist=encodeURIComponent(JSON.stringify(ocosas));
+        console.log("type of ocosalist:"+typeof(ocosalist));
+    })
+    .catch(err=>{
+        console.log("Ocosa.find({}) failed !!");
+        console.log(err)
+    })    
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist))
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    })  
     await Process.findById(ctx.params.id)
         .then(async processx=>{
             console.log("processx:"+processx);
-            let process=encodeURIComponent(JSON.stringify(processx));
+            process=encodeURIComponent(JSON.stringify(processx));
             console.log("process:"+process);
             console.log("type of process:"+typeof(process));
             await ctx.render("process/editpage",{
+                termlist,
+                staffinfolist,
+                ocosalist,
                 process:process,
                 statusreport:statusreport
             })

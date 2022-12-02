@@ -37,11 +37,10 @@ async inputpage(ctx, next) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }    
-	await ctx.render("guestinfo/inputpage",{
-		statusreport:ctx.request.body.statusreport
-	})
+    await ctx.render("guestinfo/inputpage",{
+        statusreport:ctx.request.body.statusreport
+    })
 },
-
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;

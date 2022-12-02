@@ -68,32 +68,35 @@ body {
             <label for="formGroupExampleInput2">{{items.item}}</label>
             <input type="text" name="_id" class="form-control" id="formGroupExampleInput" :value="user._id">
             
-              <label for="formGroupExampleInput2">{{items.item0}}</label>
-              <input type="text" name="a05name" class="form-control" id="formGroupExampleInput0" :value="user.a05name">
+            <label for="formGroupExampleInput2">{{items.item0}}</label>
+            <select name="a03status" class="form-select">
+               <optgroup v-for="(status,index) of statuss" :key="status._id">
+               <option :value="status.a25code" :selected="statusindex[index]">{{status.a30mean}}</option>
+               </optgroup>
+               </select>
+             <br>
 
-              <label for="formGroupExampleInput2">{{items.item1}}</label>
-              <input type="text" name="a10account" class="form-control" id="formGroupExampleInput1" :value="user.a10account">
+             <label for="formGroupExampleInput2">{{items.item1}}</label>
+             <select name="a08infoID" class="form-select">
+               <optgroup v-for="(guestinfo,index) of guestinfolist" :key="guestinfo._id" >            
+               <option :value="guestinfo._id" :selected="guestindex[index]">{{guestinfo.a10visitor}}{{guestinfo.a30phoneno}}</option>
+               </optgroup>  
+               </select>             
+               <br>  
+             
+             <label for="formGroupExampleInput2">{{items.item2}}</label>
+             <input type="text" name="a10account" class="form-control" id="formGroupExampleInput2" :value="user.a10account">
+          
+             <label for="formGroupExampleInput2">{{items.item3}}</label>
+             <input type="text" name="a15password" class="form-control" id="formGroupExampleInput3" :value="user.a15password">
            
-              <label for="formGroupExampleInput2">{{items.item2}}</label>
-              <input type="text" name="a15password" class="form-control" id="formGroupExampleInput2" :value="user.a15password">
-            
-              <label for="formGroupExampleInput2">{{items.item3}}</label>
-              <input type="text" name="a20department" class="form-control" id="formGroupExampleInput3" :value="user.a20department">
-            
-              <label for="formGroupExampleInput2">{{items.item4}}</label>
-              <input type="text" name="a25position" class="form-control" id="formGroupExampleInput4" :value="user.a25position">
-           
-              <label for="formGroupExampleInput2">{{items.item5}}</label>
-              <input type="text" name="a30email" class="form-control" id="formGroupExampleInput5" :value="user.a30email">
-            
-              <label for="formGroupExampleInput2">{{items.item6}}</label>
-              <input type="text" name="a35tel" class="form-control" id="formGroupExampleInput6" :value="user.a35tel">
-            
-              <label for="formGroupExampleInput2">{{items.item7}}</label>
-              <input type="text" name="a40mobile" class="form-control" id="formGroupExampleInput7" :value="user.a40mobile">
-            
-              <label for="formGroupExampleInput2">{{items.item8}}</label>
-              <input type="text" name="a45group" class="form-control" id="formGroupExampleInput8" :value="user.a45group">
+             <label for="formGroupExampleInput2">{{items.item4}}</label>
+             <select name="a45group" class="form-select">
+               <optgroup v-for="(group,index) of groups" :key="group._id">
+               <option :value="group.a25code" :selected="groupindex[index]">{{group.a30mean}}</option>
+               </optgroup>
+               </select>
+             <br>   
            
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正user後進入本頁">
             
@@ -147,24 +150,51 @@ Vue.component("bander",{
             item99:"使用者特別註記"     
       },
       user:JSON.parse(decodeURIComponent('<%=user%>')),
+      termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        guestinfolist:JSON.parse(decodeURIComponent('<%=guestinfolist%>')),
+        statuss:[],
+        groups:[],
+        guestindex:[],
+        statusindex:[],
+        groupindex:[],           
       inputerUIkey:0
-      /*
-      values:{
         
-         value:user._id
-         value0:user.a05name,
-            value1:user.a10account,
-            value2:user.a15password,
-            value3:user.a20department,
-            value4:user.a25position,
-            value5:user.a30email,
-            value6:user.a35tel,
-            value7:user.a40mobile,
-            value8:user.a45group,
-            value99:user.a99footnote         
-    } */
-  }//EOF return 
-    }, //EOF data()
+      } 
+    },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a03status"){
+                this.statuss.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a45group"){
+                this.groups.push(term)
+            }
+        }
+        for(guest of this.guestinfolist){
+            if(guest._id==this.user.a08infoID){
+                this.guestindex.push(true)
+            }else{
+                this.guestindex.push(false)
+            }
+        } 
+        for(group of this.groups){
+            if(group.a25code==this.user.a45group){
+                this.groupindex.push(true)
+            }else{
+                this.groupindex.push(false)
+            }
+        }
+        for(status of this.statuss){
+            if(status.a25code==this.user.a30status){
+                this.statusindex.push(true)
+            }else{
+                this.statusindex.push(false)
+            }
+        }                         
+    },    
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

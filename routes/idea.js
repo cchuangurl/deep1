@@ -5,9 +5,14 @@ const ideaController = require('../controllers/index').idea;
 router.get('/', async (ctx, next)=> {
 	await ideaController.list(ctx)
 });
+
 //到新增資料頁
 router.get('/inputpage', async (ctx, next)=> {
     await ideaController.inputpage(ctx,next)
+});
+ //到員工建言頁
+router.get('/inputpage1', async (ctx, next)=> {
+    await ideaController.inputbystaff(ctx,next)
 });
 //到修正單筆資料頁
 router.get('/editpage/:id', async (ctx, next)=> {

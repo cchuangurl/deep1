@@ -9,9 +9,11 @@ var IdeaSchema = new Schema(
     a15dateofidea:{type:Date,required:true},
     a20titleofidea:{type:String,required:false},
     a25idea:{type:String,required:false},
-    a30codelast:{type:String,required:false},
+    a30codelast:{type:Schema.Types.ObjectID
+        ,required:false},
     a35codethis:{type:String,required:false},
-    a40responsor:{type:String,required:false},
+    a40responsor:{type:Schema.Types.ObjectID
+        ,required:false},
     a45response:{type:String,required:false},
     a50followact:{type:String,required:false},
     a99footnote:{type:String,required:false}      

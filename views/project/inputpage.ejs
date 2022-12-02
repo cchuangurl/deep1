@@ -69,17 +69,32 @@ body {
             <div class="form-group" :key="inputerUIkey">              
             
               <label for="formGroupExampleInput2">{{items.item0}}</label>
-              <input type="text" name="a05client_id" class="form-control" id="formGroupExampleInput0" :placeholder="holders.holder0">
+              <select name="a05client_id" class="form-select" :placeholder="holders.holder0">
+                <optgroup v-for="guestinfo of guestinfolist" :key="guestinfo._id" >            
+                <option :value="guestinfo._id">{{guestinfo.a10visitor}}{{guestinfo.a30phoneno}}</option>
+                </optgroup>  
+                </select>             
+                <br>
 
               <label for="formGroupExampleInput2">{{items.item1}}</label>
-              <input type="text" name="a10staff_id" class="form-control" id="formGroupExampleInput1" :placeholder="holders.holder1">
+              <select name="a10staff_id" class="form-select" :placeholder="holders.holder1">
+                <optgroup v-for="staffinfo of staffinfolist" :key="staffinfo._id" >            
+                <option :value="staffinfo._id">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
+                </optgroup>  
+                </select>             
+                <br>
            
               <label for="formGroupExampleInput2">{{items.item2}}</label>
               <input type="text" name="a15name" class="form-control" id="formGroupExampleInput2" :placeholder="holders.holder2">
             
               <label for="formGroupExampleInput2">{{items.item3}}</label>
-              <input type="text" name="a20type" class="form-control" id="formGroupExampleInput3" :placeholder="holders.holder3">
-            
+              <select name="a20type" class="form-select" :placeholder="holders.holder3">
+                <optgroup v-for="type of types" :key="type._id">
+                <option :value="type.a25code">{{type.a30mean}}</option>
+                </optgroup>
+                </select>
+              <br>
+
               <label for="formGroupExampleInput2">{{items.item4}}</label>
               <input type="text" name="a25describe" class="form-control" id="formGroupExampleInput4" :placeholder="holders.holder4">
            
@@ -93,8 +108,12 @@ body {
               <input type="text" name="a40contractdate" class="form-control" id="formGroupExampleInput7" :placeholder="holders.holder7">
             
               <label for="formGroupExampleInput2">{{items.item8}}</label>
-              <input type="text" name="a45process" class="form-control" id="formGroupExampleInput8" :placeholder="holders.holder8">
-            
+           <select name="a45process" class="form-select" :placeholder="holders.holder8">
+                    <optgroup v-for="stage of stages" :key="stage._id">
+                    <option :value="stage.a25code">{{stage.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br> 
               <label for="formGroupExampleInput2">{{items.item9}}</label>
               <input type="text" name="a50fullfitdate" class="form-control" id="formGroupExampleInput9" :placeholder="holders.holder9">
             
@@ -108,7 +127,7 @@ body {
               <input type="text" name="a65status" class="form-control" id="formGroupExampleInput12" :placeholder="holders.holder12">
             
               <label for="formGroupExampleInput">{{items.item99}}</label>
-              <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput11" :placeholder="holders.holder99">
+              <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput99" :placeholder="holders.holder99">
             
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由單筆project輸入後進入本頁">
             
@@ -147,20 +166,20 @@ Vue.component("bander",{
         card_title:"新增1個專案管理",
         card_subtitle:"請輸入以下各項資料:",
         items:{
-            item0:"客戶識別碼",
-            item1:"主辦員工識別碼",
-            item2:"服務專案名稱",
-            item3:"服務類型",
-            item4:"需求內容簡述",
-            item5:"客戶提出日期",
-            item6:"解決構想發送日期",
-            item7:"服務契約合意日期",
-            item8:"進度紀錄",
-            item9:"驗收合格日期",
-            item10:"實際履行金額",
-            item11:"尾款收取日期",
-            item12:"結案註記",
-            item99:"特別註記"
+            item0:"客戶識別碼:",
+            item1:"主辦員工識別碼:",
+            item2:"服務專案名稱:",
+            item3:"服務類型:",
+            item4:"需求內容簡述:",
+            item5:"客戶提出日期:",
+            item6:"解決構想發送日期:",
+            item7:"服務契約合意日期:",
+            item8:"進度紀錄:",
+            item9:"驗收合格日期:",
+            item10:"實際履行金額:",
+            item11:"尾款收取日期:",
+            item12:"結案註記:",
+            item99:"特別註記:"
       },
         holders:{
             holder0:"物件識別碼,",
@@ -178,10 +197,26 @@ Vue.component("bander",{
             holder12:"邏輯值,True, False",
             holder99:"字串"
         },
+        termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        guestinfolist:JSON.parse(decodeURIComponent('<%=guestinfolist%>')),
+        types:[],
+        stages:[],
       inputerUIkey:0
-        
       } 
     },
+    mounted:function(){
+        for(let term of this.termlist){
+            if(term.a20field=="a20type"){
+                this.types.push(term)
+            }
+        }
+        for(let term of this.termlist){
+            if(term.a20field=="a45stage"){
+                this.stages.push(term)
+            }
+        }                  
+    },   
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

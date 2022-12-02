@@ -1,6 +1,7 @@
 //載入相對應的model
 const Message = require('../models/index').message;
 const Term = require('../models/index').term;
+const Staffinfo = require('../models/index').staffinfo;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
@@ -32,10 +33,64 @@ async list(ctx,next){
 
 
 //到新增資料頁
-inputpage(req, res) {
-    //在router設定了
+async inputpage(ctx, next) {
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    var termlist;
+    var messagelist;
+    var staffinfolist;
+    await Message.find({})
+    .then(async messages=>{
+        console.log("type of messages:"+typeof(messages));
+        console.log("type of 1st message:"+typeof(messages[0]));
+        console.log("1st message:"+messages[0])
+        console.log("No. of message:"+messages.length)
+        messagelist=encodeURIComponent(JSON.stringify(messages));
+        console.log("type of messagelist:"+typeof(messagelist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Idea.find({}) failed !!");
+        console.log(err)
+    })
+    await Term.find({a15model:"message"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })  
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist));
+        await ctx.render("message/inputpage",{
+            statusreport:ctx.request.body.statusreport,
+            termlist,
+            staffinfolist,
+            messagelist
+        })
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    }) 
 },
-
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
@@ -45,15 +100,67 @@ async editpage(ctx, next) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }
+    var termlist;
+    var messagelist;
+    var staffinfolist;
+    var message;
+    await Message.find({})
+    .then(async messages=>{
+        console.log("type of messages:"+typeof(messages));
+        console.log("type of 1st message:"+typeof(messages[0]));
+        console.log("1st message:"+messages[0])
+        console.log("No. of message:"+messages.length)
+        messagelist=encodeURIComponent(JSON.stringify(messages));
+        console.log("type of messagelist:"+typeof(messagelist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Idea.find({}) failed !!");
+        console.log(err)
+    })
+    await Term.find({a15model:"message"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })  
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist))
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    })  
     await Message.findById(ctx.params.id)
         .then(async messagex=>{
             console.log("messagex:"+messagex);
-            let message=encodeURIComponent(JSON.stringify(messagex));
+            message=encodeURIComponent(JSON.stringify(messagex));
             console.log("message:"+message);
             console.log("type of message:"+typeof(message));
             await ctx.render("message/editpage",{
-                message:message,
-                statusreport:statusreport
+                termlist,
+                staffinfolist,
+                messagelist,  
+                message,
+                statusreport
             })
         })
         .catch(err=>{

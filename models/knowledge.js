@@ -10,7 +10,7 @@ var KnowledgeSchema = new Schema(
     a25alias:{type:String,required:false},
     a30category:{type:String,required:false},
     a33course:{type:String,required:false},
-    a35uploader:{type:String,required:false},
+    a35uploader:{type:Schema.Types.ObjectID,required:false},
     a40date:{type:Date,required:true},
     a45reveal:{type:String,required:false},
     a50is4download:{type:Boolean,required:false},

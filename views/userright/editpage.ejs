@@ -68,23 +68,43 @@ body {
             <label for="formGroupExampleInput2">{{items.item}}</label>
             <input type="text" name="_id" class="form-control" id="formGroupExampleInput" :value="userright._id">
             
-              <label for="formGroupExampleInput2">{{items.item0}}</label>
-              <input type="text" name="a05group" class="form-control" id="formGroupExampleInput0" :value="userright.a05group">
+            <label for="formGroupExampleInput2">{{items.item0}}</label>              
+            <select name="a05group" class="form-select">
+              <optgroup v-for="(group,index) of groups" :key="group._id">
+              <option :value="group.a25code" :selected="groupindex[index]">{{group.a30mean}}</option>
+              </optgroup>
+              </select>
+            <br>
 
-              <label for="formGroupExampleInput2">{{items.item1}}</label>
-              <input type="text" name="a10operation" class="form-control" id="formGroupExampleInput1" :value="userright.a10operation">
-           
-              <label for="formGroupExampleInput2">{{items.item2}}</label>
-              <input type="text" name="a15storage" class="form-control" id="formGroupExampleInput2" :value="userright.a15storage">
-            
-              <label for="formGroupExampleInput2">{{items.item3}}</label>
-              <input type="text" name="a20scope" class="form-control" id="formGroupExampleInput3" :value="userright.a20scope">
-            
-              <label for="formGroupExampleInput2">{{items.item4}}</label>
-              <input type="text" name="a25access" class="form-control" id="formGroupExampleInput4" :value="userright.a25access">
-           
-              <label for="formGroupExampleInput2">{{items.item5}}</label>
-              <input type="text" name="a30dboperate" class="form-control" id="formGroupExampleInput5" :value="userright.a30dboperate">
+            <label for="formGroupExampleInput2">{{items.item1}}</label>
+            <select name="a10operation" class="form-select">
+              <optgroup v-for="(operation,index) of operations" :key="operation._id">
+              <option :value="operation.a25code" :selected="operationindex[index]">{{operation.a30mean}}</option>
+              </optgroup>
+              </select>
+            <br>
+
+            <label for="formGroupExampleInput2">{{items.item2}}</label>
+            <input type="text" name="a15storage" class="form-control" id="formGroupExampleInput2" :value="userright.a15storage">
+          
+            <label for="formGroupExampleInput2">{{items.item3}}</label>
+            <select name="a20scope" class="form-select">
+              <optgroup v-for="(scope,index) of scopes" :key="scope._id">
+              <option :value="scope.a25code" :selected="scopeindex[index]">{{scope.a30mean}}</option>
+              </optgroup>
+              </select>
+            <br>
+
+            <label for="formGroupExampleInput2">{{items.item4}}</label>
+            <input type="text" name="a25access" class="form-control" id="formGroupExampleInput4" :value="userright.a25access">
+         
+            <label for="formGroupExampleInput2">{{items.item5}}</label>
+            <select name="a30dboperate" class="form-select">
+              <optgroup v-for="(dboperate,index) of dboperates" :key="dboperate._id">
+              <option :value="dboperate.a25code" :selected="dboperateindex[index]">{{dboperate.a30mean}}</option>
+              </optgroup>
+              </select>
+            <br>   
             
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正userright後進入本頁">
             
@@ -134,24 +154,69 @@ Vue.component("bander",{
             item99:"特別註記"     
       },
       userright:JSON.parse(decodeURIComponent('<%=userright%>')),
+      termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        groups:[],
+        operations:[],
+        scopes:[],
+        dboperates:[],
+        groupindex:[],
+        operationindex:[],
+        scopeindex:[],
+        dboperateindex:[],      
       inputerUIkey:0
-      /*
-      values:{
         
-         value:userright._id
-         value0:userright.a05name,
-            value1:userright.a10account,
-            value2:userright.a15password,
-            value3:userright.a20department,
-            value4:userright.a25position,
-            value5:userright.a30email,
-            value6:userright.a35tel,
-            value7:userright.a40mobile,
-            value8:userright.a45group,
-            value99:userright.a99footnote         
-    } */
-  }//EOF return 
-    }, //EOF data()
+      } 
+    },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a05group"){
+                this.groups.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a10operation"){
+                this.operations.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a20scope"){
+                this.scopes.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a30dboperate"){
+                this.dboperates.push(term)
+            }
+        }
+        for(group of this.groups){
+            if(group.a25code==this.userright.a05group){
+                this.groupindex.push(true)
+            }else{
+                this.groupindex.push(false)
+            }
+        }
+        for(operation of this.operations){
+            if(operation.a25code==this.userright.a10operation){
+                this.operationindex.push(true)
+            }else{
+                this.operationindex.push(false)
+            }
+        }
+        for(scope of this.scopes){
+            if(scope.a25code==this.userright.a20scope){
+                this.scopeindex.push(true)
+            }else{
+                this.scopeindex.push(false)
+            }
+        }
+        for(dboperate of this.dboperates){
+            if(dboperate.a25code==this.userright.a30dboperate){
+                this.dboperateindex.push(true)
+            }else{
+                this.dboperateindex.push(false)
+            }
+        }               
+    },
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

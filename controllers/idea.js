@@ -1,6 +1,7 @@
 //載入相對應的model
 const Idea = require('../models/index').idea;
 const Term = require('../models/index').term;
+const Staffinfo = require('../models/index').staffinfo;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
@@ -35,12 +36,60 @@ async list(ctx,next){
 async inputpage(ctx, next) {
     var {statusreport}=ctx.request.body;
     console.log("gotten query:"+statusreport);
-    if(statusreport===undefined){
-        statusreport="status未傳成功!"
-    }    
-	await ctx.render("idea/inputpage",{
-		statusreport:ctx.request.body.statusreport
-	})
+    var termlist;    
+    var idealist;
+    var staffinfolist;
+    await Idea.find({})
+    .then(async ideas=>{
+        console.log("type of ideas:"+typeof(ideas));
+        console.log("type of 1st idea:"+typeof(ideas[0]));
+        console.log("1st idea:"+ideas[0])
+        console.log("No. of idea:"+ideas.length)
+        idealist=encodeURIComponent(JSON.stringify(ideas));
+        console.log("type of idealist:"+typeof(idealist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Idea.find({}) failed !!");
+        console.log(err)
+    })
+    await Term.find({a15model:"idea"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })    
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist));
+        await ctx.render("idea/inputpage",{
+            statusreport:ctx.request.body.statusreport,
+            termlist,
+            staffinfolist,
+            idealist            
+        })
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    }) 
 },
 
 //到修正單筆資料頁
@@ -52,21 +101,73 @@ async editpage(ctx, next) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }
+    var idea;
+    var termlist;    
+    var idealist;
+    var staffinfolist;    
     await Idea.findById(ctx.params.id)
         .then(async ideax=>{
             console.log("ideax:"+ideax);
-            let idea=encodeURIComponent(JSON.stringify(ideax));
+            idea=encodeURIComponent(JSON.stringify(ideax));
             console.log("idea:"+idea);
             console.log("type of idea:"+typeof(idea));
-            await ctx.render("idea/editpage",{
-                idea:idea,
-                statusreport:statusreport
-            })
         })
         .catch(err=>{
             console.log("Idea.findById(ctx.params.id) failed !!");
             console.log(err)
         })
+        await Idea.find({})
+        .then(async ideas=>{
+            console.log("type of ideas:"+typeof(ideas));
+            console.log("type of 1st idea:"+typeof(ideas[0]));
+            console.log("1st idea:"+ideas[0])
+            console.log("No. of idea:"+ideas.length)
+            idealist=encodeURIComponent(JSON.stringify(ideas));
+            console.log("type of idealist:"+typeof(idealist));    
+            if(statusreport===undefined){
+                statusreport="status未傳成功!"
+            }
+        })
+        .catch(err=>{
+            console.log("Idea.find({}) failed !!");
+            console.log(err)
+        })
+        await Term.find({a15model:"idea"})
+        .then(async terms=>{
+            console.log("type of terms:"+typeof(terms));
+            console.log("type of 1st term:"+typeof(terms[0]));
+            console.log("1st term:"+terms[0])
+            console.log("No. of term:"+terms.length)
+            termlist=encodeURIComponent(JSON.stringify(terms));
+            console.log("type of termlist:"+typeof(termlist));    
+            if(statusreport===undefined){
+                statusreport="status未傳成功!"
+            }
+        })
+        .catch(err=>{
+            console.log("Term.find({}) failed !!");
+            console.log(err)
+        })    
+        await Staffinfo.find({})
+        .then(async staffs=>{
+            console.log("type of staffs:"+typeof(staffs));
+            console.log("type of 1st staff:"+typeof(staffs[0]));
+            console.log("1st staff:"+staffs[0])
+            console.log("No. of staff:"+staffs.length)
+            staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+            console.log("type of staffinfolist:"+typeof(staffinfolist));
+            await ctx.render("idea/editpage",{
+                statusreport:ctx.request.body.statusreport,
+                termlist,
+                staffinfolist,
+                idealist,
+                idea            
+            })
+        })
+        .catch(err=>{
+            console.log("Staffinfo.find({}) failed !!");
+            console.log(err)
+        })     
 },
 
 //依參數id取得資料

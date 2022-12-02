@@ -68,38 +68,63 @@ body {
           <form action="/deep1/knowledge/add" method="post">
             <div class="form-group" :key="inputerUIkey">              
             
-                <label for="formGroupExampleInput2">{{items.item0}}</label>
-                <input type="text" name="a05domain" class="form-control" id="formGroupExampleInput0" :placeholder="holders.holder0">
-  
+                <label for="formGroupExampleInput2">{{items.item0}}</label>                
+                <select name="a05domain" class="form-select" :placeholder="holders.holder0">
+                    <optgroup v-for="domain of domains" :key="domain._id" >                
+                    <option :value="domain.a25code">{{domain.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br> 
+
                 <label for="formGroupExampleInput2">{{items.item1}}</label>
-                <input type="text" name="a10code" class="form-control" id="formGroupExampleInput1" :placeholder="holders.holder1">
-             
+                <input type="text" name="a15describe" class="form-control" id="formGroupExampleInput1" :placeholder="holders.holder1">
+              
                 <label for="formGroupExampleInput2">{{items.item2}}</label>
-                <input type="text" name="a15describe" class="form-control" id="formGroupExampleInput2" :placeholder="holders.holder2">
+                <input type="text" name="a20filename" class="form-control" id="formGroupExampleInput2" :placeholder="holders.holder2">
               
                 <label for="formGroupExampleInput2">{{items.item3}}</label>
-                <input type="text" name="a20filename" class="form-control" id="formGroupExampleInput3" :placeholder="holders.holder3">
-              
-                <label for="formGroupExampleInput2">{{items.item4}}</label>
-                <input type="text" name="a25filealiax" class="form-control" id="formGroupExampleInput4" :placeholder="holders.holder4">
+                <input type="text" name="a25alias" class="form-control" id="formGroupExampleInput3" :placeholder="holders.holder3">
              
+                <label for="formGroupExampleInput2">{{items.item4}}</label>
+                <select name="a30category" class="form-select" :placeholder="holders.holder4">
+                    <optgroup v-for="category of categorys" :key="category._id" >                
+                    <option :value="category.a25code">{{category.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br>  
+                
                 <label for="formGroupExampleInput2">{{items.item5}}</label>
-                <input type="text" name="a30category" class="form-control" id="formGroupExampleInput5" :placeholder="holders.holder5">
-              
+                <select name="a33course" class="form-select" :placeholder="holders.holder5">
+                    <optgroup v-for="course of courses" :key="course._id" >                
+                    <option :value="course.a25code">{{course.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br>   
+                
                 <label for="formGroupExampleInput2">{{items.item6}}</label>
-                <input type="text" name="a35uploader" class="form-control" id="formGroupExampleInput6" :placeholder="holders.holder6">
+                <select name="a35uploader" class="form-select" :placeholder="holders.holder6">
+                    <optgroup v-for="staffinfo of staffinfolist" :key="staffinfo._id" >            
+                    <option :value="staffinfo._id">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
+                    </optgroup>  
+                    </select>             
+                    <br>       
               
                 <label for="formGroupExampleInput2">{{items.item7}}</label>
                 <input type="text" name="a40date" class="form-control" id="formGroupExampleInput7" :placeholder="holders.holder7">
               
                 <label for="formGroupExampleInput2">{{items.item8}}</label>
-                <input type="text" name="a45reveal" class="form-control" id="formGroupExampleInput8" :placeholder="holders.holder8">
+                <select name="a45reveal" class="form-select" :placeholder="holders.holder8">
+                    <optgroup v-for="reveal of reveals" :key="reveal._id" >                
+                    <option :value="reveal.a25code">{{reveal.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br> 
               
                 <label for="formGroupExampleInput2">{{items.item9}}</label>
-                <input type="text" name="a504download" class="form-control" id="formGroupExampleInput9" :placeholder="holders.holder9">
+                <input type="text" name="a50is4download" class="form-control" id="formGroupExampleInput9" :placeholder="holders.holder9">
              
                 <label for="formGroupExampleInput">{{items.item99}}</label>
-                <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput11" :placeholder="holders.holder99">
+                <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput99" :placeholder="holders.holder99">
             
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由單筆knowledge輸入後進入本頁">
             
@@ -138,35 +163,63 @@ Vue.component("bander",{
         card_title:"新增1個專業知識檔",
         card_subtitle:"請輸入以下各項資料:",
         items:{
-            item0:"知識領域",
-            item1:"分類代碼",
-            item2:"材料標題",
-            item3:"檔案主檔名",
-            item4:"檔案附檔名",
-            item5:"類別",
-            item6:"上傳者ID",
-            item7:"上傳日期",
-            item8:"揭露等級",
-            item9:"是否提供下載",
-            item99:"特別註記"
+            item0:"員工知識領域：",
+            item1:"材料標題：",
+            item2:"檔案主檔名：",
+            item3:"檔案附檔名：",
+            item4:"企管類別：",
+            item5:"課程別：",
+            item6:"上傳者ID：",
+            item7:"上傳日期：",
+            item8:"揭露對象：",
+            item9:"是否提供下載：",
+            item99:"特別註記："
       },
         holders:{
-            holder0:"字串,",
+            holder0:"字串,如名詞字典選項",
             holder1:"字串,",
             holder2:"字串,",
             holder3:"字串,",
-            holder4:"字串,",
+            holder4:"字串,如名詞字典選項",
             holder5:"字串,",
             holder6:"字串,",
             holder7:"日期時間,",
-            holder8:"字串,",
+            holder8:"字串,如名詞字典選項",
             holder9:"邏輯值,",
             holder99:"字串"
         },
+        termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        domains:[],
+        reveals:[],
+        categorys:[],
+        courses:[],
       inputerUIkey:0
         
       } 
     },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a05domain"){
+                this.domains.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a45reveal"){
+                this.reveals.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a30category"){
+                this.categorys.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a33course"){
+                this.courses.push(term)
+            }
+        }                   
+    },   
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

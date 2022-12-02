@@ -13,7 +13,7 @@ var OcosaSchema = new Schema(
     a35strategy:{type:String,required:false},
     a40strategyorder:{type:Number,required:false},
     a45action:{type:String,required:false},
-    a50actiondoer:{type:Number,required:false},
+    a50actionorder:{type:Number,required:false},
     a99footnote:{type:String,required:false}     
   }
 );

@@ -1,6 +1,8 @@
 //載入相對應的model
 const User = require('../models/index').user;
 const Term = require('../models/index').term;
+const Staffinfo = require('../models/index').staffinfo;
+const Guestinfo = require('../models/index').guestinfo;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
@@ -32,10 +34,61 @@ async list(ctx,next){
 
 
 //到新增資料頁
-inputpage(req, res) {
-    //在router設定了
+async inputpage(ctx, next) {
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    var termlist;
+    var staffinfolist;
+    var guestinfolist;
+    await Term.find({a15model:"user"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
+    await Guestinfo.find({})
+    .then(async guests=>{
+        console.log("type of guests:"+typeof(guests));
+        console.log("type of 1st guest:"+typeof(guests[0]));
+        console.log("1st guest:"+guests[0])
+        console.log("No. of guest:"+guests.length)
+        guestinfolist=encodeURIComponent(JSON.stringify(guests));
+        console.log("type of guestinfolist:"+typeof(guestinfolist));
+    })
+    .catch(err=>{
+        console.log("Guestinfo.find({}) failed !!");
+        console.log(err)
+    }) 
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist));
+        await ctx.render("user/inputpage",{
+            statusreport:ctx.request.body.statusreport,
+            termlist,
+            staffinfolist,
+            guestinfolist
+        })
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    }) 
 },
-
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
@@ -45,15 +98,64 @@ async editpage(ctx, next) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }
+    var termlist;
+    var staffinfolist;
+    var guestinfolist;
+    var user;
+    await Term.find({a15model:"user"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
+    await Guestinfo.find({})
+    .then(async guests=>{
+        console.log("type of guests:"+typeof(guests));
+        console.log("type of 1st guest:"+typeof(guests[0]));
+        console.log("1st guest:"+guests[0])
+        console.log("No. of guest:"+guests.length)
+        guestinfolist=encodeURIComponent(JSON.stringify(guests));
+        console.log("type of guestinfolist:"+typeof(guestinfolist));
+    })
+    .catch(err=>{
+        console.log("Guestinfo.find({}) failed !!");
+        console.log(err)
+    }) 
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist))
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    }) 
     await User.findById(ctx.params.id)
         .then(async userx=>{
             console.log("userx:"+userx);
-            let user=encodeURIComponent(JSON.stringify(userx));
+            user=encodeURIComponent(JSON.stringify(userx));
             console.log("user:"+user);
             console.log("type of user:"+typeof(user));
             await ctx.render("user/editpage",{
-                user:user,
-                statusreport:statusreport
+                termlist,
+                staffinfolist,
+                guestinfolist,
+                user,
+                statusreport
             })
         })
         .catch(err=>{

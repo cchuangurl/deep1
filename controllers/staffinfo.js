@@ -32,10 +32,30 @@ async list(ctx,next){
 
 
 //到新增資料頁
-inputpage(req, res) {
-    //在router設定了
+async inputpage(ctx, next) {
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    var termlist;
+    await Term.find({a15model:"staffinfo"}).then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }    
+        await ctx.render("staffinfo/inputpage",{
+            statusreport:ctx.request.body.statusreport,
+            termlist
+        })
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
 },
-
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
@@ -45,15 +65,33 @@ async editpage(ctx, next) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }
+    var termlist;
+    var staffinfo;
+    await Term.find({a15model:"staffinfo"}).then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
     await Staffinfo.findById(ctx.params.id)
         .then(async staffinfox=>{
             console.log("staffinfox:"+staffinfox);
-            let staffinfo=encodeURIComponent(JSON.stringify(staffinfox));
+            staffinfo=encodeURIComponent(JSON.stringify(staffinfox));
             console.log("staffinfo:"+staffinfo);
             console.log("type of staffinfo:"+typeof(staffinfo));
             await ctx.render("staffinfo/editpage",{
-                staffinfo:staffinfo,
-                statusreport:statusreport
+                termlist,
+                staffinfo,
+                statusreport
             })
         })
         .catch(err=>{

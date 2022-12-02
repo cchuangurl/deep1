@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var PostSchema = new Schema(
   {
     a10posttype:{type:String,required:false},
-    a15poster:{type:String,required:false},
+    a15poster:{type:Schema.Types.ObjectID,required:false},
     a20postdate:{type:Date,required:false},
     a25posttitle:{type:String,required:true},
     a30postcontent:{type:String,required:false},

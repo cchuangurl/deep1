@@ -9,9 +9,9 @@ var MessageSchema = new Schema(
     a15dateofmsg:{type:Date,required:true},
     a20titleofmsg:{type:String,required:false},
     a25message:{type:String,required:false},
-    a30codelast:{type:String,required:false},
+    a30codelast:{type:Schema.Types.ObjectID,required:false},
     a35codethis:{type:String,required:false},
-    a40responsor:{type:String,required:false},
+    a40responsor:{type:Schema.Types.ObjectID,required:false},
     a45response:{type:String,required:false},
     a50followact:{type:String,required:false},
     a99footnote:{type:String,required:false}      

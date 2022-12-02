@@ -14,10 +14,6 @@ router.get('/editpage/:id', async (ctx, next)=> {
     console.log("get id:"+ctx.params.id)
     await ocosaController.editpage(ctx,next)
 });
-//到訪客自己輸入資料頁
-router.get('/register', async (ctx, next)=> {
-    await ocosaController.register(ctx,next)
-});
 //批次新增資料
 router.get('/inputbatch', async (ctx, next)=> {
     await ocosaController.batchinput(ctx,next)

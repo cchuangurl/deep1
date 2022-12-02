@@ -31,10 +31,16 @@ async list(ctx,next){
 
 
 //到新增資料頁
-inputpage(req, res) {
-    //在router設定了
+async inputpage(ctx, next) {
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    if(statusreport===undefined){
+        statusreport="status未傳成功!"
+    }    
+	await ctx.render("term/inputpage",{
+		statusreport:ctx.request.body.statusreport
+	})
 },
-
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;

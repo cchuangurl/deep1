@@ -69,37 +69,31 @@ body {
             <div class="form-group" :key="inputerUIkey">              
             
               <label for="formGroupExampleInput2">{{items.item0}}</label>
-              <input type="text" name="a05ipofvisitor" class="form-control" id="formGroupExampleInput0" :placeholder="holders.holder0" v-mode:value="guestinfo.a05name">
+              <input type="text" name="a05ipofvisitor" class="form-control" id="formGroupExampleInput0" :placeholder="holders.holder0">
 
               <label for="formGroupExampleInput2">{{items.item1}}</label>
-              <input type="text" name="a10visitor" class="form-control" id="formGroupExampleInput1" :placeholder="holders.holder1" v-mode:value="guestinfo.a10visitor">
+              <input type="text" name="a10visitor" class="form-control" id="formGroupExampleInput1" :placeholder="holders.holder1">
            
               <label for="formGroupExampleInput2">{{items.item2}}</label>
-              <input type="text" name="a15dateofreg" class="form-control" id="formGroupExampleInput2" :placeholder="holders.holder2" v-mode:value="guestinfo.a15dateofreq">
+              <input type="text" name="a15dateofreg" class="form-control" id="formGroupExampleInput2" :placeholder="holders.holder2">
             
               <label for="formGroupExampleInput2">{{items.item3}}</label>
-              <input type="text" name="a20accout" class="form-control" id="formGroupExampleInput3" :placeholder="holders.holder3" v-mode:value="guestinfo.a20account">
+              <input type="text" name="a30phoneno" class="form-control" id="formGroupExampleInput3" :placeholder="holders.holder3">
             
               <label for="formGroupExampleInput2">{{items.item4}}</label>
-              <input type="text" name="a25password" class="form-control" id="formGroupExampleInput4" :placeholder="holders.holder4" v-mode:value="guestinfo.a25password">
-           
+              <input type="text" name="a35email" class="form-control" id="formGroupExampleInput4" :placeholder="holders.holder4">
+            
               <label for="formGroupExampleInput2">{{items.item5}}</label>
-              <input type="text" name="a30phoneno" class="form-control" id="formGroupExampleInput5" :placeholder="holders.holder5" v-mode:value="guestinfo.a30phoneno">
+              <input type="text" name="a40address" class="form-control" id="formGroupExampleInput5" :placeholder="holders.holde5">
             
               <label for="formGroupExampleInput2">{{items.item6}}</label>
-              <input type="text" name="a35email" class="form-control" id="formGroupExampleInput6" :placeholder="holders.holder6" v-mode:value="guestinfo.a35email">
-            
-              <label for="formGroupExampleInput2">{{items.item7}}</label>
-              <input type="text" name="a40address" class="form-control" id="formGroupExampleInput7" :placeholder="holders.holder7" v-mode:value="guestinfo.a40address">
-            
-              <label for="formGroupExampleInput2">{{items.item8}}</label>
-              <input type="text" name="a45business" class="form-control" id="formGroupExampleInput8" :placeholder="holders.holder8" v-mode:value="guestinfo.a45business">
+              <input type="text" name="a45business" class="form-control" id="formGroupExampleInput6" :placeholder="holders.holder6">
               
-              <label for="formGroupExampleInput2">{{items.item9}}</label>
-              <input type="text" name="a50extra" class="form-control" id="formGroupExampleInput9" :placeholder="holders.holder9" v-mode:value="guestinfo.a50extra">
+              <label for="formGroupExampleInput2">{{items.item7}}</label>
+              <input type="text" name="a50extra" class="form-control" id="formGroupExampleInput7" :placeholder="holders.holder7">
             
               <label for="formGroupExampleInput">{{items.item99}}</label>
-              <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput11" :placeholder="holders.holder99" v-mode:value="guestinfo.a99footnote">
+              <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput99" :placeholder="holders.holder99">
             
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由單筆guestinfo輸入後進入本頁">
             
@@ -139,35 +133,33 @@ Vue.component("bander",{
         card_subtitle:"請輸入以下各項資料:",
         items:{
             item0:"來客IP",
-            item1:"姓名",
+            item1:"姓名或稱呼",
             item2:"註冊日期",
-            item3:"自訂帳號",
-            item4:"自訂密碼",
-            item5:"公私電話",
-            item6:"E-mail",
-            item7:"地址",
-            item8:"行業",
-            item9:"其他",
+            item3:"公私電話",
+            item4:"E-mail",
+            item5:"地址",
+            item6:"行業",
+            item7:"其他",
             item99:"使用者特別註記"
       },
         holders:{
             holder0:"字串,",
             holder1:"字串,",
             holder2:"日期時間,",
-            holder3:"字串,不可有2個重複",
-            holder4:"字串,文數字",
-            holder5:"字串,10位數字",
-            holder6:"字串,需有@",
+            holder3:"字串,10位數字",
+            holder4:"字串,需有@",
+            holder5:"字串,",
+            holder6:"字串,",
             holder7:"字串,",
-            holder8:"字串,",
-            holder9:"字串,",
             holder99:"字串"
         },
-        accountarrary:'<%= accountarray %>',
-        guestinfo:{},        
+               
       inputerUIkey:0
         
       } 
+    },
+    mounted:{
+
     },
     methods:{
         rerender:function() {

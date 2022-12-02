@@ -1,5 +1,6 @@
 //載入相對應的model
 const Ocosa = require('../models/index').ocosa;
+const Project = require('../models/index').project;
 const User=require('../models/index').user;
 module.exports = {
 //列出清單list(req,res)
@@ -7,7 +8,7 @@ async list(ctx,next){
     console.log("found route /deep1/ocosa !!");
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
-    await Ocosa.find({}).then(async ocosas=>{
+    await Ocosa.find({}).sort({a20CSForder:1,a30obstacleorder:1,a40strategyorder:1,a50actiondoer:1}).then(async ocosas=>{
         //console.log("found ocosas:"+ocosas);
         console.log("type of ocosas:"+typeof(ocosas));
         console.log("type of 1st ocosa:"+typeof(ocosas[0]));
@@ -32,10 +33,28 @@ async list(ctx,next){
 
 
 //到新增資料頁
-inputpage(req, res) {
-    //在router設定了
+async inputpage(ctx, next) {
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    var projectlist;
+    await Project.find({})
+    .then(async projects=>{
+        console.log("type of projects:"+typeof(projects));
+        console.log("type of 1st project:"+typeof(projects[0]));
+        console.log("1st project:"+projects[0])
+        console.log("No. of project:"+projects.length)
+        projectlist=encodeURIComponent(JSON.stringify(projects));
+        console.log("type of projectlist:"+typeof(projectlist));
+        await ctx.render("ocosa/inputpage",{
+            statusreport:ctx.request.body.statusreport,
+            projectlist
+        })
+    })
+    .catch(err=>{
+        console.log("Project.find({}) failed !!");
+        console.log(err)
+    }) 
 },
-
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
@@ -45,15 +64,31 @@ async editpage(ctx, next) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }
+    var projectlist;
+    var ocosa;
+    await Project.find({})
+    .then(async projects=>{
+        console.log("type of projects:"+typeof(projects));
+        console.log("type of 1st project:"+typeof(projects[0]));
+        console.log("1st project:"+projects[0])
+        console.log("No. of project:"+projects.length)
+        projectlist=encodeURIComponent(JSON.stringify(projects));
+        console.log("type of projectlist:"+typeof(projectlist))
+    })
+    .catch(err=>{
+        console.log("Project.find({}) failed !!");
+        console.log(err)
+    })  
     await Ocosa.findById(ctx.params.id)
         .then(async ocosax=>{
             console.log("Ocosax:"+ocosax);
-            let ocosa=encodeURIComponent(JSON.stringify(ocosax));
+            ocosa=encodeURIComponent(JSON.stringify(ocosax));
             console.log("ocosa:"+ocosa);
             console.log("type of ocosa:"+typeof(ocosa));
             await ctx.render("ocosa/editpage",{
-                ocosa:ocosa,
-                statusreport:statusreport
+                projectlist,
+                ocosa,
+                statusreport
             })
         })
         .catch(err=>{

@@ -65,36 +65,43 @@ body {
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
           <form action="/deep1/post/update" method="post">
             <div class="form-group" :key="inputerUIkey">
-                <!--
-                <label for="formGroupExampleInput2">{{items.item}}</label>
-                <input type="text" name="_id" class="form-control" id="formGroupExampleInput0" :value="post._id">
+                <label for="formGroupExampleInput2">{{items.item1}}</label>
+                <select name="a10posttype" class="form-select">
+                    <optgroup v-for="(posttype,index) of posttypes" :key="posttype._id">
+                    <option :value="posttype.a25code" :selected="typeindex[index]">{{posttype.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br>
+
+                <label for="formGroupExampleInput2">{{items.item2}}</label>
+                <select name="a15poster" class="form-select"">
+                    <optgroup v-for="(staffinfo,index) of staffinfolist" :key="staffinfo._id" >            
+                    <option :value="staffinfo._id" :selected="staffindex[index]">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
+                    </optgroup>  
+                    </select>             
+                    <br>    
               
-                <label for="formGroupExampleInput2">{{items.item0}}</label>
-              <input type="text" name="a05postcode" class="form-control" id="formGroupExampleInput0" :value="post.a05postcode">
-                -->     
-              <label for="formGroupExampleInput2">{{items.item1}}</label>
-              <input type="text" name="a10posttype" class="form-control" id="formGroupExampleInput1" :value="post.a10posttype">
-           
-              <label for="formGroupExampleInput2">{{items.item2}}</label>
-              <input type="text" name="a15poster" class="form-control" id="formGroupExampleInput2" :value="post.a15poster">
-            
-              <label for="formGroupExampleInput2">{{items.item3}}</label>
-              <input type="text" name="a20postdate" class="form-control" id="formGroupExampleInput3" :value="post.a20postdate">
-            
-              <label for="formGroupExampleInput2">{{items.item4}}</label>
-              <input type="text" name="a25posttitle" class="form-control" id="formGroupExampleInput4" :value="post.a25posttitle">
-           
-              <label for="formGroupExampleInput2">{{items.item5}}</label>
-              <input type="text" name="a30postcontent" class="form-control" id="formGroupExampleInput5" :value="post.a30postcontent">
-            
-              <label for="formGroupExampleInput2">{{items.item6}}</label>
-              <input type="text" name="a35reader" class="form-control" id="formGroupExampleInput6" :value="post.a35reader">
-            
-              <label for="formGroupExampleInput2">{{items.item7}}</label>
-              <input type="text" name="a40showtype" class="form-control" id="formGroupExampleInput7" :value="post.a40showtype">
-            
-              <label for="formGroupExampleInput2">{{items.item8}}</label>
-              <input type="text" name="a45datetodown" class="form-control" id="formGroupExampleInput8" :value="post.a45datetodown">
+                <label for="formGroupExampleInput2">{{items.item3}}</label>
+                <input type="text" name="a20postdate" class="form-control" id="formGroupExampleInput3" :value="post.a20postdate">
+              
+                <label for="formGroupExampleInput2">{{items.item4}}</label>
+                <input type="text" name="a25posttitle" class="form-control" id="formGroupExampleInput4" :value="post.a25posttitle">
+             
+                <label for="formGroupExampleInput2">{{items.item5}}</label>
+                <input type="text" name="a30postcontent" class="form-control" id="formGroupExampleInput5" :value="post.a30postcontent">
+              
+                <label for="formGroupExampleInput2">{{items.item6}}</label>
+                <input type="text" name="a35reader" class="form-control" id="formGroupExampleInput6" :value="post.a35reader">
+              
+                <label for="formGroupExampleInput2">{{items.item7}}</label>
+                <select name="a40showtype" class="form-select">
+                    <optgroup v-for="(showtype,index) of showtypes" :key="showtype._id">
+                    <option :value="showtype.a25code" :selected="showindex[index]">{{showtype.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br>
+                <label for="formGroupExampleInput2">{{items.item8}}</label>
+                <input type="text" name="a45datetodown" class="form-control" id="formGroupExampleInput8" :value="post.a45datetodown">
            
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正post後進入本頁">
             
@@ -148,24 +155,50 @@ Vue.component("bander",{
             item99:"管理註記"     
       },
       post:JSON.parse(decodeURIComponent('<%=post%>')),
+      termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        posttypes:[],
+        showtypes:[],
+        staffindex:[],
+        typeindex:[],
+        showindex:[],
       inputerUIkey:0
-      /*
-      values:{
         
-         value:post._id
-         value0:post.a05name,
-            value1:post.a10account,
-            value2:post.a15password,
-            value3:post.a20department,
-            value4:post.a25position,
-            value5:post.a30email,
-            value6:post.a35tel,
-            value7:post.a40mobile,
-            value8:post.a45group,
-            value99:post.a99footnote         
-    } */
-  }//EOF return 
-    }, //EOF data()
+      } 
+    },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a10posttype"){
+                this.posttypes.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a40showtype"){
+                this.showtypes.push(term)
+            }
+        }
+        for(staff of this.staffinfolist){
+            if(staff._id==this.post.a15poster){
+                this.staffindex.push(true)
+            }else{
+                this.staffindex.push(false)
+            }
+        } 
+        for(type of this.posttypes){
+            if(type.a25code==this.post.a10posttype){
+                this.typeindex.push(true)
+            }else{
+                this.typeindex.push(false)
+            }
+        }
+        for(show of this.showtypes){
+            if(show.a25code==this.post.a40showtype){
+                this.showindex.push(true)
+            }else{
+                this.showindex.push(false)
+            }
+        }                          
+    },   
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

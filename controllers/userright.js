@@ -32,10 +32,30 @@ async list(ctx,next){
 
 
 //到新增資料頁
-inputpage(req, res) {
-    //在router設定了
+async inputpage(ctx, next) {
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    var termlist;
+    await Term.find({a15model:"userright"}).then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }    
+        await ctx.render("userright/inputpage",{
+            statusreport:ctx.request.body.statusreport,
+            termlist
+        })
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
 },
-
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
@@ -45,13 +65,31 @@ async editpage(ctx, next) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }
+    var termlist;
+    var userright;
+    await Term.find({a15model:"userright"}).then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })  
     await Userright.findById(ctx.params.id)
         .then(async userrightx=>{
             console.log("userrightx:"+userrightx);
-            let userright=encodeURIComponent(JSON.stringify(userrightx));
+            userright=encodeURIComponent(JSON.stringify(userrightx));
             console.log("userright:"+userright);
             console.log("type of userright:"+typeof(userright));
             await ctx.render("userright/editpage",{
+                termlist,
                 userright:userright,
                 statusreport:statusreport
             })

@@ -11,7 +11,7 @@ router.get('/inputpage', async (ctx, next)=> {
 });
 //到客戶填寫資料頁
 router.get('/bellcall', async (ctx, next)=> {
-    await requestController.inputpage(ctx,next)
+    await requestController.inputbyguest(ctx,next)
 });
 //到修正單筆資料頁
 router.get('/editpage/:id', async (ctx, next)=> {

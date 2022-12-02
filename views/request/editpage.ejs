@@ -68,47 +68,70 @@ body {
             <label for="formGroupExampleInput2">{{items.item}}</label>
             <input type="text" name="_id" class="form-control" id="formGroupExampleInput" :value="request._id">
             
-              <label for="formGroupExampleInput2">{{items.item0}}</label>
-              <input type="text" name="a05ipofclient" class="form-control" id="formGroupExampleInput0" :value="request.a05ipofclient">
+            <label for="formGroupExampleInput2">{{items.item0}}</label>
+            <input type="text" name="a05ipofclient" class="form-control" id="formGroupExampleInput0" :value="request.a05ipofclient">
 
-              <label for="formGroupExampleInput2">{{items.item1}}</label>
-              <input type="text" name="a10client" class="form-control" id="formGroupExampleInput1" :value="request.a10client">
-           
-              <label for="formGroupExampleInput2">{{items.item2}}</label>
-              <input type="text" name="a15requestdate" class="form-control" id="formGroupExampleInput2" :value="request.a15requestdate">
+            <label for="formGroupExampleInput2">{{items.item1}}</label>
+            <input type="text" name="a10client" class="form-control" id="formGroupExampleInput1" :value="request.a10client">
+         
+            <label for="formGroupExampleInput2">{{items.item2}}</label>
+            <input type="text" name="a15requestdate" class="form-control" id="formGroupExampleInput2" :value="request.a15requestdate">
+          
+            <label for="formGroupExampleInput2">{{items.item3}}</label>
+            <input type="text" name="a20phoneno" class="form-control" id="formGroupExampleInput3" :value="request.a20phoneno">
+          
+            <label for="formGroupExampleInput2">{{items.item4}}</label>
+            <input type="text" name="a23tel" class="form-control" id="formGroupExampleInput4" :value="request.a23tel">
             
-              <label for="formGroupExampleInput2">{{items.item3}}</label>
-              <input type="text" name="a20phoneno" class="form-control" id="formGroupExampleInput3" :value="request.a20phoneno">
-            
-              <label for="formGroupExampleInput2">{{items.item4}}</label>
-              <input type="text" name="a25email" class="form-control" id="formGroupExampleInput4" :value="request.a25email">
-           
-              <label for="formGroupExampleInput2">{{items.item5}}</label>
-              <input type="text" name="a30address" class="form-control" id="formGroupExampleInput5" :value="request.a30address">
-            
-              <label for="formGroupExampleInput2">{{items.item6}}</label>
-              <input type="text" name="a35request" class="form-control" id="formGroupExampleInput6" :value="request.a35request">
-            
-              <label for="formGroupExampleInput2">{{items.item7}}</label>
-              <input type="text" name="a40deadline" class="form-control" id="formGroupExampleInput7" :value="request.a40deadline">
-            
-              <label for="formGroupExampleInput2">{{items.item8}}</label>
-              <input type="text" name="a45stage" class="form-control" id="formGroupExampleInput8" :value="request.a45stage">
-           
-              <label for="formGroupExampleInput2">{{items.item9}}</label>
-              <input type="text" name="a50contactor" class="form-control" id="formGroupExampleInput9" :value="request.a50contactor">
-           
-              <label for="formGroupExampleInput2">{{items.item10}}</label>
-              <input type="text" name="a55howtodo" class="form-control" id="formGroupExampleInput10" :value="request.a55howtodo">
-           
-              <label for="formGroupExampleInput2">{{items.item11}}</label>
-              <input type="text" name="a60initial" class="form-control" id="formGroupExampleInput11" :value="request.a60initial">
-           
-              <label for="formGroupExampleInput2">{{items.item12}}</label>
-              <input type="text" name="a65followact" class="form-control" id="formGroupExampleInput12" :value="request.a65followact">
-           
-              <label for="formGroupExampleInput2">{{items.item13}}</label>
-              <input type="text" name="a70extra" class="form-control" id="formGroupExampleInput13" :value="request.a70extra">
+            <label for="formGroupExampleInput2">{{items.item5}}</label>
+            <input type="text" name="a25email" class="form-control" id="formGroupExampleInput5" :value="request.a25email">
+         
+            <label for="formGroupExampleInput2">{{items.item6}}</label>
+            <input type="text" name="a30address" class="form-control" id="formGroupExampleInput6" :value="request.a30address">
+          
+            <label for="formGroupExampleInput2">{{items.item7}}</label>
+            <input type="text" name="a35request" class="form-control" id="formGroupExampleInput7" :value="request.a35request">
+          
+            <label for="formGroupExampleInput2">{{items.item8}}</label>
+            <input type="text" name="a40deadline" class="form-control" id="formGroupExampleInput8" :value="request.a40deadline">
+          
+            <label for="formGroupExampleInput2">{{items.item9}}</label>              
+            <select name="a45status" class="form-select">
+              <optgroup v-for="(status,index) of statuss" :key="status._id">
+              <option :value="status.a25code" :selected="statusindex[index]">{{status.a30mean}}</option>
+              </optgroup>
+              </select>
+            <br>
+
+            <label for="formGroupExampleInput2">{{items.item10}}</label>
+            <select name="a50contactor" class="form-select">
+              <optgroup v-for="(staffinfo,index) of staffinfolist" :key="staffinfo._id" >            
+              <option :value="staffinfo._id" :selected="staffindex[index]">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
+              </optgroup>  
+              </select>             
+              <br>    
+          
+            <label for="formGroupExampleInput2">{{items.item11}}</label>
+            <select name="a55howtodo" class="form-select">
+              <optgroup v-for="(howtodo,index) of howtodos" :key="howtodo._id">
+              <option :value="howtodo.a25code" :selected="howtodoindex[index]">{{howtodo.a30mean}}</option>
+              </optgroup>
+              </select>
+            <br>
+
+            <label for="formGroupExampleInput2">{{items.item12}}</label>
+            <input type="text" name="a60initial" class="form-control" id="formGroupExampleInput12" :value="request.a60initial">
+          
+            <label for="formGroupExampleInput2">{{items.item13}}</label>
+        <select name="a65followup" class="form-select">
+              <optgroup v-for="(followup,index) of followups" :key="followup._id">
+              <option :value="followup.a25code" :selected="followupindex[index]">{{followup.a30mean}}</option>
+              </optgroup>
+              </select>
+            <br>
+             
+            <label for="formGroupExampleInput2">{{items.item14}}</label>
+            <input type="text" name="a70extra" class="form-control" id="formGroupExampleInput14" :value="request.a70extra">  
            
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正request後進入本頁">
             
@@ -166,10 +189,65 @@ Vue.component("bander",{
             item99:"特別註記"     
       },
       request:JSON.parse(decodeURIComponent('<%=request%>')),
+      termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        statuss:[],
+        howtodos:[],
+        followups:[],
+        staffindex:[],
+        statusindex:[],
+        howtodoindex:[],
+        followupindex:[],
       inputerUIkey:0
-      
-  }//EOF return 
-    }, //EOF data()
+        
+      } 
+    },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a45status"){
+                this.statuss.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a55howtodo"){
+                this.howtodos.push(term)
+            }
+        } 
+        for(term of this.termlist){
+            if(term.a20field=="a65followup"){
+                this.followups.push(term)
+            }
+        }
+        for(staff of this.staffinfolist){
+            if(staff._id==this.request.a50contactor){
+                this.staffindex.push(true)
+            }else{
+                this.staffindex.push(false)
+            }
+        } 
+        for(howtodo of this.howtodos){
+            if(howtodo.a25code==this.request.a55howtodo){
+                this.howtodoindex.push(true)
+            }else{
+                this.howtodoindex.push(false)
+            }
+        }
+        for(status of this.statuss){
+            if(status.a25code==this.request.a45status){
+                this.statusindex.push(true)
+            }else{
+                this.statusindex.push(false)
+            }
+        }
+        for(followup of this.followups){
+            if(followup.a25code==this.request.a65followup){
+                this.followupindex.push(true)
+            }else{
+                this.followupindex.push(false)
+            }
+        }
+
+    },     
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

@@ -67,19 +67,34 @@ body {
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
           <form action="/deep1/process/add" method="post">
             <div class="form-group" :key="inputerUIkey">              
-            
+            <!--
               <label for="formGroupExampleInput2">{{items.item0}}</label>
               <input type="text" name="a05project_id" class="form-control" id="formGroupExampleInput0" :placeholder="holders.holder0">
-
+            -->
               <label for="formGroupExampleInput2">{{items.item1}}</label>
-              <input type="text" name="a10stage" class="form-control" id="formGroupExampleInput1" :placeholder="holders.holder1">
-           
+           <select name="a10stage" class="form-select" :placeholder="holders.holder1">
+                    <optgroup v-for="stage of stages" :key="stage._id">
+                    <option :value="stage.a25code">{{stage.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br>
+
               <label for="formGroupExampleInput2">{{items.item2}}</label>
-              <input type="text" name="a15action" class="form-control" id="formGroupExampleInput2" :placeholder="holders.holder2">
-            
+              <select name="a15action" class="form-select" :placeholder="holders.holder2">
+                <optgroup v-for="ocosa of ocosalist" :key="ocosa._id" >            
+                <option :value="ocosa.a45action">{{ocosa.a45action}}</option>
+                </optgroup>  
+                </select>             
+                <br> 
+              
               <label for="formGroupExampleInput2">{{items.item3}}</label>
-              <input type="text" name="a20doer" class="form-control" id="formGroupExampleInput3" :placeholder="holders.holder3">
-            
+              <select name="a20doer" class="form-select" :placeholder="holders.holder3">
+                <optgroup v-for="staffinfo of staffinfolist" :key="staffinfo._id" >            
+                <option :value="staffinfo._id">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
+                </optgroup>  
+                </select>             
+                <br> 
+              
               <label for="formGroupExampleInput2">{{items.item4}}</label>
               <input type="text" name="a25startdate" class="form-control" id="formGroupExampleInput4" :placeholder="holders.holder4">
            
@@ -96,7 +111,7 @@ body {
               <input type="text" name="a45status" class="form-control" id="formGroupExampleInput8" :placeholder="holders.holder8">
             
               <label for="formGroupExampleInput">{{items.item99}}</label>
-              <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput11" :placeholder="holders.holder99">
+              <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput99" :placeholder="holders.holder99">
             
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由單筆process輸入後進入本頁">
             
@@ -135,16 +150,16 @@ Vue.component("bander",{
         card_title:"新增1個處理流程",
         card_subtitle:"請輸入以下各項資料:",
         items:{
-            item0:"專案識別碼",
-            item1:"執行階段",
-            item2:"行動",
-            item3:"執行者",
-            item4:"開始日期",
-            item5:"所需時間(日)",
-            item6:"所需成本(元)",
-            item7:"是否落遲",
-            item8:"完成註記",
-            item99:"特別註記"
+            item0:"專案識別碼：",
+            item1:"執行階段：",
+            item2:"行動:",
+            item3:"執行者:",
+            item4:"開始日期:",
+            item5:"所需時間(日):",
+            item6:"所需成本(元):",
+            item7:"是否落遲:",
+            item8:"完成註記:",
+            item99:"特別註記:"
       },
         holders:{
             holder0:"物件識別碼,",
@@ -158,10 +173,20 @@ Vue.component("bander",{
             holder8:"邏輯值,True, False",
             holder99:"字串"
         },
+        termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        ocosalist:JSON.parse(decodeURIComponent('<%=ocosalist%>')),
+        stages:[],
       inputerUIkey:0
-        
       } 
     },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a10stage"){
+                this.stages.push(term)
+            }
+        }                
+    },   
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

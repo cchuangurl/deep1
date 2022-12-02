@@ -68,44 +68,73 @@ body {
             <label for="formGroupExampleInput2">{{items.item}}</label>
             <input type="text" name="_id" class="form-control" id="formGroupExampleInput" :value="staffinfo._id">
             
-              <label for="formGroupExampleInput2">{{items.item0}}</label>
+            <label for="formGroupExampleInput2">{{items.item0}}</label>
               <input type="text" name="a05lastname" class="form-control" id="formGroupExampleInput0" :value="staffinfo.a05lastname">
 
               <label for="formGroupExampleInput2">{{items.item1}}</label>
               <input type="text" name="a10fistname" class="form-control" id="formGroupExampleInput1" :value="staffinfo.a10fistname">
-           
+
               <label for="formGroupExampleInput2">{{items.item2}}</label>
-              <input type="text" name="a15gender" class="form-control" id="formGroupExampleInput2" :value="staffinfo.a15gender">
-            
+              <input type="text" name="a13identity" class="form-control" id="formGroupExampleInput2" :value="staffinfo.a13identity">           
+              
               <label for="formGroupExampleInput2">{{items.item3}}</label>
-              <input type="text" name="a20birthday" class="form-control" id="formGroupExampleInput3" :value="staffinfo.a20birthday">
-            
+            <select name="a15gender" class="form-select">
+                <optgroup v-for="(gender,index) of genders" :key="gender._id">
+                <option :value="gender.a25code" :selected="genderindex[indgex]">{{gender.a30mean}}</option>
+                </optgroup>
+                </select>
+              <br>
+              
               <label for="formGroupExampleInput2">{{items.item4}}</label>
-              <input type="text" name="a25dateofjoin" class="form-control" id="formGroupExampleInput4" :value="staffinfo.a25dateofjoin">
-           
+              <input type="text" name="a20birthday" class="form-control" id="formGroupExampleInput4" :value="staffinfo.a20birthday">
+            
               <label for="formGroupExampleInput2">{{items.item5}}</label>
-              <input type="text" name="a30position" class="form-control" id="formGroupExampleInput5" :value="staffinfo.a30position">
-            
+              <input type="text" name="a25dateofjoin" class="form-control" id="formGroupExampleInput5" :value="staffinfo.a25dateofjoin">
+
               <label for="formGroupExampleInput2">{{items.item6}}</label>
-              <input type="text" name="a35phoneno" class="form-control" id="formGroupExampleInput6" :value="staffinfo.a35phoneno">
-            
+            <select name="a28department" class="form-select">
+                <optgroup v-for="(department,index) of departments" :key="department._id">
+                <option :value="department.a25code" :selected="departmentindex[index]">{{department.a30mean}}</option>
+                </optgroup>
+                </select>
+              <br>
+
               <label for="formGroupExampleInput2">{{items.item7}}</label>
-              <input type="text" name="a40email" class="form-control" id="formGroupExampleInput7" :value="staffinfo.a40email">
-            
+            <select name="a30position" class="form-select">
+                <optgroup v-for="(position,index) of positions" :key="position._id">
+                <option :value="position.a25code" :selected="positionindex[index]">{{position.a30mean}}</option>
+                </optgroup>
+                </select>
+              <br>
+
               <label for="formGroupExampleInput2">{{items.item8}}</label>
-              <input type="text" name="a45address" class="form-control" id="formGroupExampleInput8" :value="staffinfo.a45address">
-           
+              <input type="text" name="a33tel" class="form-control" id="formGroupExampleInput8" :value="staffinfo.a33tel">
+
               <label for="formGroupExampleInput2">{{items.item9}}</label>
-              <input type="text" name="a50degree" class="form-control" id="formGroupExampleInput9" :value="staffinfo.a50degree">
-           
+              <input type="text" name="a35phoneno" class="form-control" id="formGroupExampleInput9" :value="staffinfo.a35phoneno">
+            
               <label for="formGroupExampleInput2">{{items.item10}}</label>
-              <input type="text" name="a55resume" class="form-control" id="formGroupExampleInput10" :value="staffinfo.a55resume">
-           
+              <input type="text" name="a40email" class="form-control" id="formGroupExampleInput10" :value="staffinfo.a40email">
+            
               <label for="formGroupExampleInput2">{{items.item11}}</label>
-              <input type="text" name="a60expertise" class="form-control" id="formGroupExampleInput11" :value="staffinfo.a60expertise">
-           
+              <input type="text" name="a45address" class="form-control" id="formGroupExampleInput11" :value="staffinfo.a45address">
+            
               <label for="formGroupExampleInput2">{{items.item12}}</label>
-              <input type="text" name="a65extra" class="form-control" id="formGroupExampleInput12" :value="staffinfo.a65extra">
+              <input type="text" name="a50degree" class="form-control" id="formGroupExampleInput12" :value="staffinfo.a50degree">
+            
+              <label for="formGroupExampleInput2">{{items.item13}}</label>
+              <input type="text" name="a55resume" class="form-control" id="formGroupExampleInput13" :value="staffinfo.a55resume">
+            
+              <label for="formGroupExampleInput2">{{items.item14}}</label>
+          <select name="a60expertise" class="form-select" multiple>
+                <optgroup v-for="(expertise,index) of expertises" :key="expertise._id">
+                <option :value="expertise.a25code" :selected="expertiseindex[index]">{{expertise.a30mean}}</option>
+                </optgroup>
+                </select>
+              <br>
+                
+              <label for="formGroupExampleInput2">{{items.item15}}</label>
+              <input type="text" name="a65extra" class="form-control" id="formGroupExampleInput15" :value="staffinfo.a65extra">  
            
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正staffinfo後進入本頁">
             
@@ -162,10 +191,70 @@ Vue.component("bander",{
             item99:"特別註記"     
       },
       staffinfo:JSON.parse(decodeURIComponent('<%=staffinfo%>')),
+      termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        genders:[],
+        departments:[],
+        positions:[],
+        expertises:[],
+        genderindex:[],
+        departmentindex:[],
+        positionindex:[],
+        expertiseindex:[],
       inputerUIkey:0
-      
-  }//EOF return 
-    }, //EOF data()
+        
+      } 
+    },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a15gender"){
+                this.genders.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a28department"){
+                this.departments.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a30position"){
+                this.positions.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a60expertise"){
+                this.expertises.push(term)
+            }
+        }
+        for(gender of this.genders){
+            if(gender._id==this.staffinfo.a15gender){
+                this.genderindex.push(true)
+            }else{
+                this.genderindex.push(false)
+            }
+        } 
+        for(department of this.departments){
+            if(department.a25code==this.staffinfo.a28department){
+                this.departmentindex.push(true)
+            }else{
+                this.departmentindex.push(false)
+            }
+        }
+        for(position of this.positions){
+            if(position.a25code==this.staffinfo.a30position){
+                this.positionindex.push(true)
+            }else{
+                this.positionindex.push(false)
+            }
+        }
+        for(expertise of this.expertises){
+            if(expertise.a25code==this.staffinfo.a60expertise){
+                this.expertiseindex.push(true)
+            }else{
+                this.expertiseindex.push(false)
+            }
+        }
+                           
+    },  
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

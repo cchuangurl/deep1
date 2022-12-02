@@ -14,7 +14,7 @@ var RequestSchema = new Schema(
     a35request:{type:String,required:false},
     a40deadline:{type:Date,required:false},
     a45status:{type:String,required:false},
-    a50contactor:{type:String,required:false},
+    a50contactor:{type:Schema.Types.ObjectID,required:false},
     a55howtodo:{type:String,required:false},
     a60initial:{type:String,required:false},
     a65followup:{type:String,required:false},

@@ -65,38 +65,50 @@ body {
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
           <form action="/deep1/message/update" method="post">
             <div class="form-group" :key="inputerUIkey">
-            <label for="formGroupExampleInput2">{{items.item}}</label>
-            <input type="text" name="_id" class="form-control" id="formGroupExampleInput" :value="message._id">
-            
-              <label for="formGroupExampleInput2">{{items.item0}}</label>
-              <input type="text" name="a05ipofwriter" class="form-control" id="formGroupExampleInput0" :value="message.a05ipofwriter">
-
-              <label for="formGroupExampleInput2">{{items.item1}}</label>
-              <input type="text" name="a10writer" class="form-control" id="formGroupExampleInput1" :value="message.a10writer">
-           
-              <label for="formGroupExampleInput2">{{items.item2}}</label>
-              <input type="text" name="a15dateofmsg" class="form-control" id="formGroupExampleInput2" :value="message.a15dateofmsg">
-            
-              <label for="formGroupExampleInput2">{{items.item3}}</label>
-              <input type="text" name="a20titleofmsg" class="form-control" id="formGroupExampleInput3" :value="message.a20titleofmsg">
-            
-              <label for="formGroupExampleInput2">{{items.item4}}</label>
-              <input type="text" name="a25message" class="form-control" id="formGroupExampleInput4" :value="message.a25message">
-           
-              <label for="formGroupExampleInput2">{{items.item5}}</label>
-              <input type="text" name="a30codelast" class="form-control" id="formGroupExampleInput5" :value="message.a30codelast">
-            
-              <label for="formGroupExampleInput2">{{items.item6}}</label>
-              <input type="text" name="a35codethis" class="form-control" id="formGroupExampleInput6" :value="message.a35codethis">
-            
-              <label for="formGroupExampleInput2">{{items.item7}}</label>
-              <input type="text" name="a40responsor" class="form-control" id="formGroupExampleInput7" :value="message.a40responsor">
-            
-              <label for="formGroupExampleInput2">{{items.item8}}</label>
-              <input type="text" name="a45response" class="form-control" id="formGroupExampleInput8" :value="message.a45response">
-           
-              <label for="formGroupExampleInput2">{{items.item9}}</label>
-              <input type="text" name="a50followact" class="form-control" id="formGroupExampleInput9" :value="message.a50followact">
+                <label for="formGroupExampleInput2">{{items.item0}}</label>
+                <input type="text" name="a05ipofwriter" class="form-control" id="formGroupExampleInput0" :value="message.a05ipofwriter">
+  
+                <label for="formGroupExampleInput2">{{items.item1}}</label>
+                <input type="text" name="a10writer" class="form-control" id="formGroupExampleInput1" :value="message.a10writer">
+             
+                <label for="formGroupExampleInput2">{{items.item2}}</label>
+                <input type="text" name="a15dateofmsg" class="form-control" id="formGroupExampleInput2" :value="message.a15dateofmsg">
+              
+                <label for="formGroupExampleInput2">{{items.item3}}</label>
+                <input type="text" name="a20titleofmsg" class="form-control" id="formGroupExampleInput3" :value="message.a20titleofmsg">
+              
+                <label for="formGroupExampleInput2">{{items.item4}}</label>
+                <input type="text" name="a25message" class="form-control" id="formGroupExampleInput4" :value="message.a25message">
+             
+                <label for="formGroupExampleInput2">{{items.item5}}</label>
+                <select name="a30codelast" class="form-select">
+                  <optgroup v-for="(messae,index) of messagelist" :key="message._id">
+                  <option :value="message._id" :selected="messageindex[index]">{{message.a10writer}}曾建議：{{message.a20titleofmsg}}</option>
+                  </optgroup>
+                  </select>
+                <br>     
+              
+                <label for="formGroupExampleInput2">{{items.item6}}</label>
+                <input type="text" name="a35codethis" class="form-control" id="formGroupExampleInput6" :value="message.a35codethis">
+              
+                <label for="formGroupExampleInput2">{{items.item7}}</label>
+                <select name="a40responsor" class="form-select">
+                  <optgroup v-for="(staffinfo,index) of staffinfolist" :key="staffinfo._id" >            
+                  <option :value="staffinfo._id" :selected="staffindex[index]">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
+                  </optgroup>  
+                  </select>             
+                  <br>      
+              
+                <label for="formGroupExampleInput2">{{items.item8}}</label>
+                <input type="text" name="a45response" class="form-control" id="formGroupExampleInput8" :value="message.a45response">
+              
+                <label for="formGroupExampleInput2">{{items.item9}}</label>
+                <select name="a50followact" class="form-select"">
+                  <optgroup v-for="(followact,index) of followacts" :key="followact._id" >                
+                  <option :value="followact.a25code" :selected="actindex[index]">{{followact.a30mean}}</option>
+                  </optgroup>
+                  </select>
+                <br>  
               
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正message後進入本頁">
             
@@ -150,10 +162,45 @@ Vue.component("bander",{
             item99:"特別註記"     
       },
       message:JSON.parse(decodeURIComponent('<%=message%>')),
+      termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),        
+        messagelist:JSON.parse(decodeURIComponent('<%=messagelist%>')),
+        staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        followacts:[],
+        staffindex:[],
+        messageindex:[],
+        actindex:[],
       inputerUIkey:0
-      
-  }//EOF return 
-    }, //EOF data()
+        
+      } 
+    },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a50followact"){
+                this.followacts.push(term)
+            }
+        }
+        for(lastmessage of this.messagelist){
+            if(lastmessage._id==this.message.a30codelast){
+                this.messageindex.push(true)
+            }else{
+                this.messageindex.push(false)
+            }
+        }        
+        for(staff of this.staffinfolist){
+            if(staff._id==this.message.a40responsor){
+                this.staffindex.push(true)
+            }else{
+                this.staffindex.push(false)
+            }
+        } 
+        for(act of this.followacts){
+            if(act.a25code==this.message.a50followact){
+                this.actindex.push(true)
+            }else{
+                this.actindex.push(false)
+            }
+        } 
+    }, 
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

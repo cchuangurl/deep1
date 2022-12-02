@@ -9,6 +9,10 @@ router.get('/', async (ctx, next)=> {
 router.get('/inputpage', async (ctx, next)=> {
     await messageController.inputpage(ctx,next)
 });
+//到客戶留言頁
+router.get('/inputpage1', async (ctx, next)=> {
+    await ideaController.inputbyguest(ctx,next)
+});
 //到修正單筆資料頁
 router.get('/editpage/:id', async (ctx, next)=> {
     console.log("get id:"+ctx.params.id)

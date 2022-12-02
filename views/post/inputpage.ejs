@@ -72,10 +72,20 @@ body {
                 <input type="text" name="a05postcode" class="form-control" id="formGroupExampleInput0" :placeholder="holders.holder0">
                 -->
                 <label for="formGroupExampleInput2">{{items.item1}}</label>
-                <input type="text" name="a10posttype" class="form-control" id="formGroupExampleInput1" :placeholder="holders.holder1">
-             
+                <select name="a10posttype" class="form-select" :placeholder="holders.holder1">
+                    <optgroup v-for="posttype of posttypes" :key="posttype._id">
+                    <option :value="posttype.a25code">{{posttype.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br>
+
                 <label for="formGroupExampleInput2">{{items.item2}}</label>
-                <input type="text" name="a15poster" class="form-control" id="formGroupExampleInput2" :placeholder="holders.holder2">
+                <select name="a15poster" class="form-select" :placeholder="holders.holder2">
+                    <optgroup v-for="staffinfo of staffinfolist" :key="staffinfo._id" >            
+                    <option :value="staffinfo._id">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
+                    </optgroup>  
+                    </select>             
+                    <br>    
               
                 <label for="formGroupExampleInput2">{{items.item3}}</label>
                 <input type="text" name="a20postdate" class="form-control" id="formGroupExampleInput3" :placeholder="holders.holder3">
@@ -90,13 +100,17 @@ body {
                 <input type="text" name="a35reader" class="form-control" id="formGroupExampleInput6" :placeholder="holders.holder6">
               
                 <label for="formGroupExampleInput2">{{items.item7}}</label>
-                <input type="text" name="a40showtype" class="form-control" id="formGroupExampleInput7" :placeholder="holders.holder7">
-              
+                <select name="a40showtype" class="form-select" :placeholder="holders.holder7">
+                    <optgroup v-for="showtype of showtypes" :key="showtype._id">
+                    <option :value="showtype.a25code">{{showtype.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br>
                 <label for="formGroupExampleInput2">{{items.item8}}</label>
                 <input type="text" name="a45datetodown" class="form-control" id="formGroupExampleInput8" :placeholder="holders.holder8">
             
               <label for="formGroupExampleInput">{{items.item99}}</label>
-              <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput11" :placeholder="holders.holder99">
+              <input type="text" name="a99footnote" class="form-control" id="formGroupExampleInput99" :placeholder="holders.holder99">
             
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由單筆post輸入後進入本頁">
             
@@ -135,16 +149,16 @@ Vue.component("bander",{
         card_title:"新增1個布告",
         card_subtitle:"請輸入以下各項資料:",
         items:{
-            item0:"公告代號",
-            item1:"內容類別",
-            item2:"公告者",
-            item3:"公告日期時間",
-            item4:"公告標題",
-            item5:"公告內容",
-            item6:"公告對象",
-            item7:"呈現方式",
-            item8:"預定下架時間",
-            item99:"管理註記"
+            item0:"公告代號：",
+            item1:"內容類別：",
+            item2:"公告者：",
+            item3:"公告日期時間：",
+            item4:"公告標題：",
+            item5:"公告內容：",
+            item6:"公告對象：",
+            item7:"呈現方式：",
+            item8:"預定下架時間：",
+            item99:"管理註記："
       },
         holders:{
             holder0:"字串,",
@@ -158,10 +172,26 @@ Vue.component("bander",{
             holder8:"日期時間,",
             holder99:"字串"
         },
+        termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        posttypes:[],
+        showtypes:[],
       inputerUIkey:0
         
       } 
     },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a10posttype"){
+                this.posttypes.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a40showtype"){
+                this.showtypes.push(term)
+            }
+        }                  
+    },   
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;

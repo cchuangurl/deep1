@@ -65,39 +65,61 @@ body {
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
           <form action="/deep1/knowledge/update" method="post">
             <div class="form-group" :key="inputerUIkey">
-                <label for="formGroupExampleInput2">{{items.item}}</label>
-                <input type="text" name="_id" class="form-control" id="formGroupExampleInput0" :value="knowledge._id">              
+                <label for="formGroupExampleInput2">{{items.item0}}</label>                
+                <select name="a05domain" class="form-select">
+                    <optgroup v-for="(domain,index) of domains" :key="domain._id" >                
+                    <option :value="domain.a25code" :selected="domainindex[index]">{{domain.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br> 
+
+                <label for="formGroupExampleInput2">{{items.item1}}</label>
+                <input type="text" name="a15describe" class="form-control" id="formGroupExampleInput1" :value="knowledge.a15describe">
               
-                <label for="formGroupExampleInput2">{{items.item1}}</label>
-                <input type="text" name="a05domain" class="form-control" id="formGroupExampleInput0" :value="knowledge.a05domain">
-  
-                <label for="formGroupExampleInput2">{{items.item1}}</label>
-                <input type="text" name="a10code" class="form-control" id="formGroupExampleInput1" :value="knowledge.a10code">
-             
                 <label for="formGroupExampleInput2">{{items.item2}}</label>
-                <input type="text" name="a15describe" class="form-control" id="formGroupExampleInput2" :value="knowledge.a15describe">
+                <input type="text" name="a20filename" class="form-control" id="formGroupExampleInput2" :value="knowledge.a20filename">
               
                 <label for="formGroupExampleInput2">{{items.item3}}</label>
-                <input type="text" name="a20filename" class="form-control" id="formGroupExampleInput3" :value="knowledge.a20filename">
-              
-                <label for="formGroupExampleInput2">{{items.item4}}</label>
-                <input type="text" name="a25filealias" class="form-control" id="formGroupExampleInput4" :value="knowledge.a25filealias">
+                <input type="text" name="a25alias" class="form-control" id="formGroupExampleInput3" :value="knowledge.a25alias">
              
+                <label for="formGroupExampleInput2">{{items.item4}}</label>
+                <select name="a30category" class="form-select">
+                    <optgroup v-for="(category,index) of categorys" :key="category._id" >                
+                    <option :value="category.a25code"  :selected="categoryindex[index]">{{category.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br>  
+                
                 <label for="formGroupExampleInput2">{{items.item5}}</label>
-                <input type="text" name="a30category" class="form-control" id="formGroupExampleInput5" :value="knowledge.a30category">
-              
+                <select name="a33course" class="form-select">
+                    <optgroup v-for="(course,index) of courses" :key="course._id" >                
+                    <option :value="course.a25code" :selected="courseindex[index]"">{{course.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br>   
+                
                 <label for="formGroupExampleInput2">{{items.item6}}</label>
-                <input type="text" name="a35uploader" class="form-control" id="formGroupExampleInput6" :value="knowledge.a35uploader">
+                <select name="a35uploader" class="form-select">
+                    <optgroup v-for="(staffinfo,index) of staffinfolist" :key="staffinfo._id" >            
+                    <option :value="staffinfo._id" :selected="staffindex[index]">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
+                    </optgroup>  
+                    </select>             
+                    <br>       
               
                 <label for="formGroupExampleInput2">{{items.item7}}</label>
                 <input type="text" name="a40date" class="form-control" id="formGroupExampleInput7" :value="knowledge.a40date">
               
                 <label for="formGroupExampleInput2">{{items.item8}}</label>
-                <input type="text" name="a45reveal" class="form-control" id="formGroupExampleInput8" :value="knowledge.a45reveal">
+                <select name="a45reveal" class="form-select">
+                    <optgroup v-for="(reveal,index) of reveals" :key="reveal._id" >                
+                    <option :value="reveal.a25code" :selected="revealindex[index]">{{reveal.a30mean}}</option>
+                    </optgroup>
+                    </select>
+                  <br> 
               
                 <label for="formGroupExampleInput2">{{items.item9}}</label>
-                <input type="text" name="a504download" class="form-control" id="formGroupExampleInput9" :value="knowledge.a504download">
-           
+                <input type="text" name="a50is4download" class="form-control" id="formGroupExampleInput9" :value="knowledge.a50is4download">
+                
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正knowledge後進入本頁">
             
               <input type="submit" id="button1" value="確定送出" class="btn btn-info">
@@ -150,24 +172,78 @@ Vue.component("bander",{
             item99:"特別註記"     
       },
       knowledge:JSON.parse(decodeURIComponent('<%=knowledge%>')),
+      termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
+        staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        domains:[],
+        reveals:[],
+        categorys:[],
+        courses:[],
+        staffindex:[],
+        domainindex:[],
+        revealindex:[],
+        categoryindex:[],
+        courseindex:[],  
       inputerUIkey:0
-      /*
-      values:{
         
-         value:knowledge._id
-         value0:knowledge.a05name,
-            value1:knowledge.a10account,
-            value2:knowledge.a15password,
-            value3:knowledge.a20department,
-            value4:knowledge.a25position,
-            value5:knowledge.a30email,
-            value6:knowledge.a35tel,
-            value7:knowledge.a40mobile,
-            value8:knowledge.a45group,
-            value99:knowledge.a99footnote         
-    } */
-  }//EOF return 
-    }, //EOF data()
+      } 
+    },
+    mounted:function(){
+        for(term of this.termlist){
+            if(term.a20field=="a05domain"){
+                this.domains.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a45reveal"){
+                this.reveals.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a30category"){
+                this.categorys.push(term)
+            }
+        }
+        for(term of this.termlist){
+            if(term.a20field=="a33course"){
+                this.courses.push(term)
+            }
+        }
+        for(staff of this.staffinfolist){
+            if(staff._id==this.knowledge.a35uploader){
+                this.staffindex.push(true)
+            }else{
+                this.staffindex.push(false)
+            }
+        }
+        for(domain of this.domains){
+            if(domain.a25code==this.knowledge.a05domain){
+                this.domainindex.push(true)
+            }else{
+                this.domainindex.push(false)
+            }
+        }
+        for(reveal of this.reveals){
+            if(reveal.a25code==this.knowledge.a45reveal){
+                this.revealindex.push(true)
+            }else{
+                this.revealindex.push(false)
+            }
+        }
+        for(category of this.categorys){
+            if(category.a25code==this.knowledge.a30category){
+                this.categoryindex.push(true)
+            }else{
+                this.categoryindex.push(false)
+            }
+        }
+        for(course of this.courses){
+            if(course.a25code==this.knowledge.a33course){
+                this.courseindex.push(true)
+            }else{
+                this.courseindex.push(false)
+            }
+        }                      
+    },
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;
