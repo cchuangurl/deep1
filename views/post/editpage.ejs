@@ -74,7 +74,7 @@ body {
                   <br>
 
                 <label for="formGroupExampleInput2">{{items.item2}}</label>
-                <select name="a15poster" class="form-select"">
+                <select name="a15poster" class="form-select">
                     <optgroup v-for="(staffinfo,index) of staffinfolist" :key="staffinfo._id" >            
                     <option :value="staffinfo._id" :selected="staffindex[index]">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
                     </optgroup>  
@@ -143,15 +143,15 @@ Vue.component("bander",{
         card_subtitle:"請修正以下各項資料:",
         items:{
             item:"ID",
-            item0:"公告代號",
-            item1:"內容類別",
-            item2:"公告者",
-            item3:"公告日期時間",
-            item4:"公告標題",
-            item5:"公告內容",
-            item6:"公告對象",
-            item7:"呈現方式",
-            item8:"預定下架時間",
+            item0:"公告代號：",
+            item1:"內容類別：",
+            item2:"公告者：",
+            item3:"公告日期時間：",
+            item4:"公告標題：",
+            item5:"公告內容：",
+            item6:"公告對象：",
+            item7:"呈現方式：",
+            item8:"預定下架時間：",   
             item99:"管理註記"     
       },
       post:JSON.parse(decodeURIComponent('<%=post%>')),

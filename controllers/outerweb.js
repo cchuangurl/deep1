@@ -3,6 +3,7 @@ const User = require('../models/index').user;
 const Post = require('../models/index').post;
 const Knowledge = require('../models/index').knowledge;
 const Project = require('../models/index').project;
+const Term = require('../models/index').term;
 module.exports = {
 //判定登入人群組
 
@@ -54,6 +55,7 @@ async homepage(ctx,next){
 //到對外簡介
 async brief(ctx, next){
     let statusreport="歡迎到服務項目介紹！!";
+    console.log("有執行到brief controller!");    
     await ctx.render("outerweb/product" ,{
         statusreport
     });
@@ -69,7 +71,25 @@ async deliver(ctx, next){
 async share(ctx, next){
     let statusreport="歡迎到參用免費提供的服務！!";
     console.log("going in method share!!")
+    var termcategory;
+    await Term.find({a20field:"a30category",})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termcategory=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termcategory"+typeof(termcategory));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({a30category) failed !!");
+        console.log(err)
+    })  
     await ctx.render("outerweb/share" ,{
+        termcategory,
         statusreport
     });
 },

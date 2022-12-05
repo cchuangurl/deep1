@@ -3,44 +3,76 @@ const User = require('../models/index').user;
 const Post = require('../models/index').post;
 const Knowledge = require('../models/index').knowledge;
 const Project = require('../models/index').project;
+const Term = require('../models/index').term;
 module.exports = {
 
 //到本企業內部網頁-登入員工業務要覽
 async daily(ctx,next){
     var statusreport=ctx.query.statusreport;
     var postlist;
+    var projectlist;
+    var termpost;
+    var termproject;
     console.log("gotten query:"+statusreport);
-    await Post.find({})    
+    await Post.find({a35reader:"staff"})    
     .then(async posts=>{;
         console.log("1st post:"+posts[0]);
         console.log("No. of post:"+posts.length);
-        let postchosen=new Array();
-        for(let post of posts){
-            if(post.a35reader=="staff"||post.a35reader=="all"){
-                postchosen.push(post)
-            }
-        }
-        console.log("No. of postchosen:"+postchosen.length);
-        postlist=encodeURIComponent(JSON.stringify(postchosen));
+        console.log("No. of posts:"+posts.length);
+        postlist=encodeURIComponent(JSON.stringify(posts));
         console.log("type of postlist:"+typeof(postlist))
     })
     .catch(err=>{
-        console.log("Post.find({}) failed !!");
+        console.log("Post.find({staff}) failed !!");
         console.log(err)
     })
+    await Term.find({a15model:"post"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termpost=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termpost:"+typeof(termpost));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({post}) failed !!");
+        console.log(err)
+    })
+    await Term.find({a15model:"project"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termproject=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termproject:"+typeof(termproject));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({project}) failed !!");
+        console.log(err)
+    })   
     await Project.find({})
     .then(async projects=>{;
         console.log("1st project:"+projects[0])
         console.log("No. of project:"+projects.length)
-        let projectlist=encodeURIComponent(JSON.stringify(projects));
+        projectlist=encodeURIComponent(JSON.stringify(projects));
         console.log("type of projectlist:"+typeof(projectlist));
         if(statusreport===undefined){
             statusreport="未截到status";
             console.log("未截到status!!");
         }
         await ctx.render("innerweb/dailypage",{
-            postlist:postlist,
-            projectlist:projectlist,
+            postlist,
+            projectlist,
+            termpost,
+            termproject,
             statusreport:statusreport
         })
     })
@@ -101,8 +133,8 @@ async operate(ctx, next){
     });
 },
 //客服業務處理-回應留言
-async response(ctx, next){
-    statusreport="";
+async reply(ctx, next){
+    statusreport="由客服業務處理選項進入本頁";
     await ctx.render("innerweb/operate/replypage" ,{
         statusreport
     });
@@ -110,21 +142,21 @@ async response(ctx, next){
 
 //客服業務處理-回應需求
 async reception(ctx, next){
-    statusreport="";
+    statusreport="由客服業務處理選項進入本頁";
     await ctx.render("innerweb/operate/responsepage" ,{
         statusreport
     });
 },
 //客服業務處理-ocosa分析
 async ocosa(ctx, next){
-    statusreport="";
+    statusreport="由客服業務處理選項進入本頁";
     await ctx.render("innerweb/operate/ocosapage" ,{
         statusreport
     });
 },
 //客服業務處理-行動規劃及進度管控
 async actionplan(ctx, next){
-    statusreport="";
+    statusreport="由客服業務處理選項進入本頁";
     await ctx.render("innerweb/operate/planpage" ,{
         statusreport
     });

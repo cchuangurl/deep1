@@ -5,7 +5,7 @@ const innerwebController = require('../controllers/index').innerweb;
 router.post('/', async (ctx, next)=> {
 	await innerwebController.daily(ctx, next)
 });
-//到本企業內部網頁-登入員工業務要覽
+//回到本企業內部網頁-回到員工業務要覽
 router.get('/', async (ctx, next)=> {
 	await innerwebController.gobackdaily(ctx, next)
 });
@@ -15,7 +15,7 @@ router.get('/workzone', async (ctx, next)=> {
 });
 //客服業務處理-回應留言
 router.get('/workzone/message', async (ctx, next)=> {
-	await innerwebController.response(ctx, next)
+	await innerwebController.reply(ctx, next)
 });
 //客服業務處理-回應需求
 router.get('/workzone/bellcall', async (ctx, next)=> {

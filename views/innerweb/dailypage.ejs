@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <!-- <script src="/javascripts/jquery-3.4.1.js"></script> -->
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {  
 background-color: rgb(205, 226, 253);
@@ -71,7 +72,21 @@ background-color: rgb(205, 226, 253);
             </div>
             <div class="col-lg col-md-2 col-sm-6">
                 <li class="nav-item">
-                  <a class="nav-link" href="/deep1/innerweb/workzone">{{workzone}}</a>
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown">
+                            {{workzone}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/deep1/innerweb/workzone/message">{{reply}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/workzone/bellcall">{{response}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/workzone/analysis">{{ocosa}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/workzone/planning">{{actionplan}}</a>
+                        </div>
+                </div>
                 </li>
             </div>
             <div class="col-lg col-md-2 col-sm-6">
@@ -251,6 +266,10 @@ background-color: rgb(205, 226, 253);
         brand:"Deep內部網站",
         daily:"業務要覽",
         workzone:"客服作業區",
+        reply:"回應留言",
+        response:"回復顧客需求",
+        ocosa:"顧客需求分析",
+        actionplan:"訂定行動計畫",
         affaire:"行政支援區",
         KI:"專業知識整合",
         datamaintain:"各種資料管理",

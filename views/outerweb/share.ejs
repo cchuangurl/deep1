@@ -37,6 +37,13 @@ background-color: rgb(213, 218, 210);
 #bellcall{
     background:#f5f5d6   
 }
+#tablefy{
+    display: inline-block;
+  flex-direction:row;
+	 justify-content: flex-start;
+     align-items:left;
+     margin:10px
+}
 #messageboard{
     background:#d6f5de
 }
@@ -81,7 +88,9 @@ background-color: rgb(213, 218, 210);
                 </div>
             </div>
         </div>
-    <contacter></contacter> 
+        <div class="row" align="justify">
+            <contacter></contacter>
+        </div>         
     </div>
  
     <template id="banderUI">
@@ -97,7 +106,7 @@ background-color: rgb(213, 218, 210);
                 <ul class="navbar-nav mr-auto">
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link active" href="/deep1/outerweb">{{home}}</a>
+                    <a class="nav-link" href="/deep1/outerweb">{{home}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
@@ -112,7 +121,7 @@ background-color: rgb(213, 218, 210);
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="#">{{share}}<span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="#">{{share}}<span class="sr-only">(current)</span></a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
@@ -144,165 +153,24 @@ background-color: rgb(213, 218, 210);
             <h5>請點專業知識類別選項</h5>
                     </div>
             </div>
-            <div class="row">
+            <div class="row" id="tablefy" v-for="term of termcategory" :ket="term._id">
                     <div class="col-lg-3 col-md-6 col-sm-12">
                             <form  action="/deep1/knowledge/chosen" method="post">
                                 <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                                <input type="hidden" name="category" :value="categorys.category11">                                
-                                <input type="submit" :value="items.item11" class="btn btn-info">       
+                                <input type="hidden" name="category" :value="term.a25code">                                
+                                <input type="submit" :value="term.a30mean" class="btn btn-info">       
                                 </form>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                            <form  action="/deep1/knowledge/chosen" method="post">
-                                <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                                <input type="hidden" name="category" :value="categorys.category12">                                
-                                <input type="submit" :value="items.item12" class="btn btn-info">       
-                                </form>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                            <form  action="/deep1/knowledge/chosen" method="post">
-                                <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                                <input type="hidden" name="category" :value="categorys.category13">                                
-                                <input type="submit" :value="items.item13" class="btn btn-info">       
-                                </form>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                            <form  action="/deep1/knowledge/chosen" method="post">
-                                <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                                <input type="hidden" name="category" :value="categorys.category14">                                
-                                <input type="submit" :value="items.item14" class="btn btn-info">       
-                                </form>
-                    </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category21">                                
-                        <input type="submit" :value="items.item21" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category22">                                
-                        <input type="submit" :value="items.item22" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category23">                                
-                        <input type="submit" :value="items.item23" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category24">                                
-                        <input type="submit" :value="items.item24" class="btn btn-info">       
-                        </form>
-            </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category31">                                
-                        <input type="submit" :value="items.item31" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category32">                                
-                        <input type="submit" :value="items.item32" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category33">                                
-                        <input type="submit" :value="items.item33" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category34">                                
-                        <input type="submit" :value="items.item34" class="btn btn-info">       
-                        </form>
-            </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category41">                                
-                        <input type="submit" :value="items.item41" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category42">                                
-                        <input type="submit" :value="items.item42" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category43">                                
-                        <input type="submit" :value="items.item43" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category44">                                
-                        <input type="submit" :value="items.item44" class="btn btn-info">       
-                        </form>
-            </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category51">                                
-                        <input type="submit" :value="items.item51" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category52">                                
-                        <input type="submit" :value="items.item52" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category53">                                
-                        <input type="submit" :value="items.item53" class="btn btn-info">       
-                        </form>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                    <form  action="/deep1/knowledge/chosen" method="post">
-                        <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                        <input type="hidden" name="category" :value="categorys.category54">                                
-                        <input type="submit" :value="items.item54" class="btn btn-info">       
-                        </form>
-            </div>
+                    </div>     
             </div>            
         </nav>
     </template>
 
-    <!--
+    
     <template id="content2UI">
         
         </nav>
     </template>
-    -->
+    
 
     <template id="sidebarUI">
         <nav aria-label="...">
@@ -364,7 +232,6 @@ background-color: rgb(213, 218, 210);
         </nav>
     </template>
 
-    <!--    
     <template id="contacterUI">
         <nav aria-label="...">
             <div id="contactpart">
@@ -374,7 +241,6 @@ background-color: rgb(213, 218, 210);
         </div>    
         </nav>
     </template>
-    -->
 
 <!-- Vue CDN-->
 <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
@@ -417,7 +283,6 @@ Vue.component("bander",{
     },
     template:"#sidebarUI"
   });
-  /*
   Vue.component("contacter",{
     props:{},
     data(){
@@ -432,60 +297,26 @@ Vue.component("bander",{
     },
     template:"#contacterUI"
     });
-    */
   Vue.component("content1",{
     props:{},
     data(){
       return{
-        items:{
-            item11:'目標管理',
-            item12:'組織管理',
-            item13:'策略管理',
-            item14:'形象管理',
-            item21:'知識管理',
-            item22:'研發管理',
-            item23:'智財管理',
-            item24:'創新管理',
-            item31:'營運管理',
-            item32:'行銷管理',
-            item33:'續效管理',
-            item34:'成本管理',
-            item41:'生產管理',
-            item42:'專案管理',
-            item43:'品質管理',
-            item44:'庫存管理',
-            item51:'財務管理',
-            item52:'人資管理',
-            item53:'資訊管理',
-            item54:'財產管理'
-        },
-        categorys:{
-            category11:'object',
-            category12:'organization',
-            category13:'strategy',
-            category14:'reputation',
-            category21:'knowelge',
-            category22:'research',
-            category23:'IPR',
-            category24:'innovation',
-            category31:'execute',
-            category32:'marketing',
-            category33:'performance',
-            category34:'cost',
-            category41:'production',
-            category42:'PM',
-            category43:'QC',
-            category44:'inventory',
-            category51:'fianacial',
-            category52:'HR',
-            category53:'ICT',
-            category54:'estate'
-        }
+        termcategory:JSON.parse(decodeURIComponent('<%=termcategory%>')),
+        termfiltered:[]
     }
     },
+    /*
+    mounted:function(){
+        for(termx of this.termcategroy){
+            if(termx.a25code!="management1"||termx.a25code!="management2"){
+                this.termfiltered.push(termx)
+            }
+        }
+    },    
     computed:{
       
     },
+    */
     methods:{
           
     },

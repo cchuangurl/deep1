@@ -19,8 +19,8 @@ background-color: rgb(248, 243, 243);
 }
 #deliveryimg {
     background-image:url("/images/20220509delivery.png");  
-    height: 700px;
-  width: 900; 
+    height: 600px;
+  width: 900px; 
 }
 #sidearea{  
 background-color: rgb(213, 218, 210);
@@ -63,7 +63,7 @@ background-color: rgb(213, 218, 210);
 
 </style>
 
-  <title>本社首頁</title>
+  <title>本社服務提供流程</title>
   </head>
   <body>
     <div id="show_div">
@@ -98,7 +98,7 @@ background-color: rgb(213, 218, 210);
                 <ul class="navbar-nav mr-auto">
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link active" href="/deep1/outerweb">{{home}}</a>
+                    <a class="nav-link" href="/deep1/outerweb">{{home}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
@@ -108,7 +108,7 @@ background-color: rgb(213, 218, 210);
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/deliver">{{deliver}}<span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="#">{{deliver}}<span class="sr-only">(current)</span></a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
@@ -140,6 +140,7 @@ background-color: rgb(213, 218, 210);
      
     <template id="content1UI">
         <nav aria-label="...">
+            我們的服務流程：
             <div id="deliveryimg"></div>
         </nav>
     </template>

@@ -7,20 +7,21 @@ router.get('/', async (ctx, next)=> {
 	await outerwebController.homepage(ctx, next)
 });
 //到對外簡介
-router.get('/outerweb/brief', async (ctx, next)=> {
+router.get('/brief', async (ctx, next)=> {
+    console.log("有執行到brief router!");  
 	await outerwebController.brief(ctx, next)
 });
 //到對外服務交付說明
-router.get('/outerweb/deliver', async (ctx, next)=> {
+router.get('/deliver', async (ctx, next)=> {
 	await outerwebController.deliver(ctx, next)
 });
 //到對外免費服務
-router.get('/outerweb/share', async (ctx, next)=> {
+router.get('/share', async (ctx, next)=> {
     console.log("going in router share!!")
 	await outerwebController.share(ctx, next)
 });
 //到對外認識本企業
-router.get('/outerweb/aboutus', async (ctx, next)=> {
+router.get('/aboutus', async (ctx, next)=> {
     console.log("going in router aboutus!!")
 	await outerwebController.aboutus(ctx, next)
 });
