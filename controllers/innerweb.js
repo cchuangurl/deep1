@@ -161,16 +161,30 @@ async actionplan(ctx, next){
         statusreport
     });
 },
+//到知識管理
+async KM(ctx, next){
+    statusreport="";
+    await ctx.render("innerweb/KI/KMpage" ,{
+        statusreport
+    });
+},
 //到知識整合
 async integrate(ctx, next){
     statusreport="";
-    await ctx.render("innerweb/KI/KIentry" ,{
+    await ctx.render("innerweb/KI/integratepage" ,{
+        statusreport
+    });
+},
+//到知識分類
+async classify(ctx, next){
+    statusreport="";
+    await ctx.render("innerweb/KI/classifypage" ,{
         statusreport
     });
 },
 //到行政作業
 async affaire(ctx, next){
-    statusreport="";
+    statusreport="由行政作業選項進入本頁";
     console.log("進入controller的affaire");
     await ctx.render("innerweb/affaire/affaireentry" ,{
         statusreport
@@ -178,21 +192,21 @@ async affaire(ctx, next){
 },
 //行政作業-人力資源
 async personnel(ctx, next){
-    statusreport="";
+    statusreport="由行政作業選項進入本頁";
     await ctx.render("innerweb/affaire/HRpage" ,{
         statusreport
     });
 },
 //行政作業-財務會計
 async finance(ctx, next){
-    statusreport="";
+    statusreport="由行政作業選項進入本頁";
     await ctx.render("innerweb/affaire/financepage" ,{
         statusreport
     });
 },
 //行政作業-資訊通訊
 async ICT(ctx, next){
-    statusreport="";
+    statusreport="由行政作業選項進入本頁";
     await ctx.render("innerweb/affaire/ICTpage" ,{
         statusreport
     });
@@ -309,10 +323,10 @@ async communicate(ctx, next){
         statusreport
     });
 },
-//到意見反映
-async idea(ctx, next){
+//到回映意見反映
+async ideadeal(ctx, next){
     statusreport="";
-    await ctx.render("innerweb/team/ideapage" ,{
+    await ctx.render("innerweb/team/ideadealpage" ,{
         statusreport
     });
 },

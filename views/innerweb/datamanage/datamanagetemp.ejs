@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <!-- <script src="/javascripts/jquery-3.4.1.js"></script> -->
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {  
 background-color: rgb(205, 226, 253);
@@ -66,34 +67,115 @@ background-color: rgb(205, 226, 253);
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb">{{daily}}</a>
-            </li>
-        </div>
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb/workzone">{{workzone}}</a>
-            </li>
-        </div>
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb/general">{{affaire}}</a>
-            </li>
-        </div>
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb/KI">{{KI}}</a>
-            </li>
-        </div>
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-              <a class="nav-link  active" href="#">{{datamaintain}}<span class="sr-only">(current)</span></a>
-            </li>
-        </div>
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-                <a class="nav-link" href="/deep1/outerweb">{{outerweb}}</a>
-            </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown">
+                            {{innerhome}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/deep1/innerweb">{{daily}}</a>
+                        </div>
+                    </div>
+                  <a class="nav-link" href="/deep1/innerweb">{{daily}}</a>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown">
+                            {{workzone}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/deep1/innerweb/workzone/message">{{reply}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/workzone/bellcall">{{response}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/workzone/analysis">{{ocosa}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/workzone/planning">{{actionplan}}</a>
+                        </div>
+                    </div>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown">
+                            {{affaire}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/deep1/innerweb/general/personnel">{{personnel}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/general/finance">{{finance}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/general/ICT">{{ICT}}</a>
+                        </div>
+                    </div>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown">
+                            {{KI}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/deep1/innerweb/KI/integrate">{{integrate}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/KI/KM">{{KM}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/KI/classify">{{classify}}</a>
+                        </div>
+                    </div>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                  <a class="nav-link  active" href="#">{{datamaintain}}<span class="sr-only">(current)</span></a>
+                </li>
+            </div>
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown">
+                            {{team}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/deep1/innerweb/team/communicate">{{communicate}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/team/ideadeal">{{ideadeal}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/team/outcome">{{outcome}}}</a>
+                        </div>
+                    </div>
+                </li>
+            </div>    
+            <div class="col-lg col-md-2 col-sm-6">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown">
+                            {{outerweb}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/deep1/outerweb">{{outerweb}}</a>
+                        </div>
+                    </div>
+                </li>
         </div>
           </ul>
         </div>
@@ -234,11 +316,26 @@ background-color: rgb(205, 226, 253);
       data(){
         return {
         brand:"Deep內部網站",
-        daily:"業務要覽",
+        innerhome:"內網首頁",        
+        daily:"本員工業務要覽",
         workzone:"客服作業區",
+        reply:"回應留言",
+        response:"回復顧客需求",
+        ocosa:"顧客需求分析",
+        actionplan:"訂定行動計畫",
         affaire:"行政支援區",
+        personnel:"人力資源管理",
+        finance:"財務會計事務",
+        ICT:"資訊系統管理",
         KI:"專業知識整合",
+        KM:"知識管理",
+        integrate:"知識整合",
+        classify:"分類學",
         datamaintain:"各種資料管理",
+        team:"社內互動園地",
+        communicate:"內部通訊",
+        ideadeal:"回應員工建言",
+        outcome:"我們的努力成果",
         outerweb:"對外網站",
         statusreport:'<%- JSON.stringify(statusreport) %>'
         //statusreport:"顯示測試"

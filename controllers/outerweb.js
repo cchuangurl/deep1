@@ -67,8 +67,8 @@ async deliver(ctx, next){
         statusreport
     });
 },
-//到對外免費服務
-async share(ctx, next){
+//到對外免費服務-依管理類別
+async bycate(ctx, next){
     let statusreport="歡迎到參用免費提供的服務！!";
     console.log("going in method share!!")
     var termcategory;
@@ -88,8 +88,60 @@ async share(ctx, next){
         console.log("Term.find({a30category) failed !!");
         console.log(err)
     })  
-    await ctx.render("outerweb/share" ,{
+    await ctx.render("outerweb/share/bycate" ,{
         termcategory,
+        statusreport
+    });
+},
+//到對外免費服務-依知識領域
+async bydomain(ctx, next){
+    let statusreport="歡迎到參用免費提供的服務！!";
+    console.log("going in method share!!")
+    var termdomain;
+    await Term.find({a20field:"a05domain",})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termdomain=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termcategory"+typeof(termdomain));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({a05domain) failed !!");
+        console.log(err)
+    })  
+    await ctx.render("outerweb/share/bydomain" ,{
+        termdomain,
+        statusreport
+    });
+},
+//到對外免費服務-依課程類型
+async bycourse(ctx, next){
+    let statusreport="歡迎到參用免費提供的服務！!";
+    console.log("going in method share!!")
+    var termcourse;
+    await Term.find({a20field:"a33course",})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termcourse=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termcategory"+typeof(termcourse));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({a33course) failed !!");
+        console.log(err)
+    })  
+    await ctx.render("outerweb/share/bycourse" ,{
+        termcourse,
         statusreport
     });
 },
@@ -98,6 +150,46 @@ async aboutus(ctx, next){
     let statusreport="歡迎來多瞭解本社的種種！!";
     console.log("going in method aboutus!!")
     await ctx.render("outerweb/aboutus" ,{
+        statusreport
+    });
+},
+//到對外認識本企業-服務理念
+async ideal(ctx, next){
+    let statusreport="歡迎來多瞭解本社的種種！!";
+    console.log("going in method aboutus ideal!!")
+    await ctx.render("outerweb/aboutus/ideal" ,{
+        statusreport
+    });
+},
+//到對外認識本企業-本社優勢
+async adventage(ctx, next){
+    let statusreport="歡迎來多瞭解本社的種種！!";
+    console.log("going in method aboutus adventage!!")
+    await ctx.render("outerweb/aboutus/adventage" ,{
+        statusreport
+    });
+},
+//到對外認識本企業-組織架構
+async organize(ctx, next){
+    let statusreport="歡迎來多瞭解本社的種種！!";
+    console.log("going in method aboutus organize!!")
+    await ctx.render("outerweb/aboutus/organize" ,{
+        statusreport
+    });
+},
+//到對外認識本企業-服務實績
+async perform(ctx, next){
+    let statusreport="歡迎來多瞭解本社的種種！!";
+    console.log("going in method aboutus perform!!")
+    await ctx.render("outerweb/aboutus/perform" ,{
+        statusreport
+    });
+},
+//到對外認識本企業-企業社會責任
+async CSR(ctx, next){
+    let statusreport="歡迎來多瞭解本社的種種！!";
+    console.log("going in method aboutus CSR!!")
+    await ctx.render("outerweb/aboutus/CSR" ,{
         statusreport
     });
 },

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {  
 background-color: rgb(248, 243, 243);
@@ -114,22 +115,72 @@ background-color: rgb(213, 218, 210);
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/brief">{{brief}}</a>                    
+                        <div class="dropdown">
+                            <button
+                                class="btn btn-secondary dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown">
+                                {{brief}}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/deep1/outerweb/brief">{{brief}}</a>
+                            </div>
+                        </div>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/deliver">{{deliver}}</a>
+                        <div class="dropdown">
+                            <button
+                                class="btn btn-secondary dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown">
+                                {{deliver}}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/deep1/outerweb/deliver">{{deliver}}</a>
+                            </div>
+                        </div>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/share">{{share}}</a>
+                        <div class="dropdown">
+                            <button
+                                class="btn btn-secondary dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown">
+                                {{share}}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/deep1/outerweb/share/bycate">{{bycate}}</a>
+                                <a class="dropdown-item" href="/deep1/outerweb/share/bydomain">{{bydomain}}</a>
+                                <a class="dropdown-item" href="/deep1/outerweb/share/bycourse">{{bycourse}}}</a>
+                            </div>
+                        </div>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                        <a class="nav-link" href="/deep1/outerweb/aboutus">{{aboutus}}</a>
+                        <div class="dropdown">
+                            <button
+                                class="btn btn-secondary dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown">
+                                {{aboutus}}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/deep1/outerweb/aboutus/ideal">{{ideal}}</a>
+                                <a class="dropdown-item" href="/deep1/outerweb/aboutus/adventage">{{adventage}}</a>
+                                <a class="dropdown-item" href="/deep1/outerweb/aboutus/organize">{{organize}}</a>
+                                <a class="dropdown-item" href="/deep1/outerweb/aboutus/perform">{{perform}}</a>
+                                <a class="dropdown-item" href="/deep1/outerweb/aboutus/CSR">{{CSR}}</a>
+                            </div>
+                        </div>
                     </li>
                 </div>
                 </ul>
@@ -343,7 +394,15 @@ Vue.component("bander",{
         brief:"服務簡介",
         deliver:"服務交付流程",
         share:"免費服務項目",
+        bycate:"依管理分類",
+        bydomain:"依知識領域",
+        bycourse:"依課程類型",        
         aboutus:"認識我們",
+        ideal:"服務理念",
+        adventage:"本社優勢",
+        organize:"組織架構",
+        perform:"服務實績",
+        CSR:"企業社會責任",
         user:"無名",
         statusreport:'<%- JSON.stringify(statusreport) %>'
       }

@@ -58,7 +58,7 @@ background-color: rgb(213, 218, 210);
 
 </style>
 
-  <title>關於本社</title>
+  <title>關於本社-服務理念</title>
   </head>
   <body>
     <div id="show_div">
@@ -99,22 +99,27 @@ background-color: rgb(213, 218, 210);
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/brief">{{brief}}</a>
+                    <a class="nav-link active" href="#">{{ideal}}<span class="sr-only">(current)</span></a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/deliver">{{deliver}}</a>
+                    <a class="nav-link" href="/deep1/outerweb/aboutus/adventage">{{adventage}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/share">{{share}}</a>
+                    <a class="nav-link" href="/deep1/outerweb/aboutus/organize">{{organize}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">{{aboutus}}<span class="sr-only">(current)</span>}</a>
+                    <a class="nav-link" href="/deep1/outerweb/aboutus/perform">{{perform}}</a>
+                    </li>
+                </div>
+                <div class="col-lg col-sm-6">
+                    <li class="nav-item">
+                    <a class="nav-link" href="/deep1/outerweb/aboutus/CSR">{{CSR}}</a>
                     </li>
                 </div>
                 </ul>
@@ -230,11 +235,16 @@ Vue.component("bander",{
     data(){
       return {
         brand:"Deep",
-        home:"本社首頁",
+        home:"回本社首頁",
         brief:"服務簡介",
         deliver:"服務交付流程",
         share:"免費服務項目",
         aboutus:"認識我們",
+        ideal:"服務理念",
+        adventage:"本社優勢",
+        organize:"組織架構",
+        perform:"服務實績",
+        CSR:"企業社會責任",        
         user:"無名",
         statusreport:'<%- JSON.stringify(statusreport) %>'
       }

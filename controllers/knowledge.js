@@ -31,8 +31,90 @@ async list(ctx,next){
         console.log(err)
     })
 },
-
-
+//列出某category清單
+async category(ctx, next){
+    console.log("found route /deep1/knowledge/category !!");
+    var statusreport=ctx.query.statusreport;
+    var category=ctx.query.category;
+    console.log("gotten query:"+category);    
+	await Knowledge.find({a30category:category}).then(async knowledges=>{
+        //console.log("found knowledges:"+knowledges);
+        console.log("type of knowledges:"+typeof(knowledges));
+        console.log("type of 1st knowledge:"+typeof(knowledges[0]));
+        console.log("1st knowledge:"+knowledges[0])
+        console.log("No. of knowledge:"+knowledges.length)
+        let knowledgelist=encodeURIComponent(JSON.stringify(knowledges));
+        console.log("type of knowledges:"+typeof(knowledgelist));
+        if(statusreport===undefined){
+            statusreport="未截到status"
+        }
+        await ctx.render("knowledge/categorypage",{
+        //ctx.response.send({
+            knowledgelist:knowledgelist,
+            statusreport:statusreport
+        })
+    })
+    .catch(err=>{
+        console.log("Knowledge.find({category}) failed !!");
+        console.log(err)
+    })
+},
+//列出某domain清單
+async domain(ctx, next){
+	console.log("found route /deep1/knowledge/domain !!");
+    var statusreport=ctx.query.statusreport;
+    var domain=ctx.query.domain;
+    console.log("gotten query:"+domain);    
+	await Knowledge.find({a05domain:domain}).then(async knowledges=>{
+        //console.log("found knowledges:"+knowledges);
+        console.log("type of knowledges:"+typeof(knowledges));
+        console.log("type of 1st knowledge:"+typeof(knowledges[0]));
+        console.log("1st knowledge:"+knowledges[0])
+        console.log("No. of knowledge:"+knowledges.length)
+        let knowledgelist=encodeURIComponent(JSON.stringify(knowledges));
+        console.log("type of knowledges:"+typeof(knowledgelist));
+        if(statusreport===undefined){
+            statusreport="未截到status"
+        }
+        await ctx.render("knowledge/domainpage",{
+        //ctx.response.send({
+            knowledgelist:knowledgelist,
+            statusreport:statusreport
+        })
+    })
+    .catch(err=>{
+        console.log("Knowledge.find({domain}) failed !!");
+        console.log(err)
+    })
+},
+//列出某course清單
+async course(ctx, next){
+    console.log("found route /deep1/knowledge/course !!");
+    var statusreport=ctx.query.statusreport;
+    var course=ctx.query.course;
+    console.log("gotten query:"+course);    
+	await Knowledge.find({a33course:course}).then(async knowledges=>{
+        //console.log("found knowledges:"+knowledges);
+        console.log("type of knowledges:"+typeof(knowledges));
+        console.log("type of 1st knowledge:"+typeof(knowledges[0]));
+        console.log("1st knowledge:"+knowledges[0])
+        console.log("No. of knowledge:"+knowledges.length)
+        let knowledgelist=encodeURIComponent(JSON.stringify(knowledges));
+        console.log("type of knowledges:"+typeof(knowledgelist));
+        if(statusreport===undefined){
+            statusreport="未截到status"
+        }
+        await ctx.render("knowledge/coursepage",{
+        //ctx.response.send({
+            knowledgelist:knowledgelist,
+            statusreport:statusreport
+        })
+    })
+    .catch(err=>{
+        console.log("Knowledge.find({course}) failed !!");
+        console.log(err)
+    })
+},
 //到新增資料頁
 async inputpage(ctx, next) {
     var {statusreport}=ctx.request.body;

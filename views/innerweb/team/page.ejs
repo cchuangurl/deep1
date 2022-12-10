@@ -28,7 +28,7 @@ background-color: rgb(205, 226, 253);
 .navbar-toggler{background:#fff !important;}
 </style>
 
-  <title>內部系統--行政支援入口</title>
+  <title>內部系統--客服作業區入口</title>
   </head>
   <body>
     <div id="show_div">
@@ -72,27 +72,17 @@ background-color: rgb(205, 226, 253);
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb/workzone">{{workzone}}</a>
+              <a class="nav-link active" href="/deep1/innerweb/team/communicate">{{communicate}}<span class="sr-only">(current)</span></a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-              <a class="nav-link  active" href="#">{{affaire}}<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/deep1/innerweb/team/ideadeal">{{ideadeal}}</a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb/KI">{{KI}}</a>
-            </li>
-        </div>
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb/datamanage">{{datamaintain}}</a>
-            </li>
-        </div>
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-                <a class="nav-link" href="/deep1/outerweb">{{outerweb}}</a>
+              <a class="nav-link" href="/deep1/innerweb/team/outcome">{{outcome}}}</a>
             </li>
         </div>
           </ul>
@@ -109,7 +99,6 @@ background-color: rgb(205, 226, 253);
     <template id="content1UI">
         <nav aria-label="...">
           <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12" id="bulletin">
                 <h1>本頁製作中。。。<br>
                     請先瀏覽其他網頁</h1>
                 </div>
@@ -146,11 +135,21 @@ background-color: rgb(205, 226, 253);
       data(){
         return {
         brand:"Deep內部網站",
-        daily:"業務要覽",
+        daily:"回到個人業務要覽",
         workzone:"客服作業區",
+        reply:"回應留言",
+        response:"回復顧客需求",
+        ocosa:"顧客需求分析",
+        actionplan:"訂定行動計畫",
         affaire:"行政支援區",
+        personnel:"人力資源管理",
+        finance:"財務會計事務",
+        ICT:"資訊系統管理",
         KI:"專業知識整合",
         datamaintain:"各種資料管理",
+        communicate:"內部通訊",
+        ideadeal:"回應員工建言",
+        outcome:"我們的努力成果",        
         outerweb:"對外網站",
         statusreport:'<%- JSON.stringify(statusreport) %>'
         //statusreport:"顯示測試"

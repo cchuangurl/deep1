@@ -29,9 +29,17 @@ router.get('/workzone/analysis', async (ctx, next)=> {
 router.get('/workzone/planning', async (ctx, next)=> {
 	await innerwebController.actionplan(ctx, next)
 });
+//到知識管理
+router.get('/KI/KM', async (ctx, next)=> {
+	await innerwebController.KM(ctx, next)
+});
 //到知識整合
-router.get('/KI', async (ctx, next)=> {
+router.get('/KI/integrate', async (ctx, next)=> {
 	await innerwebController.integrate(ctx, next)
+});
+//到知識整合
+router.get('/KI/classify', async (ctx, next)=> {
+	await innerwebController.classify(ctx, next)
 });
 //到行政作業
 router.get('/general', async (ctx, next)=> {
@@ -85,11 +93,11 @@ router.get('/team/outcome', async (ctx, next)=>{
 	await innerwebController.outcome(ctx, next)
 });
 //到內部通訊
-router.get('/team/interact', async (ctx, next)=> {
+router.get('/team/communicate', async (ctx, next)=> {
 	await innerwebController.communicate(ctx, next)
 });
-//到意見反映
-router.get('/team/idea', async (ctx, next)=> {
-	await innerwebController.idea(ctx, next)
+//到回應意見反映
+router.get('/team/ideadeal', async (ctx, next)=> {
+	await innerwebController.ideadeal(ctx, next)
 });
 module.exports = router;

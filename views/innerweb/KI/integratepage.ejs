@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <!-- <script src="/javascripts/jquery-3.4.1.js"></script> -->
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {  
 background-color: rgb(205, 226, 253);
@@ -29,7 +28,7 @@ background-color: rgb(205, 226, 253);
 .navbar-toggler{background:#fff !important;}
 </style>
 
-  <title>內部系統--資料庫維管入口</title>
+  <title>內部系統--知識整合頁</title>
   </head>
   <body>
     <div id="show_div">
@@ -68,113 +67,22 @@ background-color: rgb(205, 226, 253);
           <ul class="navbar-nav mr-auto">
             <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-                <div class="dropdown">
-                    <button
-                        class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown">
-                        {{innerhome}}
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/deep1/innerweb">{{daily}}</a>
-                    </div>
-                </div>
               <a class="nav-link" href="/deep1/innerweb">{{daily}}</a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-                <div class="dropdown">
-                    <button
-                        class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown">
-                        {{workzone}}
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/deep1/innerweb/workzone/message">{{reply}}</a>
-                        <a class="dropdown-item" href="/deep1/innerweb/workzone/bellcall">{{response}}</a>
-                        <a class="dropdown-item" href="/deep1/innerweb/workzone/analysis">{{ocosa}}</a>
-                        <a class="dropdown-item" href="/deep1/innerweb/workzone/planning">{{actionplan}}</a>
-                    </div>
-                </div>
+              <a class="nav-link" href="/deep1/innerweb/KI/KM">{{KM}}</a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-                <div class="dropdown">
-                    <button
-                        class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown">
-                        {{affaire}}
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/deep1/innerweb/general/personnel">{{personnel}}</a>
-                        <a class="dropdown-item" href="/deep1/innerweb/general/finance">{{finance}}</a>
-                        <a class="dropdown-item" href="/deep1/innerweb/general/ICT">{{ICT}}</a>
-                    </div>
-                </div>
+              <a class="nav-link active" href="#">{{integrate}}<span class="sr-only">(current)</span></a>
             </li>
         </div>
         <div class="col-lg col-md-2 col-sm-6">
             <li class="nav-item">
-                <div class="dropdown">
-                    <button
-                        class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown">
-                        {{KI}}
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/deep1/innerweb/KI/integrate">{{integrate}}</a>
-                        <a class="dropdown-item" href="/deep1/innerweb/KI/KM">{{KM}}</a>
-                        <a class="dropdown-item" href="/deep1/innerweb/KI/classify">{{classify}}</a>
-                    </div>
-                </div>
-            </li>
-        </div>
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-              <a class="nav-link  active" href="#">{{datamaintain}}<span class="sr-only">(current)</span></a>
-            </li>
-        </div>
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-                <div class="dropdown">
-                    <button
-                        class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown">
-                        {{team}}
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/deep1/innerweb/team/communicate">{{communicate}}</a>
-                        <a class="dropdown-item" href="/deep1/innerweb/team/ideadeal">{{ideadeal}}</a>
-                        <a class="dropdown-item" href="/deep1/innerweb/team/outcome">{{outcome}}}</a>
-                    </div>
-                </div>
-            </li>
-        </div>    
-        <div class="col-lg col-md-2 col-sm-6">
-            <li class="nav-item">
-                <div class="dropdown">
-                    <button
-                        class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown">
-                        {{outerweb}}
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/deep1/outerweb">{{outerweb}}</a>
-                    </div>
-                </div>
+              <a class="nav-link" href="/deep1/innerweb/KI/classify">{{classify}}</a>
             </li>
         </div>
           </ul>
@@ -190,39 +98,10 @@ background-color: rgb(205, 226, 253);
      
     <template id="content1UI">
         <nav aria-label="...">
-            <fieldset>
-                <table>
-                <tr id="rowtitle">
-                    <td></td>
-                    <td>請再次輸入帳號密碼</td>
-                </tr>
-                <form action="/deep1/innerweb/datamanage/group" method="post">
-                <tr id="rowinputid">
-                    <td> 
-                    <label>使用者帳號：</label>
-                    </td>
-                    <td>
-                    <input type="text" name="account" required>
-                    </td>
-                </tr>
-                <tr id="rowinputpw">
-                    <td>
-                    <label>使用者密碼：</label>
-                    </td>
-                    <td>
-                    <input type="password" name="password">
-                    </td>
-                </tr>
-                <tr id="rowsubmitid">
-                    <td>
-                    <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由資料庫維管入口進入本頁">        
-                    <input type="submit" value="確認" style="float:right">
-                    </td>
-                </tr>
-                </form>
+          <div class="row">
+                <h1>知識整合頁製作中。。。<br>
+                    請先瀏覽其他網頁</h1>
                 </div>
-                </table>
-                </fieldset>
             </nav>
         </template>
     
@@ -256,8 +135,7 @@ background-color: rgb(205, 226, 253);
       data(){
         return {
         brand:"Deep內部網站",
-        innerhome:"內網首頁",        
-        daily:"本員工業務要覽",
+        daily:"回到個人業務要覽",
         workzone:"客服作業區",
         reply:"回應留言",
         response:"回復顧客需求",
@@ -272,10 +150,9 @@ background-color: rgb(205, 226, 253);
         integrate:"知識整合",
         classify:"分類學",
         datamaintain:"各種資料管理",
-        team:"組織互動園地",
         communicate:"內部通訊",
         ideadeal:"回應員工建言",
-        outcome:"我們的努力成果",
+        outcome:"我們的努力成果",        
         outerweb:"對外網站",
         statusreport:'<%- JSON.stringify(statusreport) %>'
         //statusreport:"顯示測試"
@@ -352,14 +229,13 @@ background-color: rgb(205, 226, 253);
         }    
       },
       mounted:function(){
-        /*
         this.maxRow=this.postlist.length;
           this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
           this.maxRound=Math.floor(this.maxPage/this.perRound)+1;
           this.modRow=this.maxRow%this.perPage;
           this.modPage=this.maxPage%this.perRound;
           this.goFirstPage() 
-          
+          /*
         maxRow=projectlist.length;
           maxPage=Math.floor(maxRow/perPage)+1;
           maxRound=Math.floor(maxPage/perRound)+1;
@@ -504,7 +380,6 @@ background-color: rgb(205, 226, 253);
         }    
       },
       mounted:function(){
-         /*  
         this.maxRow=this.projectlist.length;
           this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
           this.maxRound=Math.floor(this.maxPage/this.perRound)+1;

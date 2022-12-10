@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {  
 background-color: rgb(248, 243, 243);
@@ -17,11 +16,6 @@ background-color: rgb(248, 243, 243);
 	 justify-content: flex-start;
      align-items:center;
   	margin: 0;
-}
-#productimg {
-    background-image:url("/images/20220509product.png");  
-    height: 800px;
-  width: 1200px;    
 }
 #sidearea{  
 background-color: rgb(213, 218, 210);
@@ -49,8 +43,8 @@ background-color: rgb(213, 218, 210);
 #contactpart{
     background:#d6f5de ;
     width:100vw;
-    height:100px;
-    align-content: flex-end;
+    height:100px
+    
 }
 .contactinfo {
     margin-left:100px
@@ -64,7 +58,7 @@ background-color: rgb(213, 218, 210);
 
 </style>
 
-  <title>本社服務項目</title>
+  <title>本社優勢</title>
   </head>
   <body>
     <div id="show_div">
@@ -76,7 +70,8 @@ background-color: rgb(213, 218, 210);
             <div class="col-lg-9 col-md-6 col-sm-12">
                 <div class="row" align="justify">
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <content1></content1> </div>
+                        <content1></content1> 
+                    </div>                        
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <content2></content2>
                     </div>
@@ -99,78 +94,33 @@ background-color: rgb(213, 218, 210);
                 <ul class="navbar-nav mr-auto">
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                        <div class="dropdown">
-                            <button
-                                class="btn btn-secondary dropdown-toggle"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-toggle="dropdown">
-                                {{home}}
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/deep1/outerweb">{{home}}</a>
-                            </div>
-                        </div>
-                        </li>
-                    </div>
-                    <div class="col-lg col-sm-6">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/deep1/outerweb/brief">{{brief}}<span class="sr-only">(current)</span></a>
-                        </li>
-                    </div>
-                    <div class="col-lg col-sm-6">
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button
-                                    class="btn btn-secondary dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown">
-                                    {{deliver}}
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/deep1/outerweb/deliver">{{deliver}}</a>
-                                </div>
-                            </div>
-                        </li>
-                    </div>
-                    <div class="col-lg col-sm-6">
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button
-                                    class="btn btn-secondary dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown">
-                                    {{share}}
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/deep1/outerweb/share/bycate">{{bycate}}</a>
-                                    <a class="dropdown-item" href="/deep1/outerweb/share/bydomain">{{bydomain}}</a>
-                                    <a class="dropdown-item" href="/deep1/outerweb/share/bycourse">{{bycourse}}}</a>
-                                </div>
-                            </div>
-                        </li>
-                    </div>
-                    <div class="col-lg col-sm-6">
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button
-                                    class="btn btn-secondary dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown">
-                                    {{aboutus}}
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/deep1/outerweb/aboutus/ideal">{{ideal}}</a>
-                                    <a class="dropdown-item" href="/deep1/outerweb/aboutus/adventage">{{adventage}}</a>
-                                    <a class="dropdown-item" href="/deep1/outerweb/aboutus/organize">{{organize}}</a>
-                                    <a class="dropdown-item" href="/deep1/outerweb/aboutus/perform">{{perform}}</a>
-                                    <a class="dropdown-item" href="/deep1/outerweb/aboutus/CSR">{{CSR}}</a>
-                                </div>
-                            </div>
-                        </li>
+                    <a class="nav-link" href="/deep1/outerweb">{{home}}</a>
+                    </li>
+                </div>
+                <div class="col-lg col-sm-6">
+                    <li class="nav-item">
+                    <a class="nav-link" href="/deep1/outerweb/aboutus/ideal">{{ideal}}</a>
+                    </li>
+                </div>
+                <div class="col-lg col-sm-6">
+                    <li class="nav-item">
+                    <a class="nav-link active" href="#">{{adventage}}<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+                <div class="col-lg col-sm-6">
+                    <li class="nav-item">
+                    <a class="nav-link" href="/deep1/outerweb/aboutus/organize">{{organize}}</a>
+                    </li>
+                </div>
+                <div class="col-lg col-sm-6">
+                    <li class="nav-item">
+                    <a class="nav-link" href="/deep1/outerweb/aboutus/perform">{{perform}}</a>
+                    </li>
+                </div>
+                <div class="col-lg col-sm-6">
+                    <li class="nav-item">
+                    <a class="nav-link" href="/deep1/outerweb/aboutus/CSR">{{CSR}}</a>
+                    </li>
                 </div>
                 </ul>
                 <div class="col-lg col-sm-6">
@@ -191,8 +141,10 @@ background-color: rgb(213, 218, 210);
      
     <template id="content1UI">
         <nav aria-label="...">
-            我們整合提供下列領域的服務或解決方案：
-            <div id="productimg"></div>
+            <ul>
+                <li v-for="(n,i) in items.length" >{{items[i]}}</li>
+            </ul>
+            
         </nav>
     </template>
 
@@ -283,19 +235,16 @@ Vue.component("bander",{
     data(){
       return {
         brand:"Deep",
-        home:"本社首頁",
+        home:"回本社首頁",
         brief:"服務簡介",
         deliver:"服務交付流程",
         share:"免費服務項目",
-        bycate:"依管理分類",
-        bydomain:"依知識領域",
-        bycourse:"依課程類型",        
         aboutus:"認識我們",
         ideal:"服務理念",
         adventage:"本社優勢",
         organize:"組織架構",
         perform:"服務實績",
-        CSR:"企業社會責任",
+        CSR:"企業社會責任",        
         user:"無名",
         statusreport:'<%- JSON.stringify(statusreport) %>'
       }
@@ -340,16 +289,13 @@ Vue.component("bander",{
     props:{},
     data(){
       return{
-       items:[
-       "財務規劃分析與資金取得",
-        "資料蒐集分析與加值應用",
-        "中外語文案製作",
-        "口譯及文稿翻譯",
-        "應用系統設計",
-        "資訊系統開發",
-        "物聯網與自動化",
-        "區塊鏈應用"
-       ] 
+        items:[
+        "服務理念",
+        "企業優勢",
+        "組織架構",
+        "服務實績",
+        "社會責任"
+        ]
       }      
     },
     computed:{
