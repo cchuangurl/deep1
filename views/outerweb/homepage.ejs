@@ -335,7 +335,7 @@ background-color: rgb(213, 218, 210);
                     <tr><td>會員專區</td></tr>
                     <tr id="rowinputid">
                         <td>    
-                        <form action="/deep1/guestinfo/login" method="post">
+                        <form action="/deep1/user/clientlogin" method="post">
                         <label>會員帳號：</label>
                         </td>
                         <td>
@@ -352,14 +352,14 @@ background-color: rgb(213, 218, 210);
                     </tr>
                     <tr id="rowsubmitid">
                         <td>
-                        <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由帳號登入後進入本頁">        
+                        <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由會員登入後進入本頁">        
                         <input type="submit" value="確認" style="float:right" >
                         </form>
                         </td>
                     </tr>
                     <tr id="rownoid">
                         <td><span>
-                        <form action="/deep1/guestinfo/getpassword" method="get">
+                        <form action="/deep1/user/getpassword" method="get">
                         <input type="submit" value="忘記密碼？">
                         </form>
                         <form action="/deep1/guestinfo/register" method="get">
@@ -404,7 +404,7 @@ Vue.component("bander",{
         perform:"服務實績",
         CSR:"企業社會責任",
         user:"無名",
-        statusreport:'<%- JSON.stringify(statusreport) %>'
+        statusreport:'<%- statusreport %>'
       }
     },
     methods:{

@@ -14,6 +14,11 @@ router.get('/editpage/:id', async (ctx, next)=> {
     console.log("get id:"+ctx.params.id)
     await projectController.editpage(ctx,next)
 });
+//到修正單筆資料頁(二)
+router.get('/editpage2/:id', async (ctx, next)=> {
+    console.log("get id:"+ctx.params.id)
+    await projectController.editpage2(ctx,next)
+});
 //批次新增資料
 router.get('/inputbatch', async (ctx, next)=> {
     await projectController.batchinput(ctx,next)
@@ -39,5 +44,8 @@ router.get('/delete/:id', async (ctx, next)=> {
 router.post('/update', async (ctx, next)=> {
 	await projectController.update(ctx)
 });
-
+//依參數id更新資料(二)
+router.post('/update2', async (ctx, next)=> {
+	await projectController.update2(ctx)
+});
 module.exports = router;

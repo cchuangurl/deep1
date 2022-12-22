@@ -7,7 +7,7 @@ router.post('/', async (ctx, next)=> {
 });
 //回到本企業內部網頁-回到員工業務要覽
 router.get('/', async (ctx, next)=> {
-	await innerwebController.gobackdaily(ctx, next)
+	await innerwebController.daily(ctx, next)
 });
 //到客服業務處理
 router.get('/workzone', async (ctx, next)=> {

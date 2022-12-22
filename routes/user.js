@@ -33,11 +33,15 @@ router.post('/add', async (ctx, next)=> {
 });
 //依參數id刪除資料
 router.get('/delete/:id', async (ctx, next)=> {
-	await userController.destroy(ctx)
+	await userController.destroy(ctx,next)
 });
 //依參數id更新資料
 router.post('/update', async (ctx, next)=> {
-	await userController.update(ctx)
+	await userController.update(ctx,next)
+});
+//客戶登入
+router.post('/guestlogin', async (ctx, next)=> {
+	await userController.guestlogin(ctx, next)
 });
 
 module.exports = router;

@@ -19,9 +19,12 @@ background-color: rgb(248, 243, 243);
   	margin: 0;
 }
 #productimg {
-    background-image:url("/images/20220509product.png");  
-    height: 800px;
-  width: 1200px;    
+    background-image:url("/images/20220509product.png");
+    background-repeat:no-repeat;
+    background-size:contain; 
+    height: 80vh;
+    width: 70vw;
+
 }
 #sidearea{  
 background-color: rgb(213, 218, 210);
@@ -297,7 +300,7 @@ Vue.component("bander",{
         perform:"服務實績",
         CSR:"企業社會責任",
         user:"無名",
-        statusreport:'<%- JSON.stringify(statusreport) %>'
+        statusreport:'<%- statusreport %>'
       }
     },
     methods:{

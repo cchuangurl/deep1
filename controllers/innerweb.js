@@ -3,14 +3,18 @@ const User = require('../models/index').user;
 const Post = require('../models/index').post;
 const Knowledge = require('../models/index').knowledge;
 const Project = require('../models/index').project;
+const Staffinfo = require('../models/index').staffinfo;
 const Term = require('../models/index').term;
 module.exports = {
 
 //到本企業內部網頁-登入員工業務要覽
 async daily(ctx,next){
-    var statusreport=ctx.query.statusreport;
+    var {statusreport}=ctx.request.body;
+    var {account}=ctx.request.body;
+    var {password}=ctx.request.body;
     var postlist;
     var projectlist;
+    var staffinfolist;
     var termpost;
     var termproject;
     console.log("gotten query:"+statusreport);
@@ -23,9 +27,21 @@ async daily(ctx,next){
         console.log("type of postlist:"+typeof(postlist))
     })
     .catch(err=>{
-        console.log("Post.find({staff}) failed !!");
+        console.log("Post.find({post}) failed !!");
         console.log(err)
     })
+    await Staffinfo.find({})    
+    .then(async staffs=>{;
+        console.log("1st stafft:"+staffs[0]);
+        console.log("No. of staff:"+staffs.length);
+        console.log("No. of staffs:"+staffs.length);
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist))
+    })
+    .catch(err=>{
+        console.log("Post.find({staffinfo}) failed !!");
+        console.log(err)
+    })    
     await Term.find({a15model:"post"})
     .then(async terms=>{
         console.log("type of terms:"+typeof(terms));
@@ -33,13 +49,10 @@ async daily(ctx,next){
         console.log("1st term:"+terms[0])
         console.log("No. of term:"+terms.length)
         termpost=encodeURIComponent(JSON.stringify(terms));
-        console.log("type of termpost:"+typeof(termpost));    
-        if(statusreport===undefined){
-            statusreport="status未傳成功!"
-        }
+        console.log("type of termpost:"+typeof(termpost))
     })
     .catch(err=>{
-        console.log("Term.find({post}) failed !!");
+        console.log("Term.find({postterm}) failed !!");
         console.log(err)
     })
     await Term.find({a15model:"project"})
@@ -49,13 +62,10 @@ async daily(ctx,next){
         console.log("1st term:"+terms[0])
         console.log("No. of term:"+terms.length)
         termproject=encodeURIComponent(JSON.stringify(terms));
-        console.log("type of termproject:"+typeof(termproject));    
-        if(statusreport===undefined){
-            statusreport="status未傳成功!"
-        }
+        console.log("type of termproject:"+typeof(termproject));
     })
     .catch(err=>{
-        console.log("Term.find({project}) failed !!");
+        console.log("Term.find({projectterm}) failed !!");
         console.log(err)
     })   
     await Project.find({})
@@ -71,9 +81,10 @@ async daily(ctx,next){
         await ctx.render("innerweb/dailypage",{
             postlist,
             projectlist,
+            staffinfolist,
             termpost,
             termproject,
-            statusreport:statusreport
+            statusreport
         })
     })
     .catch(err=>{

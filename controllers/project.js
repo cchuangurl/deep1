@@ -164,7 +164,80 @@ async editpage(ctx, next) {
             console.log(err)
         })
 },
-
+//到修正單筆資料頁(二)
+async editpage2(ctx, next) {
+    var statusreport=ctx.query.statusreport;
+    console.log("gotten query:"+statusreport);
+    console.log("ID:"+ctx.params.id);
+    console.log("entered Project.findById(ctx.params.id)!!");
+    if(statusreport===undefined){
+        statusreport="status未傳成功!"
+    }
+    var termlist;
+    var staffinfolist;
+    var guestinfolist;
+    var project;
+    await Term.find({a15model:"project"})
+    .then(async terms=>{
+        console.log("type of terms:"+typeof(terms));
+        console.log("type of 1st term:"+typeof(terms[0]));
+        console.log("1st term:"+terms[0])
+        console.log("No. of term:"+terms.length)
+        termlist=encodeURIComponent(JSON.stringify(terms));
+        console.log("type of termlist:"+typeof(termlist));    
+        if(statusreport===undefined){
+            statusreport="status未傳成功!"
+        }
+    })
+    .catch(err=>{
+        console.log("Term.find({}) failed !!");
+        console.log(err)
+    })
+    await Guestinfo.find({})
+    .then(async guests=>{
+        console.log("type of guestfs:"+typeof(guests));
+        console.log("type of 1st guest:"+typeof(guests[0]));
+        console.log("1st guest:"+guests[0])
+        console.log("No. of guest:"+guests.length)
+        guestinfolist=encodeURIComponent(JSON.stringify(guests));
+        console.log("type of guestlist:"+typeof(guestinfolist));
+    })
+    .catch(err=>{
+        console.log("Guestinfo.find({}) failed !!");
+        console.log(err)
+    })
+    await Staffinfo.find({})
+    .then(async staffs=>{
+        console.log("type of staffs:"+typeof(staffs));
+        console.log("type of 1st staff:"+typeof(staffs[0]));
+        console.log("1st staff:"+staffs[0])
+        console.log("No. of staff:"+staffs.length)
+        staffinfolist=encodeURIComponent(JSON.stringify(staffs));
+        console.log("type of staffinfolist:"+typeof(staffinfolist))
+    })
+    .catch(err=>{
+        console.log("Staffinfo.find({}) failed !!");
+        console.log(err)
+    })   
+    await Project.findById(ctx.params.id)
+        .then(async projectx=>{
+            console.log("projectx:"+projectx);
+            project=encodeURIComponent(JSON.stringify(projectx));
+            console.log("project:"+project);
+            console.log("type of project:"+typeof(project));
+            await ctx.render("project/editpage2",{
+                termlist,
+                staffinfolist,
+                guestinfolist,
+                project,
+                statusreport
+            })
+        })
+        .catch(err=>{
+            console.log("Project.findById(ctx.params.id) failed !!");
+            console.log(err)
+        })
+},
 //依參數id取得資料
 retrieve(req,res){
 
@@ -324,5 +397,21 @@ async update(ctx,next){
     .catch((err)=>{
         console.log(err)
     })
+},
+//依參數id更新資料(二)
+async update(ctx,next){
+    let {_id}=ctx.request.body;
+    var {statusreport}=ctx.request.body;
+    console.log("gotten query:"+statusreport);
+    await Project.findOneAndUpdate({_id:_id}, ctx.request.body, { new: true })
+    .then((newproject)=>{
+        console.log("Saving new_project....:"+newproject);
+    statusreport="更新單筆專案管理資料後進入本頁";
+    ctx.redirect("/deep1/innerweb/?statusreport="+statusreport)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
 }
+
 }//EOF export

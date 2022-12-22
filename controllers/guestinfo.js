@@ -73,22 +73,10 @@ async register(req, res) {
     if(statusreport===undefined){
         statusreport="status未傳成功!"
     }
-    await User.find({})
-        .then(async userlist=>{
-            console.log("1st user:"+userlist[0].a10account);
-            let accountarray=new Array();
-            for (let user in userlist){
-                accountarray.push(user.a10account);
-            }
-            console.log("the no of current user:"+accountarray.length);
-            console.log("type of accountarray:"+typeof(accountarray));
-            await ctx.render("guestinfo/inputoneself",{
-                accountarray:accountarray,
-                statusreport:statusreport
+    await ctx.render("guestinfo/inputoneself",{
+                statusreport
             })
-        })
         .catch(err=>{
-            console.log("User.find({}) failed !!");
             console.log(err)
         })
 },
@@ -107,40 +95,71 @@ async create(ctx,next){
         console.log(err)
     })
 },
+
+//寫入訪客註冊資料
+async createguest(ctx,next){
+    var guestinfox=ctx.request.body;
+    guestinfox.a15dateofreg=new Date();
+    guestinfox.a05ipofvisitor="127.0.0.1";
+    var new_guestinfo = new Guestinfo(guestinfox);
+    console.log(new_guestinfo);
+    await new_guestinfo.save()
+    .then(()=>{
+        console.log("Saving new_guestinfo....")
+    })
+    .catch((err)=>{
+        console.log("guestinfo.save fail!")
+        console.log(err)
+    })
+    await User.find({})
+        .then(async userlist=>{
+            console.log("1st user:"+userlist[0].a10account);
+            let accounts=new Array();
+            for (let user in userlist){
+                accounts.push(user.a10account);
+            }
+            console.log("the no of current user:"+accounts.length);
+            console.log("type of accounts:"+typeof(accounts));
+            let  accountlist=encodeURIComponent(JSON.stringify(accounts));
+            await ctx.render("guestinfo/setaccount",{
+                accountlist,
+                statusreport,
+                visitor:guestinfox.a10visitor
+            })
+        })
+        .catch(err=>{
+            console.log("User.find({}) failed !!");
+            console.log(err)
+        })
+},
 //寫入guest註冊資料並轉換為user
 async createuser(ctx,next){
-    var guestinfox=JSON.parse(decodeURIComponent(ctx.request.body));
-    var new_guestinfo = new Guestinfo(guestinfox);
-    console.log("get new_guestinfo"+new_guestinfo.a20account);
-    await new_guestinfo.save()
-    .then(async ()=>{
-      let guest2user={
-        a03status:"client",
-        a08infoID:guestinfox._id,
-        a10account:guestinfox.a20account,
-        a15password:guestinfox.a25password,
-        a45group:"member",
-        a99footnote:guestinfox.a45business+guestinfox.a50extra
-      }
-      var new_user=new User(guest2user);
-      await new_user.save()
+    var idinfo=JSON.parse(decodeURIComponent(ctx.idinfo));
+    await Guestinfo.find({a10visitor:idinfo.visitor})
+    .than(guests=>{
+        var userx={
+            a03status:"client",
+            a08infoID:guests[0]._id,
+            a10account:idinfo.account,
+            a15password:idinfo.passwod,
+            a45group:"client"
+        }
+        })
+        .catch((err)=>{
+            console.log("Guestinfo.find({visitor}) failed !!");
+            console.log(err)
+        })
+        var new_user=new User(userx);
+        await new_user.save()
         .then(()=>{
             console.log("Saving new_guestinfo as user....");
+            statusreport="成功註冊會員資料後回到本頁";
+        ctx.redirect("/deep1/outerweb?statusreport="+statusreport)
         })
         .catch((err)=>{
             console.log("User.save({}) failed !!");
             console.log(err)
-        }) 
-    })
-    .then(()=>{
-        console.log("Saving new_guestinfo....");
-        statusreport="成功註冊會員資料後回到本頁";
-        ctx.redirect("/deep1/branch/customer?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log("Guestinfo.save({}) failed !!");        
-        console.log(err)
-    })
+        })
 },
 //批次新增資料
 async batchinput(ctx, next){

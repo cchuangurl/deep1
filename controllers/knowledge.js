@@ -35,9 +35,10 @@ async list(ctx,next){
 async category(ctx, next){
     console.log("found route /deep1/knowledge/category !!");
     var statusreport=ctx.query.statusreport;
-    var category=ctx.query.category;
-    console.log("gotten query:"+category);    
-	await Knowledge.find({a30category:category}).then(async knowledges=>{
+    var specific=ctx.query.specific;
+    var classtype=ctx.query.classtype;
+    console.log("gotten query:"+specific);    
+	await Knowledge.find({a30category:specific}).then(async knowledges=>{
         //console.log("found knowledges:"+knowledges);
         console.log("type of knowledges:"+typeof(knowledges));
         console.log("type of 1st knowledge:"+typeof(knowledges[0]));
@@ -48,10 +49,12 @@ async category(ctx, next){
         if(statusreport===undefined){
             statusreport="未截到status"
         }
-        await ctx.render("knowledge/categorypage",{
+        await ctx.render("knowledge/partlistpage",{
         //ctx.response.send({
-            knowledgelist:knowledgelist,
-            statusreport:statusreport
+            knowledgelist,
+            classtype,
+            specific,
+            statusreport
         })
     })
     .catch(err=>{
@@ -63,9 +66,10 @@ async category(ctx, next){
 async domain(ctx, next){
 	console.log("found route /deep1/knowledge/domain !!");
     var statusreport=ctx.query.statusreport;
-    var domain=ctx.query.domain;
-    console.log("gotten query:"+domain);    
-	await Knowledge.find({a05domain:domain}).then(async knowledges=>{
+    var specific=ctx.query.specific;
+    var classtype=ctx.query.classtype;
+    console.log("gotten query:"+specific);    
+	await Knowledge.find({a05domain:specific}).then(async knowledges=>{
         //console.log("found knowledges:"+knowledges);
         console.log("type of knowledges:"+typeof(knowledges));
         console.log("type of 1st knowledge:"+typeof(knowledges[0]));
@@ -76,10 +80,12 @@ async domain(ctx, next){
         if(statusreport===undefined){
             statusreport="未截到status"
         }
-        await ctx.render("knowledge/domainpage",{
+        await ctx.render("knowledge/partlistpage",{
         //ctx.response.send({
-            knowledgelist:knowledgelist,
-            statusreport:statusreport
+            knowledgelist,
+            classtype,
+            specific,
+            statusreport
         })
     })
     .catch(err=>{
@@ -91,9 +97,10 @@ async domain(ctx, next){
 async course(ctx, next){
     console.log("found route /deep1/knowledge/course !!");
     var statusreport=ctx.query.statusreport;
-    var course=ctx.query.course;
-    console.log("gotten query:"+course);    
-	await Knowledge.find({a33course:course}).then(async knowledges=>{
+    var specific=ctx.query.specific;
+    var classtype=ctx.query.specific;
+    console.log("gotten query:"+specific);    
+	await Knowledge.find({a33course:specific}).then(async knowledges=>{
         //console.log("found knowledges:"+knowledges);
         console.log("type of knowledges:"+typeof(knowledges));
         console.log("type of 1st knowledge:"+typeof(knowledges[0]));
@@ -104,9 +111,11 @@ async course(ctx, next){
         if(statusreport===undefined){
             statusreport="未截到status"
         }
-        await ctx.render("knowledge/coursepage",{
+        await ctx.render("knowledge/partlistpage",{
         //ctx.response.send({
             knowledgelist:knowledgelist,
+            classtype,
+            specific,
             statusreport:statusreport
         })
     })
@@ -218,7 +227,9 @@ async editpage(ctx, next) {
 
 //到檢視單筆資料頁
 async lookpage(ctx, next) {
-    var {statusreport}=ctx.request.body;
+    var statusreport=ctx.query.statusreport;
+    var classtype=ctx.query.classtype;
+    var specific=ctx.query.specific;
     console.log("gotten query:"+statusreport);
     console.log("ID:"+ctx.params.id);
     console.log("entered Knowledge.findById(ctx.params.id)!!");
@@ -232,8 +243,10 @@ async lookpage(ctx, next) {
             console.log("knowledge:"+knowledge);
             console.log("type of knowledge:"+typeof(knowledge));
             await ctx.render("knowledge/lookpage",{
-                knowledge:knowledge,
-                statusreport:statusreport
+                knowledge,
+                classtype,
+                specific,
+                statusreport
             })
         })
         .catch(err=>{

@@ -71,14 +71,14 @@ background-color: rgb(213, 218, 210);
 
 </style>
 
-  <title>選擇之管理類別知識</title>
+  <title>選擇之某種類別知識</title>
   </head>
   <body>
     <div id="show_div">
         <bander></bander>        
           <outputer></outputer>
         <div class="row" align="justify">
-            <contacter></contacter>
+           <!-- <contacter></contacter> -->
         </div>  
     </div>
  
@@ -95,27 +95,22 @@ background-color: rgb(213, 218, 210);
                 <ul class="navbar-nav mr-auto">
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link active" href="/deep1/branch/customer">{{home}}<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/deep1/outerweb">{{home}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/branch/customer/brief">{{brief}}</a>
+                    <a class="nav-link" href="/deep1/outerweb/share/bycate">{{bycate}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/branch/customer/deliver">{{deliver}}</a>
+                    <a class="nav-link" href="/deep1/outerweb/share/bydomain">{{bydomain}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1//branch/customer/share">{{share}}</a>
-                    </li>
-                </div>
-                <div class="col-lg col-sm-6">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/deep1//branch/customer/aboutus">{{aboutus}}</a>
+                    <a class="nav-link" href="/deep1/outerweb/share/bycourse">{{bycourse}}</a>
                     </li>
                 </div>
                 </ul>
@@ -127,7 +122,7 @@ background-color: rgb(213, 218, 210);
                 <div class="col"></div>
                 <div class="col-lg col-sm-6">
                     <span class="navbar-text">
-                        <font size="1">親愛的{{user}}</font>
+                        <font size="1">親愛的{{visitor}}</font>
                     </span>
                 </div>
                 </div>
@@ -169,7 +164,7 @@ background-color: rgb(213, 218, 210);
                     <th>{{items.item0}}</th>
                     <th>{{items.item2}}</th>
                     <th>{{items.item7}}</th>
-                    <th>{{items.item}}</th> 
+                    <th>{{items.item9}}</th> 
                   <!-- <th>特別註記</th> -->
                 </tr>
                 </thead>
@@ -224,13 +219,16 @@ background-color: rgb(213, 218, 210);
       props:{},
       data(){
         return {
-        brand:"Deep內部網站",
-        affaire:"業務要覽",
-        otherdata:"管理其他資料",
-        entry:"重新登入",
-        modeltype:"知識檔案管理",
-        customer:"對外網站",
-        statusreport:'<%- JSON.stringify(statusreport) %>'
+            brand:"Deep",
+        home:"回本社首頁",
+        brief:"服務簡介",
+        deliver:"服務交付流程",
+        share:"免費服務項目",
+        bycate:"依管理分類",
+        bydomain:"依知識領域",
+        bycourse:"依課程類型",
+        visitor:"貴客",            
+        statusreport:'<%- statusreport %>'
         //statusreport:"顯示測試"
         }
       },
@@ -274,7 +272,9 @@ background-color: rgb(213, 218, 210);
           showIndex:[],
           activeIndex:[],
           knowledgeShow:[],
-          statusreport:'<%- JSON.stringify(statusreport) %>',
+          statusreport:'<%- statusreport %>',
+          classtype:'<%- classtype %>',
+          specific:'<%- specific%>',
           knowledgelist:JSON.parse(decodeURIComponent('<%=knowledgelist%>')),
           items:{
             item0:"知識領域",
@@ -286,7 +286,7 @@ background-color: rgb(213, 218, 210);
             item6:"上傳者ID",
             item7:"上傳日期",
             item8:"揭露等級",
-            item9:"是否提供下載",
+            item9:"供下載?",
             item99:"特別註記"     
       }
         }      
@@ -302,7 +302,8 @@ background-color: rgb(213, 218, 210);
       },
       methods:{
         lookone:function(id){
-          let querytext="?statusreport='由knowledge 某管理類別資料清單進入本頁'";
+          let querytext="?statusreport=由knowledge某管理類別資料清單進入本頁&classtype="+this.classtype+"&specific="+this.specific;
+            console.log("classtype="+this.classtype+"   specific="+this.specific);          
           let url2='/deep1/knowledge/lookpage/'+id+querytext;
           window.location=url2;
         },

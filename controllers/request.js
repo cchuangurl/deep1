@@ -191,18 +191,14 @@ async create1(ctx,next){
         a35request:got_request.a35request,
         a40deadline:got_request.a40deadline,
         a45stage:"begin",
-        a50contactor:got_request.a50contactor,
-        a55howtodo:got_request.a55howtodo,
-        a60initial:got_request.a60initial,
-        a65followact:"reply as soon",
-        a70extra:got_request.a70extra
+        a65followact:"reply as soon"
     })
     console.log("revised body:"+new_request);
     await new_request.save()
     .then(()=>{
         console.log("Saving new_request....");
     statusreport="您的需求敬悉，將儘速回應您。謝謝！！";
-    ctx.redirect("/deep1/branch/customer/?statusreport="+statusreport)
+    ctx.redirect("/deep1/outerweb/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

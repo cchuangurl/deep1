@@ -293,11 +293,11 @@ async destroy(ctx,next){
     var statusreport=ctx.query.statusreport;
     console.log("gotten query:"+statusreport);
     await User.deleteOne({_id: ctx.params.id})
-    .then(()=>{
+    .then(async ()=>{
         console.log("Deleted a user....");
     statusreport="刪除單筆使用者帳號後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep1/user/?statusreport="+statusreport)
+    await ctx.redirect("/deep1/user/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
@@ -310,12 +310,41 @@ async update(ctx,next){
     var {statusreport}=ctx.request.body;
     console.log("gotten query:"+statusreport);
     await User.findOneAndUpdate({_id:_id}, ctx.request.body, { new: true })
-    .then((newuser)=>{
+    .then(async (newuser)=>{
         console.log("Saving new_user....:"+newuser.a05name);
     statusreport="更新單筆使用者帳號後進入本頁";
-    ctx.redirect("/deep1/user/?statusreport="+statusreport)
+    await ctx.redirect("/deep1/user/?statusreport="+statusreport)
     })
     .catch((err)=>{
+        console.log(err)
+    })
+},
+//客戶登入
+async guestlogin(ctx, next){
+    let {account}=ctx.request.body;
+    let {password}=ctx.request.body;
+    var {statusreport}=ctx.request.body;
+    if(statusreport===undefined){
+        statusreport="未截到status"
+    } 
+	await User.find({})
+    .then(async users=>{
+        //console.log("found users:"+users);
+        console.log("type of users:"+typeof(users));
+        console.log("type of 1st user:"+typeof(users[0]));
+        console.log("1st user:"+users[0])
+        console.log("No. of user:"+users.length)
+        for(user of users){
+            if(user.a10account==account){
+                await ctx.render("request/lookpage",{
+                        statusreport:statusreport
+                    })   
+            }
+        }
+        await ctx.render("user/loginerr")        
+    })
+    .catch(err=>{
+        console.log("User.find({}) failed !!");
         console.log(err)
     })
 }

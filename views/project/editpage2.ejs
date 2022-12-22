@@ -24,7 +24,7 @@ body {
 .navbar-toggler{background:#fff !important;}
 </style>
 
-  <title>修正指定之request</title>
+  <title>修正指定之project</title>
   </head>
   <body>
     <div id="show_div">
@@ -42,13 +42,10 @@ body {
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/deep1/request">{{lastpage}}</a>
+              <a class="nav-link" href="/deep1/innerweb">{{lastpage}}</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">{{edit1}} <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">{{editbatch}}</a>
+              <a class="nav-link active" href="#">{{edit1}} <span class="sr-only">(current)</span></a>
             </li>
           </ul>
           <span class="navbar-text">
@@ -61,79 +58,71 @@ body {
     <template id="inputerUI" >
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">修正{{request.a05name}}之資料</h5>
+          <h5 class="card-title">修正{{project.a05name}}案之資料</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
-          <form action="/deep1/request/update" method="post">
+          <form action="/deep1/project/update2" method="post">
             <div class="form-group" :key="inputerUIkey">
             <label for="formGroupExampleInput2">{{items.item}}</label>
-            <input type="text" name="_id" class="form-control" id="formGroupExampleInput" :value="request._id">
+            <input type="text" name="_id" class="form-control" id="formGroupExampleInput" :value="project._id">
             
             <label for="formGroupExampleInput2">{{items.item0}}</label>
-            <input type="text" name="a05ipofclient" class="form-control" id="formGroupExampleInput0" :value="request.a05ipofclient">
+            <select name="a05client_id" class="form-select">
+              <optgroup v-for="(guestinfo,index) of guestinfolist" :key="guestinfo._id" >            
+              <option :value="guestinfo._id" :selected="guestindex[index]">{{guestinfo.a10visitor}}{{guestinfo.a30phoneno}}</option>
+              </optgroup>  
+              </select>             
+              <br>
 
             <label for="formGroupExampleInput2">{{items.item1}}</label>
-            <input type="text" name="a10client" class="form-control" id="formGroupExampleInput1" :value="request.a10client">
-         
-            <label for="formGroupExampleInput2">{{items.item2}}</label>
-            <input type="text" name="a15requestdate" class="form-control" id="formGroupExampleInput2" :value="request.a15requestdate">
-          
-            <label for="formGroupExampleInput2">{{items.item3}}</label>
-            <input type="text" name="a20phoneno" class="form-control" id="formGroupExampleInput3" :value="request.a20phoneno">
-          
-            <label for="formGroupExampleInput2">{{items.item4}}</label>
-            <input type="text" name="a23tel" class="form-control" id="formGroupExampleInput4" :value="request.a23tel">
-            
-            <label for="formGroupExampleInput2">{{items.item5}}</label>
-            <input type="text" name="a25email" class="form-control" id="formGroupExampleInput5" :value="request.a25email">
-         
-            <label for="formGroupExampleInput2">{{items.item6}}</label>
-            <input type="text" name="a30address" class="form-control" id="formGroupExampleInput6" :value="request.a30address">
-          
-            <label for="formGroupExampleInput2">{{items.item7}}</label>
-            <input type="text" name="a35request" class="form-control" id="formGroupExampleInput7" :value="request.a35request">
-          
-            <label for="formGroupExampleInput2">{{items.item8}}</label>
-            <input type="text" name="a40deadline" class="form-control" id="formGroupExampleInput8" :value="request.a40deadline">
-          
-            <label for="formGroupExampleInput2">{{items.item9}}</label>              
-            <select name="a45status" class="form-select">
-              <optgroup v-for="(status,index) of statuss" :key="status._id">
-              <option :value="status.a25code" :selected="statusindex[index]">{{status.a30mean}}</option>
-              </optgroup>
-              </select>
-            <br>
-
-            <label for="formGroupExampleInput2">{{items.item10}}</label>
-            <select name="a50contactor" class="form-select">
+            <select name="a10staff_id" class="form-select">
               <optgroup v-for="(staffinfo,index) of staffinfolist" :key="staffinfo._id" >            
               <option :value="staffinfo._id" :selected="staffindex[index]">{{staffinfo.a28department}}{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</option>
               </optgroup>  
               </select>             
-              <br>    
+              <br>
+         
+            <label for="formGroupExampleInput2">{{items.item2}}</label>
+            <input type="text" name="a15name" class="form-control" id="formGroupExampleInput2" :value="project.a15name">
           
-            <label for="formGroupExampleInput2">{{items.item11}}</label>
-            <select name="a55howtodo" class="form-select">
-              <optgroup v-for="(howtodo,index) of howtodos" :key="howtodo._id">
-              <option :value="howtodo.a25code" :selected="howtodoindex[index]">{{howtodo.a30mean}}</option>
+            <label for="formGroupExampleInput2">{{items.item3}}</label>
+            <select name="a20type" class="form-select">
+              <optgroup v-for="(type,index) of types" :key="type._id">
+              <option :value="type.a25code" :selected="typeindex[index]" >{{type.a30mean}}</option>
               </optgroup>
               </select>
             <br>
 
-            <label for="formGroupExampleInput2">{{items.item12}}</label>
-            <input type="text" name="a60initial" class="form-control" id="formGroupExampleInput12" :value="request.a60initial">
+            <label for="formGroupExampleInput2">{{items.item4}}</label>
+            <input type="text" name="a25describe" class="form-control" id="formGroupExampleInput4" :value="project.a25describe">
+         
+            <label for="formGroupExampleInput2">{{items.item5}}</label>
+            <input type="text" name="a30requestdate" class="form-control" id="formGroupExampleInput5" :value="project.a30requestdate">
           
-            <label for="formGroupExampleInput2">{{items.item13}}</label>
-        <select name="a65followup" class="form-select">
-              <optgroup v-for="(followup,index) of followups" :key="followup._id">
-              <option :value="followup.a25code" :selected="followupindex[index]">{{followup.a30mean}}</option>
-              </optgroup>
-              </select>
-            <br>
-             
-            <label for="formGroupExampleInput2">{{items.item14}}</label>
-            <input type="text" name="a70extra" class="form-control" id="formGroupExampleInput14" :value="request.a70extra">  
-           
-              <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正request後進入本頁">
+            <label for="formGroupExampleInput2">{{items.item6}}</label>
+            <input type="text" name="a35proposaldate" class="form-control" id="formGroupExampleInput6" :value="project.a35proposaldate">
+          
+            <label for="formGroupExampleInput2">{{items.item7}}</label>
+            <input type="text" name="a40contractdate" class="form-control" id="formGroupExampleInput7" :value="project.a40contractdate">
+          
+            <label for="formGroupExampleInput2">{{items.item8}}</label>
+         <select name="a45process" class="form-select">
+                  <optgroup v-for="(stage,index) of stages" :key="stage._id">
+                  <option :value="stage.a25code" :selected="stageindex[index]">{{stage.a30mean}}</option>
+                  </optgroup>
+                  </select>
+                <br> 
+            <label for="formGroupExampleInput2">{{items.item9}}</label>
+            <input type="text" name="a50fullfitdate" class="form-control" id="formGroupExampleInput9" :value="project.a50fullfitdate">
+          
+            <label for="formGroupExampleInput2">{{items.item10}}</label>
+            <input type="text" name="a55realrevenue" class="form-control" id="formGroupExampleInput10" :value="project.a55realrevenue">
+          
+            <label for="formGroupExampleInput2">{{items.item11}}</label>
+            <input type="text" name="a60paydate" class="form-control" id="formGroupExampleInput11" :value="project.a60paydate">
+          
+            <label for="formGroupExampleInput2">{{items.item12}}</label>
+            <input type="text" name="a65status" class="form-control" id="formGroupExampleInput12" :value="project.a65status">  
+              <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正project後進入本頁">
             
               <input type="submit" id="button1" value="確定送出" class="btn btn-info">
             </div>
@@ -173,90 +162,87 @@ Vue.component("bander",{
         card_subtitle:"請修正以下各項資料:",
         items:{
             item:"ID",
-            item0:"來客IP:",
-            item1:"稱呼或已註冊帳號:",
-            item2:"提出日期:",
-            item3:"手機:",
-            item4:"電話:",
-            item5:"Email:",
-            item6:"地址:",
-            item7:"服務需求:",
-            item8:"期望完成期限:",
-            item9:"處理狀態:",
-            item10:"服務窗口人員:",
-            item11:"專業屬性:",
-            item12:"初步解決構想:",
-            item13:"處理後追踪:",
-            item14:"其他:",  
+            item0:"客戶識別碼:",
+            item1:"主辦員工識別碼:",
+            item2:"服務專案名稱:",
+            item3:"服務類型:",
+            item4:"需求內容簡述:",
+            item5:"客戶提出日期:",
+            item6:"解決構想發送日期:",
+            item7:"服務契約合意日期:",
+            item8:"進度紀錄:",
+            item9:"驗收合格日期:",
+            item10:"實際履行金額:",
+            item11:"尾款收取日期:",
+            item12:"結案註記:",  
             item99:"特別註記"     
       },
-      request:JSON.parse(decodeURIComponent('<%=request%>')),
+      project:JSON.parse(decodeURIComponent('<%=project%>')),
       termlist:JSON.parse(decodeURIComponent('<%=termlist%>')),
         staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
-        statuss:[],
-        howtodos:[],
-        followups:[],
+        guestinfolist:JSON.parse(decodeURIComponent('<%=guestinfolist%>')),
+        types:[],
+        stages:[],
         staffindex:[],
-        statusindex:[],
-        howtodoindex:[],
-        followupindex:[],
+        guestindex:[],
+        typeindex:[],
+        stageindex:[],
       inputerUIkey:0
-        
       } 
     },
     mounted:function(){
         for(term of this.termlist){
-            if(term.a20field=="a45status"){
-                this.statuss.push(term)
+            if(term.a20field=="a20type"){
+                this.types.push(term)
             }
         }
         for(term of this.termlist){
-            if(term.a20field=="a55howtodo"){
-                this.howtodos.push(term)
-            }
-        } 
-        for(term of this.termlist){
-            if(term.a20field=="a65followup"){
-                this.followups.push(term)
+            if(term.a20field=="a45stage"){
+                this.stages.push(term)
             }
         }
         for(staff of this.staffinfolist){
-            if(staff._id==this.request.a50contactor){
+            if(staff._id==this.project.a10staff_id){
                 this.staffindex.push(true)
             }else{
                 this.staffindex.push(false)
             }
         } 
-        for(howtodo of this.howtodos){
-            if(howtodo.a25code==this.request.a55howtodo){
-                this.howtodoindex.push(true)
+        for(guest of this.guestlist){
+            if(guest.a25code==this.project.a05client_id){
+                this.guestindex.push(true)
             }else{
-                this.howtodoindex.push(false)
+                this.guestindex.push(false)
             }
         }
-        for(status of this.statuss){
-            if(status.a25code==this.request.a45status){
-                this.statusindex.push(true)
+        for(stage of this.stages){
+            if(stage.a25code==this.project.a45stage){
+                this.stageindex.push(true)
             }else{
-                this.statusindex.push(false)
+                this.stageindex.push(false)
             }
         }
-        for(followup of this.followups){
-            if(followup.a25code==this.request.a65followup){
-                this.followupindex.push(true)
+        for(type of this.types){
+            if(type.a25code==this.project.a20type){
+                this.typeindex.push(true)
             }else{
-                this.followupindex.push(false)
+                this.typeindex.push(false)
             }
-        }
-
-    },     
+        }                     
+    },    
     methods:{
         rerender:function() {
       this.inputerUIkey += 1;
       console.log("inputerUIkey:"+this.inputerUIkey) 
     }
     }, 
-      
+    /*
+    mounted:{
+        this:{
+            values:{
+                value0:project.a05name 
+            }}
+        }, */   
     template:"#inputerUI"
   });
     new Vue({

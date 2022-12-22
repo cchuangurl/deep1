@@ -42,13 +42,10 @@ body {
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/deep1/branch/customer">{{lastpage}}</a>
+              <a class="nav-link" href="/deep1/innerweb">{{lastpage}}</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">{{look1}} <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">{{editbatch}}</a>
             </li>
           </ul>
           <span class="navbar-text">
@@ -61,13 +58,13 @@ body {
     <template id="inputerUI" >
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">檢視{{post.a25posttitle}}之資料</h5>
+          <h5 class="card-title">檢視公告: {{post.a25posttitle}}之資料</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
             <div class="form-group" :key="inputerUIkey">
-                <form action="/deep1/branch/customer" method="get">
+                <form action="/deep1/innerweb" method="get">
                     <label for="formGroupExampleInput2">{{items.item0}}</label>
-              <input type="text" name="a05postcode" class="form-control" id="formGroupExampleInput0" :value="post.a05postcode">
-
+                    <input type="text" name="_id" class="form-control" id="formGroupExampleInput1" :value="post._id">
+                    
               <label for="formGroupExampleInput2">{{items.item1}}</label>
               <input type="text" name="a10posttype" class="form-control" id="formGroupExampleInput1" :value="post.a10posttype">
            
@@ -113,7 +110,7 @@ Vue.component("bander",{
         lastpage:"回前頁",
         look1:"檢視1筆",
         editbatch:"",
-        statusreport:'<%- JSON.stringify(statusreport) %>'
+        statusreport:'<%- statusreport %>'
       }
     },
     methods:{

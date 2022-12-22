@@ -26,8 +26,14 @@ router.post('/add', async (ctx, next)=> {
 //寫入guest註冊資料
 router.post('/addbyguest', async (ctx, next)=> {
 	console.log(ctx.request.body);
-	await guestinfoController.createuser(ctx)
+	await guestinfoController.createguest(ctx)
 });
+//寫入設定註冊帳號
+router.post('/trans2user', async (ctx, next)=> {
+	console.log(ctx.request.body);
+	await guestinfoController.trans2user(ctx)
+});
+
 //批次新增資料
 router.get('/inputbatch', async (ctx, next)=> {
     await guestinfoController.batchinput(ctx,next)

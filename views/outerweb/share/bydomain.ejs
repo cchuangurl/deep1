@@ -152,7 +152,8 @@ background-color: rgb(213, 218, 210);
                     <div class="col-lg-3 col-md-6 col-sm-12">
                             <form  action="/deep1/knowledge/domain" method="get">
                                 <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
-                                <input type="hidden" name="domain" :value="term.a25code">                                
+                                <input type="hidden" name="classtype" value="domain">
+                                <input type="hidden" name="specific" :value="term.a25code">                                
                                 <input type="submit" :value="term.a30mean" class="btn btn-info">       
                                 </form>
                     </div>     
@@ -256,7 +257,7 @@ Vue.component("bander",{
         bycourse:"依課程類型",
         aboutus:"認識我們",
         user:"無名",
-        statusreport:'<%- JSON.stringify(statusreport) %>'
+        statusreport:'<%- statusreport %>'
       }
     },
     methods:{
