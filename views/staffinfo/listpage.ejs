@@ -79,6 +79,7 @@ background-color: rgb(205, 226, 253);
             <td>
             <form  action="/deep1/staffinfo/inputpage" method="get" >
             <input type="hidden" name="statusreport" value="由單筆手動新增按鈕進來">
+            <input type="hidden" name="status" class="form-control" id="msg2" value="0">
             <input type="submit" value="單筆手動新增">
             </form> 
             </td>
@@ -86,6 +87,7 @@ background-color: rgb(205, 226, 253);
               <form  action="/deep1/staffinfo/inputbatch" method="get" >
              資料主檔名：<input type="text" name="datafile" required>
              <input type="hidden" name="statusreport" value="由批次新增進入本頁">
+             <input type="hidden" name="status" class="form-control" id="msg2" value="0">
              <input type="submit" value="批次新增">
              </form>
              </td>
@@ -269,12 +271,12 @@ background-color: rgb(205, 226, 253);
       },
       methods:{
         editone:function(id){
-          let querytext="?statusreport='由staffinfo資料清單頁的編輯按鈕進入本頁'";
+          let querytext="?statusreport=由staffinfo資料清單頁的編輯按鈕進入本頁&status=0";
           let url2='/deep1/staffinfo/editpage/'+id+querytext;
           window.location=url2;
         }, 
         deleteone:function(id){
-          let querytext="?statusreport='由staffinfo資料清單頁的刪除按鈕進入本頁'";
+          let querytext="?statusreport=由staffinfo資料清單頁的刪除按鈕進入本頁&status=0";
           let url3='/deep1/staffinfo/delete/'+id+querytext;
           window.location=url3
            },

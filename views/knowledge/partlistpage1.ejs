@@ -95,22 +95,22 @@ background-color: rgb(213, 218, 210);
                 <ul class="navbar-nav mr-auto">
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb">{{home}}</a>
+                    <a class="nav-link" href="/deep1/innerweb">{{home}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/share/bycate">{{bycate}}</a>
+                    <a class="nav-link" href="/deep1/innerweb/KI/KIbycate">{{bycate}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/share/bydomain">{{bydomain}}</a>
+                    <a class="nav-link" href="/deep1/innerweb/KI/KIbydomain">{{bydomain}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/share/bycourse">{{bycourse}}</a>
+                    <a class="nav-link" href="/deep1/innerweb/KI/KIbycourse">{{bycourse}}</a>
                     </li>
                 </div>
                 </ul>
@@ -302,8 +302,8 @@ background-color: rgb(213, 218, 210);
       },
       methods:{
         lookone:function(id){
-          let querytext="?statusreport=由knowledge某管理類別資料清單進入本頁&classtype="+this.classtype+"&specific="+this.specific;
-            console.log("classtype="+this.classtype+"   specific="+this.specific);          
+          let querytext="?statusreport=由knowledge某管理類別資料清單進入本頁&classtype="+this.classtype+"&specific="+this.specific+"&from="+this.from;
+            console.log("classtype="+this.classtype+"   specific="+this.specific+"   from="+this.from);          
           let url2='/deep1/knowledge/lookpage/'+id+querytext;
           window.location=url2;
         },

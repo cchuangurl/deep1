@@ -150,8 +150,9 @@ background-color: rgb(213, 218, 210);
             </div>
             <div class="row" id="tablefy" v-for="term of termfiltered" :ket="term._id">
                     <div class="col-lg-3 col-md-6 col-sm-12">
-                            <form  action="/deep1/knowledge/domain" method="get">
+                            <form  action="/deep1/knowledge/branch" method="get">
                                 <input type="hidden" name="statusreport" value="由免費分享頁進入本頁">
+                                <input type="hidden" name="from" value="outer">
                                 <input type="hidden" name="classtype" value="domain">
                                 <input type="hidden" name="specific" :value="term.a25code">                                
                                 <input type="submit" :value="term.a30mean" class="btn btn-info">       
@@ -252,7 +253,7 @@ Vue.component("bander",{
         brief:"服務簡介",
         deliver:"服務交付流程",
         share:"免費服務項目",
-        bycate:"依管理分類",
+        bycate:"依企管分類",
         bydomain:"依知識領域",
         bycourse:"依課程類型",
         aboutus:"認識我們",
@@ -269,7 +270,7 @@ Vue.component("bander",{
     props:{},
     data(){
       return{
-        statusreport:'<%- JSON.stringify(statusreport) %>',
+        statusreport:'<%- statusreport %>',
         promote:"我們依您的需求提供多種專業的整合服務！"
 
       }      

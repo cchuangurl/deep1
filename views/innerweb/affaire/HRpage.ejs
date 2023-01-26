@@ -39,14 +39,7 @@ background-color: rgb(205, 226, 253);
             <div class="col-lg-3 col-md-6 col-sm-12" id="sidearea">
                 <sidebar></sidebar> </div>
             <div class="col-lg-9 col-md-6 col-sm-12">
-                <div class="row" align="justify">
-                    <div class="col-lg-6 col-md-6 col-sm-12" id="bulletin">
-                        <content1></content1> 
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12" id="sharezone">
-                        <content2></content2>
-                    </div>
-                </div>
+                <content1></content1>
             </div>
         </div>
         <!-- <inputer></inputer> -->
@@ -98,21 +91,109 @@ background-color: rgb(205, 226, 253);
      
     <template id="content1UI">
         <nav aria-label="...">
-          <div class="row">
-                <h1>人力資源管理頁製作中。。。<br>
-                    請先瀏覽其他網頁</h1>
-                </div>
+            <table>        
+                <tr>
+                <td>
+                <form  action="/deep1/staffinfo/inputpage" method="get" >
+                <input type="hidden" name="statusreport" value="由單筆手動新增按鈕進來">
+                <input type="hidden" name="status" class="form-control" id="msg2" value="1">
+                <input type="submit" value="單筆手動新增">
+                </form> 
+                </td>
+                <td>
+                  <form  action="/deep1/staffinfo/inputbatch" method="get" >
+                 資料主檔名：<input type="text" name="datafile" required>
+                 <input type="hidden" name="statusreport" value="由批次新增進入本頁">
+                 <input type="hidden" name="status" class="form-control" id="msg2" value="1">
+                 <input type="submit" value="批次新增">
+                 </form>
+                 </td>
+                
+                <td>
+                （/public目錄下.csv檔）
+                </td>
+                <td>
+                <span class="navbar-text">
+                    <font size="1">{{statusreport}}</font>
+                  </span>
+                </td>
+                </tr>
+                </table>
+            
+              <table>
+              <tr class="pagination">
+                <td class="page-item" v-show="firstPage" @click="goFirstPage()">回第1頁</td>
+                <td class="page-item" v-show="previousRound" @click="goPreviousRound()">上{{perRound}}頁</td>
+                <div class="page index"  >
+                <td class="page-item" :active="activeIndex[0]" v-show="showIndex[0]" @click="getShowData(0)">{{pageIndex[0]}}</td>
+                <td class="page-item" :active="activeIndex[1]" v-show="showIndex[1]" @click="getShowData(1)">{{pageIndex[1]}}</td>
+                <td class="page-item" :active="activeIndex[2]" v-show="showIndex[2]" @click="getShowData(2)">{{pageIndex[2]}}</td>
+                <td class="page-item" :active="activeIndex[3]" v-show="showIndex[3]" @click="getShowData(3)">{{pageIndex[3]}}</td>
+                <td class="page-item" :active="activeIndex[4]" v-show="showIndex[4]" @click="getShowData(4)">{{pageIndex[4]}}</td>
+                <td class="page-item" :active="activeIndex[5]" v-show="showIndex[5]" @click="getShowData(5)">{{pageIndex[5]}}</td>
+                <td class="page-item" :active="activeIndex[6]" v-show="showIndex[6]" @click="getShowData(6)">{{pageIndex[6]}}</td>
+                <td class="page-item" :active="activeIndex[7]" v-show="showIndex[7]" @click="getShowData(7)">{{pageIndex[7]}}</td>
+                <td class="page-item" :active="activeIndex[8]" v-show="showIndex[8]" @click="getShowData(8)">{{pageIndex[8]}}</td>
+                <td class="page-item" :active="activeIndex[9]" v-show="showIndex[9]" @click="getShowData(9)">{{pageIndex[9]}}</td>
+            </div>
+                <td class="page-item" v-show="nextRound" @click="goNextRound()">下{{perRound}}頁</td>
+                <td class="page-item" v-show="endPage" @click="goEndPage()">到最末頁</td>
+              </tr>
+              </table>
+            <table border="1" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{items.item0}}{{items.item1}}</th>
+                    <th>{{items.item7}}</th>
+                    <th>{{items.item10}}</th>                          
+                    <th>{{items.item14}}</th>   
+                  <!-- <th>特別註記</th> -->
+                </tr>
+                </thead>
+                <tbody id="staffinfolist">
+                  <!-- <tr v-for="staffinfo of staffinfoshow" :key="staffinfo._id"> -->
+                    <tr v-for="staffinfo of staffinfoShow" :key="staffinfo._id">
+                    <td>{{staffinfo.a05lastname}}{{staffinfo.a10firstname}}</td>                
+                    <td>{{staffinfo.a30position}}</td>
+                    <td>{{staffinfo.a35phoneno}}</td>
+                    <td>{{staffinfo.a60expertise}}</td>  
+                    <!-- statusreport="由已擷取資料組清單頁進入本頁"> -->
+                    
+                      <td>
+                        <input type="submit" value="檢視或編輯" @click="editone(staffinfo._id)">                   
+                      </td>
+                      <td>
+                        <input type="submit" value="刪除" @click="deleteone(staffinfo._id)">
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <tr class="pagination">
+                  <td class="page-item" v-show="firstPage" @click="goFirstPage()">回第1頁</td>
+                  <td class="page-item" v-show="previousRound" @click="goPreviousRound()">上{{perRound}}頁</td>
+                  <div class="page index"  >
+                  <td class="page-item" :active="activeIndex[0]" v-show="showIndex[0]" @click="getShowData(0)">{{pageIndex[0]}}</td>
+                  <td class="page-item" :active="activeIndex[1]" v-show="showIndex[1]" @click="getShowData(1)">{{pageIndex[1]}}</td>
+                  <td class="page-item" :active="activeIndex[2]" v-show="showIndex[2]" @click="getShowData(2)">{{pageIndex[2]}}</td>
+                  <td class="page-item" :active="activeIndex[3]" v-show="showIndex[3]" @click="getShowData(3)">{{pageIndex[3]}}</td>
+                  <td class="page-item" :active="activeIndex[4]" v-show="showIndex[4]" @click="getShowData(4)">{{pageIndex[4]}}</td>
+                  <td class="page-item" :active="activeIndex[5]" v-show="showIndex[5]" @click="getShowData(5)">{{pageIndex[5]}}</td>
+                  <td class="page-item" :active="activeIndex[6]" v-show="showIndex[6]" @click="getShowData(6)">{{pageIndex[6]}}</td>
+                  <td class="page-item" :active="activeIndex[7]" v-show="showIndex[7]" @click="getShowData(7)">{{pageIndex[7]}}</td>
+                  <td class="page-item" :active="activeIndex[8]" v-show="showIndex[8]" @click="getShowData(8)">{{pageIndex[8]}}</td>
+                  <td class="page-item" :active="activeIndex[9]" v-show="showIndex[9]" @click="getShowData(9)">{{pageIndex[9]}}</td>
+              </div>
+                  <td class="page-item" v-show="nextRound" @click="goNextRound()">下{{perRound}}頁</td>
+                  <td class="page-item" v-show="endPage" @click="goEndPage()">到最末頁</td>
+                </tr>
+                </table>  
             </nav>
         </template>
     
         <template id="content2UI">
             <nav aria-label="...">
-            <div class="row">             
-        <!-- 下一div為測試畫面分格, 正式版以其他內容替代 -->               
-            <div class="col-lg-4 col-md-6 col-sm-12" id="worktodo">
-                
-                
-                  
+            
                 </div>
             </nav>
       </template>
@@ -183,14 +264,14 @@ background-color: rgb(205, 226, 253);
       props:{},
       data(){
         return{
-            perPage:8,
-          perRound:10,
+            perPage:10,
+          perRound:3,
           maxRow:1,
           maxPage:1,
           maxRound:1,
           modRow:1,
           modPage:1,
-          currentIndex:1,
+          currentIndex:0,
           currentPage:1,
           currentRound:1,
           indexLength:1,
@@ -202,48 +283,51 @@ background-color: rgb(205, 226, 253);
           pageIndex:[],
           showIndex:[],
           activeIndex:[],
-          postShow:[],
-          indexLength:0,
-          responsetext:"",
-          //statusreport:"顯示在第二處",
-          statusreport:'<%- JSON.stringify(statusreport) %>',
-          items1:{
-            item:"ID",
-            item0:"公告代號",
-            item1:"內容類別",
-            item2:"公告者",
-            item3:"公告日期時間",
-            item4:"公告標題",
-            item5:"公告內容",
-            item6:"公告對象",
-            item7:"呈現方式",
-            item8:"預定下架時間",
-            item99:"管理註記"     
-        }
-        }    
+          staffinfoShow:[],
+          statusreport:'<%- statusreport %>',
+          staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
+        items:{
+            item0:"姓",
+            item1:"名",
+            item2:"身分證字號",
+            item3:"性別",
+            item4:"出生年月日",
+            item5:"加入事業時間",
+            item6:"現職單位",
+            item7:"現職職稱",
+            item8:"電話",
+            item9:"手機",
+            item10:"Email",
+            item11:"地址",
+            item12:"主要學歷",
+            item13:"主要經歷",
+            item14:"主要專長",
+            item15:"其他",            
+            item99:"特別註記"     
+            }
+        }      
       },
       mounted:function(){
-        this.maxRow=this.postlist.length;
-          this.maxPage=Math.floor(this.maxRow/this.perPage)+1;
-          this.maxRound=Math.floor(this.maxPage/this.perRound)+1;
-          this.modRow=this.maxRow%this.perPage;
-          this.modPage=this.maxPage%this.perRound;
-          this.goFirstPage() 
-          /*
-        maxRow=projectlist.length;
-          maxPage=Math.floor(maxRow/perPage)+1;
-          maxRound=Math.floor(maxPage/perRound)+1;
-          modRow=maxRow%perPage;
-          modPage=maxPage%perRound;
-          goFirstPage()*/ 
+        this.maxRow=this.staffinfolist.length;
+        this.modRow=this.maxRow%this.perPage;
+        this.maxPage=this.modRow==0?this.maxRow/this.perPage:Math.floor(this.maxRow/this.perPage)+1;
+        this.modPage=this.maxPage%this.perRound;
+        this.maxRound=this.modPage==0?this.maxPage/this.perRound:Math.floor(this.maxPage/this.perRound)+1;
+        this.goFirstPage()
+          
       },
       methods:{
-        lookonepost:function(id){
-          let querytext="?statusreport='由post資料清單頁的編輯按鈕進入本頁'";
-          let url4='/deep0/post/lookpage/'+id+querytext;
-          window.location=url4;
-        },
-
+        editone:function(id){
+          let querytext="?statusreport=由staffinfo資料清單頁的編輯按鈕進入本頁&status=1";
+          let url2='/deep1/staffinfo/editpage/'+id+querytext;
+          window.location=url2;
+        }, 
+        deleteone:function(id){
+          let querytext="?statusreport=由staffinfo資料清單頁的刪除按鈕進入本頁&status=1";
+          let url3='/deep1/staffinfo/delete/'+id+querytext;
+          window.location=url3
+           },
+        
         getShowData:function(index){
           this.currentIndex=index;
           this.activeIndex.splice(0);
@@ -261,16 +345,16 @@ background-color: rgb(205, 226, 253);
           this.currentPage=this.pageIndex[index]
           console.log("currentPage is:"+this.currentPage)
           this.fullPage=(this.maxRow>=(this.currentPage*this.perPage))?true:false;
-          this.postShow.splice(0);
+          this.staffinfoShow.splice(0);
           let startRow=(this.currentPage-1)*this.perPage;
             console.log("startRow is:"+startRow)          
           let rowNo=this.fullPage?this.perPage:this.modRow;
           console.log("rowNo is:"+rowNo);
-          //this.postShow=[];
-          this.postShow=this.postlist.slice(startRow,startRow+rowNo)
-          //this.postShow=this.postlist.slice(8,3)
-          console.log("11st postlist:"+this.postlist[10])          
-          console.log("1st postShow:"+this.postShow[0])
+          //this.staffinfoShow=[];
+          this.staffinfoShow=this.staffinfolist.slice(startRow,startRow+rowNo)
+          //this.staffinfoShow=this.staffinfolist.slice(8,3)
+          console.log("11st staffinfolist:"+this.staffinfolist[10])          
+          console.log("1st staffinfoShow:"+this.staffinfoShow[0])
           
         },
         goFirstPage:function(){

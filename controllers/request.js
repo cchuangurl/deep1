@@ -2,6 +2,7 @@
 const Request = require('../models/index').request;
 const Term = require('../models/index').term;
 const Staffinfo = require('../models/index').staffinfo;
+const Guestinfo = require('../models/index').guestinfo;
 module.exports = {
 //列出清單list(req,res)
 async list(ctx,next){
@@ -87,6 +88,7 @@ async inputbyguest(ctx, next){
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     console.log("ID:"+ctx.params.id);
     console.log("entered Request.findById(ctx.params.id)!!");
@@ -131,12 +133,21 @@ async editpage(ctx, next) {
             request=encodeURIComponent(JSON.stringify(requestx));
             console.log("request:"+request);
             console.log("type of request:"+typeof(request));
+            if(status=="0"){
             await ctx.render("request/editpage",{
                 termlist,
                 staffinfolist,  
                 request,
                 statusreport
             })
+            }else{
+            await ctx.render("request/editpage1",{
+                termlist,
+                staffinfolist,  
+                request,
+                statusreport
+            })   
+            }
         })
         .catch(err=>{
             console.log("Request.findById(ctx.params.id) failed !!");
@@ -164,6 +175,7 @@ async create(ctx,next){
     ctx.redirect("/deep1/request/?statusreport="+statusreport)
     })
     .catch((err)=>{
+        console.log("Request.save() failed!!");
         console.log(err)
     })
 },
@@ -193,6 +205,21 @@ async create1(ctx,next){
         a45stage:"begin",
         a65followact:"reply as soon"
     })
+    new_guest=new Guestinfo({
+        a05ipofvisitor:clientip,
+        a10visitor:got_request.a10client,
+        a15dateofreg:requestdate,
+        a30phoneno:got_request.a20phoneno,
+        a35email:got_request.a25email,
+        a40address:got_request.a30address,
+        a45business:"",
+        a50extra:got_request.a35request     
+    })
+    await new_guest.save()
+    .catch((err)=>{
+        console.log("Guest.save() failed!!");
+        console.log(err)
+    }) 
     console.log("revised body:"+new_request);
     await new_request.save()
     .then(()=>{
@@ -201,6 +228,7 @@ async create1(ctx,next){
     ctx.redirect("/deep1/outerweb/?statusreport="+statusreport)
     })
     .catch((err)=>{
+        console.log("Request.save() failed!!");
         console.log(err)
     })
 },
@@ -317,13 +345,18 @@ async batchinput(ctx, next){
 //依參數id刪除資料
 async destroy(ctx,next){
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     await Request.deleteOne({_id: ctx.params.id})
     .then(()=>{
         console.log("Deleted a request....");
     statusreport="刪除單筆客戶需求後進入本頁";
     //ctx.res.end()
+    if(status=="0"){    
     ctx.redirect("/deep1/request/?statusreport="+statusreport)
+    }else{
+    ctx.redirect("/deep1/innerweb/workzone/bellcall/?statusreport="+statusreport)   
+    }
     })
     .catch((err)=>{
         console.log(err)
@@ -334,12 +367,17 @@ async destroy(ctx,next){
 async update(ctx,next){
     let {_id}=ctx.request.body;
     var {statusreport}=ctx.request.body;
+    var status=ctx.request.status;
     console.log("gotten query:"+statusreport);
     await Request.findOneAndUpdate({_id:_id}, ctx.request.body, { new: true })
     .then((newrequest)=>{
         console.log("Saving new_request....:"+newrequest);
     statusreport="更新單筆客戶需求後進入本頁";
+    if(status=="0"){    
     ctx.redirect("/deep1/request/?statusreport="+statusreport)
+    }else{
+    ctx.redirect("/deep1/innerweb/workzone/bellcall/?statusreport="+statusreport)   
+    }
     })
     .catch((err)=>{
         console.log(err)

@@ -5,7 +5,13 @@ const knowledgeController = require('../controllers/index').knowledge;
 router.get('/', async (ctx, next)=> {
 	await knowledgeController.list(ctx,next)
 });
+//列出依某中分類方法下某細類清單
+router.get('/branch', async (ctx, next)=> {
+	await knowledgeController.branch(ctx,next)
+});
+
 //列出某category清單
+/*
 router.get('/category', async (ctx, next)=> {
 	await knowledgeController.category(ctx,next)
 });
@@ -17,6 +23,7 @@ router.get('/domain', async (ctx, next)=> {
 router.get('/course', async (ctx, next)=> {
 	await knowledgeController.course(ctx,next)
 });
+*/
 //到新增資料頁
 router.get('/inputpage', async (ctx, next)=> {
     await knowledgeController.inputpage(ctx,next)

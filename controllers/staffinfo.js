@@ -20,8 +20,8 @@ async list(ctx,next){
         }
         await ctx.render("staffinfo/listpage",{
         //ctx.response.send({
-            staffinfolist:staffinfolist,
-            statusreport:statusreport
+            staffinfolist,
+            statusreport
         })
     })
     .catch(err=>{
@@ -34,6 +34,7 @@ async list(ctx,next){
 //到新增資料頁
 async inputpage(ctx, next) {
     var {statusreport}=ctx.request.body;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     var termlist;
     await Term.find({a15model:"staffinfo"}).then(async terms=>{
@@ -45,12 +46,19 @@ async inputpage(ctx, next) {
         console.log("type of termlist:"+typeof(termlist));    
         if(statusreport===undefined){
             statusreport="status未傳成功!"
-        }    
+        }
+        if(status=="0"){ 
         await ctx.render("staffinfo/inputpage",{
             statusreport:ctx.request.body.statusreport,
             termlist
-        })
-    })
+        })      
+        }else{
+            await ctx.render("staffinfo/inputpage1",{
+                statusreport:ctx.request.body.statusreport,
+                termlist
+            }) 
+        }
+      })
     .catch(err=>{
         console.log("Term.find({}) failed !!");
         console.log(err)
@@ -59,6 +67,7 @@ async inputpage(ctx, next) {
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     console.log("ID:"+ctx.params.id);
     console.log("entered Staffinfo.findById(ctx.params.id)!!");
@@ -88,11 +97,19 @@ async editpage(ctx, next) {
             staffinfo=encodeURIComponent(JSON.stringify(staffinfox));
             console.log("staffinfo:"+staffinfo);
             console.log("type of staffinfo:"+typeof(staffinfo));
+            if(status=="0"){
             await ctx.render("staffinfo/editpage",{
                 termlist,
                 staffinfo,
                 statusreport
             })
+            }else{
+            await ctx.render("staffinfo/editpage1",{
+                termlist,
+                staffinfo,
+                statusreport
+            })
+            }
         })
         .catch(err=>{
             console.log("Staffinfo.findById(ctx.params.id) failed !!");
@@ -111,13 +128,18 @@ findByNo(req,res){
 
 //寫入一筆資料
 async create(ctx,next){
+    var status=ctx.query.status;
     var new_staffinfo = new Staffinfo(ctx.request.body);
     console.log(new_staffinfo);
     await new_staffinfo.save()
     .then(()=>{
         console.log("Saving new_staffinfo....");
     statusreport="儲存單筆員工資料後進入本頁";
+    if(status=="0"){    
     ctx.redirect("/deep1/staffinfo/?statusreport="+statusreport)
+    }else{
+        ctx.redirect("/deep1/innerweb/general/personnel?statusreport="+statusreport)
+    }
     })
     .catch((err)=>{
         console.log(err)
@@ -125,6 +147,7 @@ async create(ctx,next){
 },
 //批次新增資料
 async batchinput(ctx, next){
+    var status=ctx.query.status;
     var statusreport=ctx.query.statusreport;
     var datafile=ctx.query.datafile;
     console.log("got the name of datafile:"+datafile)   
@@ -230,10 +253,14 @@ async batchinput(ctx, next){
         //console.log("going to list prject....");
         //ctx.redirect("/deep1/project/?statusreport="+statusreport)
         console.log("go back to datamanage.ejs");
-        statusreport="完成staffinfo批次輸入";      
+        statusreport="完成staffinfo批次輸入";
+        if(status=="0"){      
         await ctx.render("innerweb/datamanage/datamanagetemp",{
             statusreport
         })
+        }else{
+        ctx.redirect("/deep1/innerweb/general/personnel?statusreport="+statusreport)
+        }
     })
     .catch((err)=>{
         console.log("ctx.redirect failed !!")
@@ -243,13 +270,18 @@ async batchinput(ctx, next){
 //依參數id刪除資料
 async destroy(ctx,next){
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     await Staffinfo.deleteOne({_id: ctx.params.id})
     .then(()=>{
         console.log("Deleted a staffinfo....");
     statusreport="刪除單筆員工資料後進入本頁";
     //ctx.res.end()
+    if(status=="0"){
     ctx.redirect("/deep1/staffinfo/?statusreport="+statusreport)
+    }else{
+    ctx.redirect("/deep1/innerweb/general/personnel?statusreport="+statusreport)
+    }
     })
     .catch((err)=>{
         console.log(err)
@@ -260,12 +292,17 @@ async destroy(ctx,next){
 async update(ctx,next){
     let {_id}=ctx.request.body;
     var {statusreport}=ctx.request.body;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     await Staffinfo.findOneAndUpdate({_id:_id}, ctx.request.body, { new: true })
     .then((newstaffinfo)=>{
         console.log("Saving new_staffinfo....:"+newstaffinfo);
     statusreport="更新單筆員工資料後進入本頁";
+    if(status=="0"){
     ctx.redirect("/deep1/staffinfo/?statusreport="+statusreport)
+        }else{
+        ctx.redirect("/deep1/innerweb/general/personnel?statusreport="+statusreport)
+        }
     })
     .catch((err)=>{
         console.log(err)

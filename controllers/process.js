@@ -93,6 +93,7 @@ async inputpage(ctx, next) {
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;    
     console.log("gotten query:"+statusreport);
     console.log("ID:"+ctx.params.id);
     console.log("entered Process.findById(ctx.params.id)!!");
@@ -147,19 +148,27 @@ async editpage(ctx, next) {
         console.log(err)
     })  
     await Process.findById(ctx.params.id)
-        .then(async processx=>{
-            console.log("processx:"+processx);
-            process=encodeURIComponent(JSON.stringify(processx));
-            console.log("process:"+process);
-            console.log("type of process:"+typeof(process));
-            await ctx.render("process/editpage",{
-                termlist,
-                staffinfolist,
-                ocosalist,
-                process:process,
-                statusreport:statusreport
-            })
+    .then(async processx=>{
+        console.log("processx:"+processx);
+        process=encodeURIComponent(JSON.stringify(processx));
+        console.log("process:"+process);
+        console.log("type of process:"+typeof(process));
+        if(status=="0"){
+        await ctx.render("process/editpage",{
+            termlist,
+            staffinfolist,  
+            process,
+            statusreport
         })
+        }else{
+        await ctx.render("process/editpage1",{
+            termlist,
+            staffinfolist,  
+            process,
+            statusreport
+        })   
+        }
+    })
         .catch(err=>{
             console.log("Process.findById(ctx.params.id) failed !!");
             console.log(err)
@@ -295,32 +304,42 @@ async batchinput(ctx, next){
 //依參數id刪除資料
 async destroy(ctx,next){
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;    
     console.log("gotten query:"+statusreport);
     await Process.deleteOne({_id: ctx.params.id})
     .then(()=>{
         console.log("Deleted a process....");
     statusreport="刪除單筆程序資料後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep1/process/?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    if(status=="0"){    
+        ctx.redirect("/deep1/process/?statusreport="+statusreport)
+        }else{
+        ctx.redirect("/deep1/innerweb/workzone/planning/?statusreport="+statusreport)   
+        }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 },
 
 //依參數id更新資料
 async update(ctx,next){
     let {_id}=ctx.request.body;
     var {statusreport}=ctx.request.body;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     await Process.findOneAndUpdate({_id:_id}, ctx.request.body, { new: true })
     .then((newprocess)=>{
         console.log("Saving new_process....:"+newprocess);
     statusreport="更新單筆程序資料後進入本頁";
-    ctx.redirect("/deep1/process/?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    if(status=="0"){    
+        ctx.redirect("/deep1/process/?statusreport="+statusreport)
+        }else{
+        ctx.redirect("/deep1/innerweb/workzone/planning/?statusreport="+statusreport)   
+        }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 }
 }//EOF export

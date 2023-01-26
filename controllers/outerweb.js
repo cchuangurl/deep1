@@ -10,7 +10,11 @@ module.exports = {
 
 //到對外首頁
 async homepage(ctx,next){
-    let statusreport="歡迎到Deep服務系統！!";
+    let statusreport=ctx.query.statusreport;
+    if(statusreport===undefined){
+        statusreport="歡迎到Deep服務系統！!";
+        console.log("未截到status!!");
+    }    
     var postlist;
     console.log("gotten query:"+statusreport);
     await Post.find({})    
@@ -69,7 +73,7 @@ async deliver(ctx, next){
 },
 //到對外免費服務-依管理類別
 async bycate(ctx, next){
-    let statusreport="歡迎到參用免費提供的服務！!";
+    let statusreport="歡迎參用免費提供的服務！!";
     console.log("going in method share!!")
     var termcategory;
     await Term.find({a20field:"a30category",})

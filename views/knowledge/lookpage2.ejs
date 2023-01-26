@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="/javascripts/jquery-3.4.1.js"></script>
+<style type="text/css">
+body {
+  background-color: #d6d6d3;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+     flex-direction:column;
+	 justify-content: flex-start;
+     align-items:center;
+  	margin: 0;
+}
+.navbar{background:#e5f8cd;}
+.nav-link, .navbar-brand{color: #f4f4f4;cursor:pointer;}
+.nav-link{margin-right:1em !important;}
+.nav-link:hover{background: #f4f4f4;color:#f97300;}
+.navbar-collapse{justify-content:flex-end;}
+.navbar-toggler{background:#fff !important;}
+</style>
+
+  <title>檢視指定之knowledge</title>
+  </head>
+  <body>
+    <div id="show_div">
+      <bander></bander>
+        <inputer></inputer>
+        <!-- <outputer></outputer> -->
+    </div>
+ 
+    <template id="banderUI">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">{{brand}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/deep1/outerweb">{{homepage}}</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" :href="lasturl">{{lastpage}}</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link active" href="#">{{look1}} <span class="sr-only">(current)</span></a>
+            </li>        
+          </ul>
+          <span class="navbar-text">
+            {{statusreport}}
+          </span>
+        </div>
+      </nav>
+    </template>
+    
+    <template id="inputerUI" >
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">檢視{{knowledge.a05name}}之資料</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
+            <div class="form-group" :key="inputerUIkey">
+                <!-- <form action="/deep1/branch/customer" method="get"> -->
+                    <label for="formGroupExampleInput2">{{items.item1}}</label>
+                    <input type="text" name="a05domain" class="form-control" id="formGroupExampleInput1" :value="knowledge.a05domain">
+                    
+                    <label for="formGroupExampleInput2">{{items.item2}}</label>
+                    <input type="text" name="a10code" class="form-control" id="formGroupExampleInput2" :value="knowledge.a10code">
+                    
+                    <label for="formGroupExampleInput2">{{items.item3}}</label>
+                    <input type="text" name="a15describe" class="form-control" id="formGroupExampleInput3" :value="knowledge.a15describe">
+                  
+                    <label for="formGroupExampleInput2">{{items.item4}}</label>
+                    <input type="text" name="a20filename" class="form-control" id="formGroupExampleInput4" :value="knowledge.a20filename">
+                  
+                    <label for="formGroupExampleInput2">{{items.item5}}</label>
+                    <input type="text" name="a25filealias" class="form-control" id="formGroupExampleInput5" :value="knowledge.a25filealias">
+                 
+                    <label for="formGroupExampleInput2">{{items.item6}}</label>
+                    <input type="text" name="a30category" class="form-control" id="formGroupExampleInput6" :value="knowledge.a30category">
+                  
+                    <label for="formGroupExampleInput2">{{items.item7}}</label>
+                    <input type="text" name="a33course" class="form-control" id="formGroupExampleInput7" :value="knowledge.a33course">
+                  
+                    <label for="formGroupExampleInput2">{{items.item8}}</label>
+                    <input type="text" name="a35uploader" class="form-control" id="formGroupExampleInput8" :value="knowledge.a35uploader">
+                  
+                    <label for="formGroupExampleInput2">{{items.item9}}</label>
+                    <input type="text" name="a40date" class="form-control" id="formGroupExampleInput9" :value="knowledge.a40date">
+                  
+                    <label for="formGroupExampleInput2">{{items.item10}}</label>
+                    <input type="text" name="a45reveal" class="form-control" id="formGroupExampleInput10" :value="knowledge.a45reveal">
+                  
+                    <label for="formGroupExampleInput2">{{items.item11}}</label>
+                    <input type="text" name="a504download" class="form-control" id="formGroupExampleInput11" :value="knowledge.a504download">
+           
+                <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由檢視knowledge後進入本頁">
+                <input type="submit" id="button1" value="回上頁" class="btn btn-info" @click="golastpage">
+               <!--
+                <iframe name="myIframe" style="display:none"></iframe>
+                
+              <a href="/deep1/public/knowledgefile/20200422blockchain01.ppt" download="20200422blockchain01.ppt"></a>
+                <input type="submit" value="下載本知識檔" @click="download()"> -->
+                
+                </div>
+            </form>
+
+            <button @click="download()">下載本知識檔</button>
+        </div>
+      </div> 
+    </template>
+
+ 
+<!-- Vue CDN-->
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+<script>
+Vue.component("bander",{
+    props:{},
+    data(){
+      return {
+        brand:"Deep內部功能",
+        homepage:"回本社首頁",
+        lastpage:"回前頁",
+        look1:"檢視1筆",
+        editbatch:"",
+        statusreport:'<%- statusreport %>',
+        classtype:'<%- classtype %>',
+        specific:'<%- specific%>',
+        from:'<%- from%>',        
+        lasturl:""        
+      }
+    },
+    mounted:function(){
+        let querytext="?statusreport=由檢視某編knowledge回到本頁&classtype="+this.classtype+"&specific="+this.specific+"&from="+this.from;
+            console.log("classtype="+this.classtype+"   specific="+this.specific+"   from="+this.from);
+          this.lasturl='/deep1/knowledge/branch'+querytext
+    },
+    methods:{
+
+    },
+    template:"#banderUI"
+  });
+  Vue.component("inputer",{
+    props:{},
+    data(){
+      return {
+        card_title:"(僅供檢視，修改無效)",
+        card_subtitle:"各項資料如下:",
+        items:{
+            item1:"員工知識領域",
+            item2:"分類代碼",
+            item3:"材料標題",
+            item4:"檔案主檔名",
+            item5:"檔案附檔名",
+            item6:"類別",
+            item7:"所屬課程別",
+            item8:"上傳者ID",
+            item9:"上傳日期",
+            item10:"揭露等級",
+            item11:"是否提供下載",
+            item99:"特別註記" 
+      },
+      knowledge:JSON.parse(decodeURIComponent('<%=knowledge%>')),
+      classtype:'<%- classtype %>',
+        specific:'<%- specific %>',
+      inputerUIkey:0
+  }//EOF return 
+    }, //EOF data()
+    methods:{
+        rerender:function() {
+      this.inputerUIkey += 1;
+      console.log("inputerUIkey:"+this.inputerUIkey) 
+    },
+    golastpage:function(){
+        let querytext="?statusreport='由檢視某編knowledge回到本頁'&classtype="+this.classtype+"&specific="+this.specific;
+            console.log("classtype="+this.classtype+"   specific="+this.specific);
+          let url2='/deep1/knowledge/'+this.classtype+querytext;
+          window.location=url2;
+    },
+    download:function(){
+        let routerstring="/deep1/knowledge/download/"+"20200422blockchain01.ppt";
+        window.open(routerstring, '_self');
+    }
+    }, 
+    /*
+    mounted:{
+        this:{
+            values:{
+                value0:knowledge.a05name 
+            }}
+        }, */   
+    template:"#inputerUI"
+  });
+    new Vue({
+        el:'#show_div',
+        data:{
+          testdata:'有執行到此。。。。'
+        },
+        /* computed:{
+
+        },
+        watch:{
+
+        },
+        filters:{
+
+        },
+        mixins:[
+
+        ],
+        template:" ",
+        components:{
+
+        },*/
+        beforeCreate:function(){
+          console.log("before create...")
+        },created:function(){
+          console.log("created...")
+        },
+        beforeMount:function(){
+          console.log("before mount...")
+        },
+        mounted:function(){
+          console.log("mounted...")
+        },
+        beforeUpdate:function(){
+          console.log("before update...")
+        },
+        updated:function(){
+          console.log("updated...")
+        },
+        beforeDestroy:function(){
+
+        } 
+    })
+</script>
+
+
+  </body>
+</html>

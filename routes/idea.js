@@ -10,10 +10,10 @@ router.get('/', async (ctx, next)=> {
 router.get('/inputpage', async (ctx, next)=> {
     await ideaController.inputpage(ctx,next)
 });
- //到員工建言頁
+ /*到員工建言頁
 router.get('/inputpage1', async (ctx, next)=> {
     await ideaController.inputbystaff(ctx,next)
-});
+});*/
 //到修正單筆資料頁
 router.get('/editpage/:id', async (ctx, next)=> {
     console.log("get id:"+ctx.params.id)
@@ -36,7 +36,7 @@ router.post('/add', async (ctx, next)=> {
 	console.log(ctx.request.body);
 	await ideaController.create(ctx)
 });
-//寫入一筆客戶留言
+//寫入一筆員工建言
 router.post('/add1', async (ctx, next)=> {
 	console.log(ctx.request.body);
 	await ideaController.create1(ctx)

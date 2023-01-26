@@ -31,10 +31,65 @@ async list(ctx,next){
         console.log(err)
     })
 },
+//列出依某中分類方法下某細類清單
+async branch(ctx, next){
+    console.log("found controller /deep1/knowledge/branch !!");
+    var statusreport=ctx.query.statusreport;
+    var from=ctx.query.from;
+    var specific=ctx.query.specific;
+    var classtype=ctx.query.classtype;
+    switch(classtype){        
+        case "category": var key2find={a30category:specific};break;
+        case "domain": var key2find={a05domain:specific};break;
+        case "course": var key2find={a33course:specific};break;
+        default: var key2find={a30category:specific}
+    }
+    console.log("gotten query:"+specific);
+    console.log("key2find:"+key2find);    
+    //var jsonitem=JSON.stringify(key2find);
+	await Knowledge.find(key2find).then(async knowledges=>{
+        //console.log("found knowledges:"+knowledges);
+        //console.log("key2find:"+key2find);
+        console.log("type of knowledges:"+typeof(knowledges));
+        console.log("type of 1st knowledge:"+typeof(knowledges[0]));
+        console.log("1st knowledge:"+knowledges[0])
+        console.log("No. of knowledge:"+knowledges.length)
+        let knowledgelist=encodeURIComponent(JSON.stringify(knowledges));
+        console.log("type of knowledges:"+typeof(knowledgelist));
+        if(statusreport===undefined){
+            statusreport="未截到status"
+        }
+        if(from=="inner"){
+        await ctx.render("knowledge/partlistpage1",{
+        //ctx.response.send({
+            knowledgelist,
+            classtype,
+            specific,
+            from,
+            statusreport
+        })
+        }else{
+            await ctx.render("knowledge/partlistpage2",{
+                //ctx.response.send({
+                    knowledgelist,
+                    classtype,
+                    specific,
+                    from,
+                    statusreport
+                })
+        }          
+    })
+    .catch(err=>{
+        console.log("Knowledge.find({"+classtype+"}) failed !!");
+        console.log(err)
+    })
+},
 //列出某category清單
+/*
 async category(ctx, next){
     console.log("found route /deep1/knowledge/category !!");
     var statusreport=ctx.query.statusreport;
+    var from=ctx.query.from;
     var specific=ctx.query.specific;
     var classtype=ctx.query.classtype;
     console.log("gotten query:"+specific);    
@@ -49,13 +104,23 @@ async category(ctx, next){
         if(statusreport===undefined){
             statusreport="未截到status"
         }
-        await ctx.render("knowledge/partlistpage",{
+        if(from=="inner"){
+        await ctx.render("knowledge/partlistpage1",{
         //ctx.response.send({
             knowledgelist,
             classtype,
             specific,
             statusreport
         })
+        }else{
+            await ctx.render("knowledge/partlistpage2",{
+                //ctx.response.send({
+                    knowledgelist,
+                    classtype,
+                    specific,
+                    statusreport
+                })
+        }          
     })
     .catch(err=>{
         console.log("Knowledge.find({category}) failed !!");
@@ -124,6 +189,7 @@ async course(ctx, next){
         console.log(err)
     })
 },
+*/
 //到新增資料頁
 async inputpage(ctx, next) {
     var {statusreport}=ctx.request.body;
@@ -230,6 +296,7 @@ async lookpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
     var classtype=ctx.query.classtype;
     var specific=ctx.query.specific;
+    var from=ctx.query.from;    
     console.log("gotten query:"+statusreport);
     console.log("ID:"+ctx.params.id);
     console.log("entered Knowledge.findById(ctx.params.id)!!");
@@ -242,12 +309,23 @@ async lookpage(ctx, next) {
             let knowledge=encodeURIComponent(JSON.stringify(knowledgex));
             console.log("knowledge:"+knowledge);
             console.log("type of knowledge:"+typeof(knowledge));
-            await ctx.render("knowledge/lookpage",{
+            if(from=="inner"){
+            await ctx.render("knowledge/lookpage1",{
                 knowledge,
                 classtype,
                 specific,
+                from,
                 statusreport
             })
+            }else{
+                await ctx.render("knowledge/lookpage2",{
+                    knowledge,
+                    classtype,
+                    specific,
+                    from,
+                    statusreport
+                })
+            }
         })
         .catch(err=>{
             console.log("Knowledge.findById(ctx.params.id) failed !!");

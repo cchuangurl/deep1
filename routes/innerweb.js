@@ -21,6 +21,10 @@ router.get('/workzone/message', async (ctx, next)=> {
 router.get('/workzone/bellcall', async (ctx, next)=> {
 	await innerwebController.reception(ctx, next)
 });
+//客服業務處理-需求轉為專案
+router.get('/workzone/project', async (ctx, next)=> {
+	await innerwebController.project(ctx, next)
+});
 //客服業務處理-ocosa分析
 router.get('/workzone/analysis', async (ctx, next)=> {
 	await innerwebController.ocosa(ctx, next)
@@ -33,11 +37,19 @@ router.get('/workzone/planning', async (ctx, next)=> {
 router.get('/KI/KM', async (ctx, next)=> {
 	await innerwebController.KM(ctx, next)
 });
-//到知識整合
-router.get('/KI/integrate', async (ctx, next)=> {
-	await innerwebController.integrate(ctx, next)
+//到知識整合-依企管分類
+router.get('/KI/KIbycate', async (ctx, next)=> {
+	await innerwebController.KIbycate(ctx, next)
 });
-//到知識整合
+//到知識整合-依專業領域分類
+router.get('/KI/KIbydomain', async (ctx, next)=> {
+	await innerwebController.KIbydomain(ctx, next)
+});
+//到知識整合-依課程分類
+router.get('/KI/KIbycourse', async (ctx, next)=> {
+	await innerwebController.KIbycourse(ctx, next)
+});
+//到知識分類學
 router.get('/KI/classify', async (ctx, next)=> {
 	await innerwebController.classify(ctx, next)
 });

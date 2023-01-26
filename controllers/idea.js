@@ -36,6 +36,7 @@ async list(ctx,next){
 async inputpage(ctx, next) {
     var {statusreport}=ctx.request.body;
     console.log("gotten query:"+statusreport);
+    var status=ctx.query.status;
     var termlist;    
     var idealist;
     var staffinfolist;
@@ -79,13 +80,22 @@ async inputpage(ctx, next) {
         console.log("No. of staff:"+staffs.length)
         staffinfolist=encodeURIComponent(JSON.stringify(staffs));
         console.log("type of staffinfolist:"+typeof(staffinfolist));
-        await ctx.render("idea/inputpage",{
-            statusreport:ctx.request.body.statusreport,
-            termlist,
-            staffinfolist,
-            idealist            
+        if(status=="0"){        
+            await ctx.render("idea/inputpage",{
+                statusreport:ctx.request.body.statusreport,
+                termlist,
+                staffinfolist,
+                idealist            
+            })
+        }else{
+            await ctx.render("idea/inputpage1",{
+                statusreport:ctx.request.body.statusreport,
+                termlist,
+                staffinfolist,
+                idealist            
+            })
+        }        
         })
-    })
     .catch(err=>{
         console.log("Staffinfo.find({}) failed !!");
         console.log(err)
@@ -187,13 +197,13 @@ async create(ctx,next){
     .then(()=>{
         console.log("Saving new_idea....");
     statusreport="儲存單筆客戶留言後進入本頁";
-    ctx.redirect("/deeo1/idea/?statusreport="+statusreport)
+    ctx.redirect("/deep1/idea/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)
     })
 },
-//寫入一筆客戶留言
+//寫入一筆員工建言
 async create1(ctx,next){
     var got_idea = ctx.request.body;
     console.log(got_idea);
@@ -225,8 +235,8 @@ async create1(ctx,next){
     await new_idea.save()
     .then(()=>{
         console.log("Saving new_idea....");
-    statusreport="您的指教敬悉，將儘速回應您。謝謝！！";
-    ctx.redirect("/deeo1/branch/customer/?statusreport="+statusreport)
+    statusreport="您的寶貴意見敬悉，將儘速回應您。謝謝！！";
+    ctx.redirect("/deep1/innerweb/?statusreport="+statusreport)
     })
     .catch((err)=>{
         console.log(err)

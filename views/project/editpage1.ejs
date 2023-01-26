@@ -42,10 +42,13 @@ body {
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/deep1/innerweb">{{lastpage}}</a>
+              <a class="nav-link" href="/deep1/project">{{lastpage}}</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link active" href="#">{{edit1}} <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#">{{edit1}} <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{editbatch}}</a>
             </li>
           </ul>
           <span class="navbar-text">
@@ -58,9 +61,9 @@ body {
     <template id="inputerUI" >
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">修正{{project.a05name}}案之資料</h5>
+          <h5 class="card-title">修正{{project.a05name}}之資料</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{card_subtitle}}</h6>
-          <form action="/deep1/project/update2" method="post">
+          <form action="/deep1/project/update" method="post">
             <div class="form-group" :key="inputerUIkey">
             <label for="formGroupExampleInput2">{{items.item}}</label>
             <input type="text" name="_id" class="form-control" id="formGroupExampleInput" :value="project._id">
@@ -123,7 +126,7 @@ body {
             <label for="formGroupExampleInput2">{{items.item12}}</label>
             <input type="text" name="a65status" class="form-control" id="formGroupExampleInput12" :value="project.a65status">  
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正project後進入本頁">
-            
+              <input type="hidden" name="status" class="form-control" id="msg2" value="1">
               <input type="submit" id="button1" value="確定送出" class="btn btn-info">
             </div>
           </form>
@@ -158,7 +161,7 @@ Vue.component("bander",{
     props:{},
     data(){
       return {
-        //card_title:"修正{{project.a05name}}案之資料",
+        card_title:"",
         card_subtitle:"請修正以下各項資料:",
         items:{
             item:"ID",

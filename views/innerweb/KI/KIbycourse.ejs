@@ -37,6 +37,13 @@ background-color: rgb(213, 218, 210);
 #bellcall{
     background:#f5f5d6   
 }
+#tablefy{
+    display: inline-block;
+  flex-direction:row;
+	 justify-content: flex-start;
+     align-items:left;
+     margin:10px
+}
 #messageboard{
     background:#d6f5de
 }
@@ -58,7 +65,7 @@ background-color: rgb(213, 218, 210);
 
 </style>
 
-  <title>關於本社-組織架構</title>
+  <title>知識整合-依課程類型</title>
   </head>
   <body>
     <div id="show_div">
@@ -68,17 +75,22 @@ background-color: rgb(213, 218, 210);
             <div class="col-lg-3 col-md-6 col-sm-12" id="sidearea">
                 <sidebar></sidebar> </div>
             <div class="col-lg-9 col-md-6 col-sm-12">
+                <!--
                 <div class="row" align="justify">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <content1></content1> 
-                    </div>                        
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                -->
+                        <content1></content1> </div>
+                        <!--
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <content2></content2>
-                    </div>
+                        
+                    </div>-->
                 </div>
             </div>
         </div>
-    <contacter></contacter> 
+        <div class="row" align="justify">
+            <contacter></contacter>
+        </div>         
     </div>
  
     <template id="banderUI">
@@ -94,32 +106,22 @@ background-color: rgb(213, 218, 210);
                 <ul class="navbar-nav mr-auto">
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb">{{home}}</a>
+                    <a class="nav-link" href="/deep1/">{{home}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/aboutus/ideal">{{ideal}}</a>
+                    <a class="nav-link" href="/deep1/innerweb/KI/KIbycate">{{bycate}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/aboutus/adventage">{{adventage}}</a>
+                    <a class="nav-link" href="/deep1/innerweb/KI/KIbydomain">{{bydomain}}</a>
                     </li>
                 </div>
                 <div class="col-lg col-sm-6">
                     <li class="nav-item">
-                    <a class="nav-link active" href="#">{{organize}}<span class="sr-only">(current)</span></a>
-                    </li>
-                </div>
-                <div class="col-lg col-sm-6">
-                    <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/aboutus/perform">{{perform}}</a>
-                    </li>
-                </div>
-                <div class="col-lg col-sm-6">
-                    <li class="nav-item">
-                    <a class="nav-link" href="/deep1/outerweb/aboutus/CSR">{{CSR}}</a>
+                    <a class="nav-link active" href="#">{{bycourse}}<span class="sr-only">(current)</span></a>
                     </li>
                 </div>
                 </ul>
@@ -141,26 +143,38 @@ background-color: rgb(213, 218, 210);
      
     <template id="content1UI">
         <nav aria-label="...">
-            <ul>
-                <li v-for="(n,i) in items.length" >{{items[i]}}</li>
-            </ul>
-            
+            <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+            <h5>請點專業知識類別選項</h5>
+                    </div>
+            </div>
+            <div class="row" id="tablefy" v-for="term of termfiltered" :ket="term._id">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                            <form  action="/deep1/knowledge/branch" method="get">
+                                <input type="hidden" name="statusreport" value="由依課程分類知識頁進入本頁">
+                                <input type="hidden" name="from" value="inner">                                
+                                <input type="hidden" name="classtype" value="course">
+                                <input type="hidden" name="specific" :value="term.a25code">                                
+                                <input type="submit" :value="term.a30mean" class="btn btn-info">       
+                                </form>
+                    </div>     
+            </div>            
         </nav>
     </template>
 
+    
     <template id="content2UI">
-        <nav aria-label="...">
-            
-            
+        
         </nav>
     </template>
+    
 
     <template id="sidebarUI">
-        <nav aria-label="...">
+        <!-- <nav aria-label="...">
             <div class="sidepart" id="callbell">
                 {{statusreport}}
                 {{promote}}
-                <form action="/deep1/request/bellcall" method="get">
+                <form action="/deep1/request/bellcall" method="post">
                 <input type="submit" id="bell" value="服務鈴" class="btn btn-info">
             </form>
             </div>     
@@ -202,27 +216,27 @@ background-color: rgb(213, 218, 210);
                     </tr>
                     <tr id="rownoid">
                         <td><span>
-                        <form action="/deep1/guestinfo/getpassword" method="get">
+                        <form action="/deep1/guestinfo/getpassword" method="post">
                         <input type="submit" value="忘記密碼？">
                         </form>
-                        <form action="/deep1/guestinfo/register" method="get">
+                        <form action="/deep1/guestinfo/register" method="post">
                         <input type="submit" value="註冊新帳號">
                         </form>
                         </span></td>
                     </tr>
                     </table>   
             </div>
-        </nav>
+        </nav>-->
     </template>
 
     <template id="contacterUI">
-        <nav aria-label="...">
+        <!-- <nav aria-label="...">
             <div id="contactpart">
          <div class="contactinfo" id="address"> 本社地址：{{address}}</div>
          <div class="contactinfo" id="tel">服務專線：{{tel}}</div>
          <div class="contactinfo" id="tel">服務電郵：{{email}}</div>
         </div>    
-        </nav>
+        </nav> -->
     </template>
 
 <!-- Vue CDN-->
@@ -235,16 +249,14 @@ Vue.component("bander",{
     data(){
       return {
         brand:"Deep",
-        home:"回本社首頁",
+        home:"回本社員工業務要覽",
         brief:"服務簡介",
         deliver:"服務交付流程",
         share:"免費服務項目",
+        bycate:"依企管分類",
+        bydomain:"依知識領域",
+        bycourse:"依課程類型",
         aboutus:"認識我們",
-        ideal:"服務理念",
-        adventage:"本社優勢",
-        organize:"組織架構",
-        perform:"服務實績",
-        CSR:"企業社會責任",
         user:"無名",
         statusreport:'<%- statusreport %>'
       }
@@ -289,23 +301,29 @@ Vue.component("bander",{
     props:{},
     data(){
       return{
-        items:[
-        "服務理念",
-        "企業優勢",
-        "組織架構",
-        "服務實績",
-        "社會責任"
-        ]
-      }      
+        termcourse:JSON.parse(decodeURIComponent('<%=termcourse%>')),
+        termfiltered:[]
+    }
     },
+    mounted:function(){
+        for(termx of this.termcourse){
+            if(termx.a25code.search("course")==-1){
+                this.termfiltered.push(termx)
+            }
+        }
+    },
+    /*   
     computed:{
       
     },
+    */
     methods:{
           
     },
     template:"#content1UI"
   });
+
+  /*  
   Vue.component("content2",{
     props:{},
     data(){
@@ -320,6 +338,7 @@ Vue.component("bander",{
     },
     template:"#content2UI"
   });
+    */  
     new Vue({
         el:'#show_div',
         data:{

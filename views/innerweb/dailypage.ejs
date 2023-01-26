@@ -20,12 +20,14 @@ background-color: rgb(205, 226, 253);
   	margin: 0;
 }
 #bulletin {background:#def3f8;}
+<!--
 #poster {
     width: 50px;
 }
 #posttitle {
     width: 100px;
 }
+-->
 #worktodo {background:#f8e8c5;}
 .navbar{background:#cff8c5;}
 .nav-link, .navbar-brand{color: #f4f4f4;cursor:pointer;}
@@ -125,7 +127,7 @@ background-color: rgb(205, 226, 253);
                             {{KI}}
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/deep1/innerweb/KI/integrate">{{integrate}}</a>
+                            <a class="dropdown-item" href="/deep1/innerweb/KI/KIbycate">{{integrate}}</a>
                             <a class="dropdown-item" href="/deep1/innerweb/KI/KM">{{KM}}</a>
                             <a class="dropdown-item" href="/deep1/innerweb/KI/classify">{{classify}}</a>
                         </div>
@@ -184,6 +186,8 @@ background-color: rgb(205, 226, 253);
             </div>
           </ul>
         </div>
+    </div>
+    <div class="row">        
         <div class="col-lg col-md-4 col-sm-12">
           <!--<span class="navbar-text">-->
             <font size="1">{{statusreport}}</font>
@@ -221,9 +225,9 @@ background-color: rgb(205, 226, 253);
                     <thead>
                     <tr>
                         <th>{{items1.item1}}</th>
-                        <th id="poster">{{items1.item2}}</th>
+                        <th>{{items1.item2}}</th>
                         <th>{{items1.item3}}</th>                          
-                        <th id="posttitle">{{items1.item4}}</th>    
+                        <th>{{items1.item4}}</th>    
                       <!-- <th>特別註記</th> -->
                     </tr>
                     </thead>
@@ -277,7 +281,7 @@ background-color: rgb(205, 226, 253);
                       <tr>
                           <th>{{items2.item2}}</th>
                           <th>{{items2.item5}}</th>                      
-                          <th>{{items2.item8}}</th>    
+                          <th style="width: 50px">{{items2.item8}}</th>    
                         <!-- <th>特別註記</th> -->
                       </tr>
                       </thead>
@@ -320,6 +324,15 @@ background-color: rgb(205, 226, 253);
       </template>
       <template id="sidebarUI">
         <nav aria-label="...">
+            <div class="sidepart" id="suggest">
+                {{statusreport}}<br>
+                {{promote}}
+                <form action="/deep1/idea/inputpage" method="get">
+                <input type="hidden" name="statusreport" value="由員工首頁提建言按鈕進來">
+                <input type="hidden" name="status" value="1">
+                <input type="submit" id="bell" value="提建言" class="btn btn-info">
+            </form>
+            </div>             
             </nav>
       </template>
 
@@ -415,7 +428,7 @@ background-color: rgb(205, 226, 253);
           indexLength:0,
           responsetext:"",
           //statusreport:"顯示在第二處",
-          statusreport:'<%- JSON.stringify(statusreport) %>',
+          statusreport:'<%- statusreport %>',
         postlist:JSON.parse(decodeURIComponent('<%=postlist%>')),
         staffinfolist:JSON.parse(decodeURIComponent('<%=staffinfolist%>')),
           items1:{
@@ -460,16 +473,11 @@ background-color: rgb(205, 226, 253);
       },
       methods:{
         lookonepost:function(id){
-          let querytext="?statusreport='由post資料清單頁的編輯按鈕進入本頁'";
+          let querytext="?statusreport=由post資料清單頁的編輯按鈕進入本頁";
           let url4='/deep1/post/lookpage/'+id+querytext;
           window.location=url4;
         },
-        editoneproject:function(id){
-          let querytext="?statusreport='由業務要覽頁的編輯按鈕進入本頁'";
-          let url2='/deep1/project/editpage2/'+id+querytext;
-          window.location=url2;
-        },
-
+        
         getShowData:function(index){
           this.currentIndex=index;
           this.activeIndex.splice(0);
@@ -617,7 +625,7 @@ background-color: rgb(205, 226, 253);
       },
       methods:{
         editoneproject:function(id){
-          let querytext="?statusreport='由業務要覽project清單的編輯按鈕進入本頁'";
+          let querytext="?statusreport=由業務要覽project清單的編輯按鈕進入本頁";
           let url2='/deep1/project/editpage2/'+id+querytext;
           window.location=url2;
         },

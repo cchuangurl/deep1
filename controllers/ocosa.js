@@ -58,6 +58,7 @@ async inputpage(ctx, next) {
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;    
     console.log("gotten query:"+statusreport);
     console.log("ID:"+ctx.params.id);
     console.log("entered ocosa.findById(ctx.params.id)!!");
@@ -80,17 +81,27 @@ async editpage(ctx, next) {
         console.log(err)
     })  
     await Ocosa.findById(ctx.params.id)
-        .then(async ocosax=>{
-            console.log("Ocosax:"+ocosax);
-            ocosa=encodeURIComponent(JSON.stringify(ocosax));
-            console.log("ocosa:"+ocosa);
-            console.log("type of ocosa:"+typeof(ocosa));
-            await ctx.render("ocosa/editpage",{
-                projectlist,
-                ocosa,
-                statusreport
-            })
+    .then(async ocosax=>{
+        console.log("ocosax:"+ocosax);
+        ocosa=encodeURIComponent(JSON.stringify(ocosax));
+        console.log("ocosa:"+ocosa);
+        console.log("type of ocosa:"+typeof(ocosa));
+        if(status=="0"){
+        await ctx.render("ocosa/editpage",{
+            termlist,
+            staffinfolist,  
+            ocosa,
+            statusreport
         })
+        }else{
+        await ctx.render("ocosa/editpage1",{
+            termlist,
+            staffinfolist,  
+            ocosa,
+            statusreport
+        })   
+        }
+    })
         .catch(err=>{
             console.log("Ocosa.findById(ctx.params.id) failed !!");
             console.log(err)
@@ -254,31 +265,41 @@ async batchinput(ctx, next){
 //依參數id刪除資料
 async destroy(ctx,next){
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;    
     console.log("gotten query:"+statusreport);
     await Ocosa.deleteOne({_id: ctx.params.id})
     .then(()=>{
         console.log("Deleted a ocosa....");
-    statusreport="刪除單筆客戶資料後進入本頁";
+    statusreport="刪除單筆客戶需求分析資料後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep1/ocosa/?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    if(status=="0"){    
+        ctx.redirect("/deep1/ocosa/?statusreport="+statusreport)
+        }else{
+        ctx.redirect("/deep1/innerweb/workzone/analysis/?statusreport="+statusreport)   
+        }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 },
 //依參數id更新資料
 async update(ctx,next){
     let {_id}=ctx.request.body;
     var {statusreport}=ctx.request.body;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     await Ocosa.findOneAndUpdate({_id:_id}, ctx.request.body, { new: true })
     .then((newocosa)=>{
         console.log("Saving new_ocosa....:"+newocosa);
     statusreport="更新單筆客戶資料後進入本頁";
-    ctx.redirect("/deep1/ocosa/?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    if(status=="0"){    
+        ctx.redirect("/deep1/ocosa/?statusreport="+statusreport)
+        }else{
+        ctx.redirect("/deep1/innerweb/workzone/analysis/?statusreport="+statusreport)   
+        }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 }
 }//EOF export

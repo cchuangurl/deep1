@@ -41,14 +41,15 @@ body {
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/deep1/innerweb">{{daily}}</a>
+                </li>
+            </div>   
             <li class="nav-item">
-              <a class="nav-link" href="/deep1/request">{{lastpage}}</a>
+              <a class="nav-link" href="/deep1/innerweb/workzone/bellcall">{{lastpage}}</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">{{edit1}} <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">{{editbatch}}</a>
             </li>
           </ul>
           <span class="navbar-text">
@@ -134,7 +135,7 @@ body {
             <input type="text" name="a70extra" class="form-control" id="formGroupExampleInput14" :value="request.a70extra">  
            
               <input type="hidden" name="statusreport" class="form-control" id="msg1" value="由修正request後進入本頁">
-              <input type="hidden" name="status" class="form-control" id="msg2" value="0">
+              <input type="hidden" name="status" class="form-control" id="msg2" value="1">
               <input type="submit" id="button1" value="確定送出" class="btn btn-info">
             </div>
           </form>
@@ -154,9 +155,9 @@ Vue.component("bander",{
     data(){
       return {
         brand:"Deep內部功能",
-        lastpage:"回前頁",
+        daily:"本員工首頁",
+        lastpage:"回前頁(處理需求工作區)",
         edit1:"修正1筆",
-        editbatch:"修正多筆",
         statusreport:'<%- statusreport %>'
       }
     },
@@ -226,6 +227,7 @@ Vue.component("bander",{
             }else{
                 this.staffindex.push(false)
             }
+            console.log("staffindex: "+this.staffindex)            
         } 
         for(howtodo of this.howtodos){
             if(howtodo.a25code==this.request.a55howtodo){

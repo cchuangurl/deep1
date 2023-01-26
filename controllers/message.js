@@ -94,6 +94,7 @@ async inputpage(ctx, next) {
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;    
     console.log("gotten query:"+statusreport);
     console.log("ID:"+ctx.params.id);
     console.log("entered Message.findById(ctx.params.id)!!");
@@ -150,19 +151,27 @@ async editpage(ctx, next) {
         console.log(err)
     })  
     await Message.findById(ctx.params.id)
-        .then(async messagex=>{
-            console.log("messagex:"+messagex);
-            message=encodeURIComponent(JSON.stringify(messagex));
-            console.log("message:"+message);
-            console.log("type of message:"+typeof(message));
-            await ctx.render("message/editpage",{
-                termlist,
-                staffinfolist,
-                messagelist,  
-                message,
-                statusreport
-            })
+    .then(async messagex=>{
+        console.log("messagex:"+messagex);
+        message=encodeURIComponent(JSON.stringify(messagex));
+        console.log("message:"+message);
+        console.log("type of message:"+typeof(message));
+        if(status=="0"){
+        await ctx.render("message/editpage",{
+            termlist,
+            staffinfolist,  
+            message,
+            statusreport
         })
+        }else{
+        await ctx.render("message/editpage1",{
+            termlist,
+            staffinfolist,  
+            request,
+            statusreport
+        })   
+        }
+    })
         .catch(err=>{
             console.log("Message.findById(ctx.params.id) failed !!");
             console.log(err)
@@ -339,32 +348,42 @@ async batchinput(ctx, next){
 //依參數id刪除資料
 async destroy(ctx,next){
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     await Message.deleteOne({_id: ctx.params.id})
     .then(()=>{
         console.log("Deleted a message....");
     statusreport="刪除單筆客戶留言後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep1/message/?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    if(status=="0"){    
+        ctx.redirect("/deep1/message/?statusreport="+statusreport)
+        }else{
+        ctx.redirect("/deep1/innerweb/workzone/message/?statusreport="+statusreport)   
+        }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 },
 
 //依參數id更新資料
 async update(ctx,next){
     let {_id}=ctx.request.body;
     var {statusreport}=ctx.request.body;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     await Message.findOneAndUpdate({_id:_id}, ctx.request.body, { new: true })
     .then((newmessage)=>{
         console.log("Saving new_message....:"+newmessage);
     statusreport="更新單筆客戶留言後進入本頁";
-    ctx.redirect("/deep1/message/?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    if(status=="0"){    
+        ctx.redirect("/deep1/message/?statusreport="+statusreport)
+        }else{
+        ctx.redirect("/deep1/innerweb/workzone/message/?statusreport="+statusreport)   
+        }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 }
 }//EOF export

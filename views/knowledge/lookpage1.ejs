@@ -42,7 +42,7 @@ body {
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/deep1/outerweb">{{homepage}}</a>
+                <a class="nav-link" href="/deep1/innerweb">{{homepage}}</a>
               </li>
             <li class="nav-item">
               <a class="nav-link" :href="lasturl">{{lastpage}}</a>
@@ -130,13 +130,14 @@ Vue.component("bander",{
         statusreport:'<%- statusreport %>',
         classtype:'<%- classtype %>',
         specific:'<%- specific%>',
+        from:'<%- from%>',
         lasturl:""        
       }
     },
     mounted:function(){
-        let querytext="?statusreport=由檢視某編knowledge回到本頁&classtype="+this.classtype+"&specific="+this.specific;
-            console.log("classtype="+this.classtype+"   specific="+this.specific);
-          this.lasturl='/deep1/knowledge/'+this.classtype+querytext
+        let querytext="?statusreport=由檢視某編knowledge回到本頁&classtype="+this.classtype+"&specific="+this.specific+"&from="+this.from;
+            console.log("classtype="+this.classtype+"   specific="+this.specific+"   from="+this.from);
+          this.lasturl='/deep1/knowledge/branch'+querytext
     },
     methods:{
 

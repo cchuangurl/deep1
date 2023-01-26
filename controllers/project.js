@@ -93,6 +93,7 @@ async inputpage(ctx, next) {
 //到修正單筆資料頁
 async editpage(ctx, next) {
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;    
     console.log("gotten query:"+statusreport);
     console.log("ID:"+ctx.params.id);
     console.log("entered Project.findById(ctx.params.id)!!");
@@ -110,10 +111,7 @@ async editpage(ctx, next) {
         console.log("1st term:"+terms[0])
         console.log("No. of term:"+terms.length)
         termlist=encodeURIComponent(JSON.stringify(terms));
-        console.log("type of termlist:"+typeof(termlist));    
-        if(statusreport===undefined){
-            statusreport="status未傳成功!"
-        }
+        console.log("type of termlist:"+typeof(termlist));
     })
     .catch(err=>{
         console.log("Term.find({}) failed !!");
@@ -146,19 +144,27 @@ async editpage(ctx, next) {
         console.log(err)
     })   
     await Project.findById(ctx.params.id)
-        .then(async projectx=>{
-            console.log("projectx:"+projectx);
-            project=encodeURIComponent(JSON.stringify(projectx));
-            console.log("project:"+project);
-            console.log("type of project:"+typeof(project));
-            await ctx.render("project/editpage",{
-                termlist,
-                staffinfolist,
-                guestinfolist,
-                project,
-                statusreport
-            })
+    .then(async projectx=>{
+        console.log("projectx:"+projectx);
+        project=encodeURIComponent(JSON.stringify(projectx));
+        console.log("project:"+project);
+        console.log("type of project:"+typeof(project));
+        if(status=="0"){
+        await ctx.render("project/editpage",{
+            termlist,
+            staffinfolist,  
+            project,
+            statusreport
         })
+        }else{
+        await ctx.render("project/editpage1",{
+            termlist,
+            staffinfolist,  
+            project,
+            statusreport
+        })   
+        }
+    })
         .catch(err=>{
             console.log("Project.findById(ctx.params.id) failed !!");
             console.log(err)
@@ -184,10 +190,7 @@ async editpage2(ctx, next) {
         console.log("1st term:"+terms[0])
         console.log("No. of term:"+terms.length)
         termlist=encodeURIComponent(JSON.stringify(terms));
-        console.log("type of termlist:"+typeof(termlist));    
-        if(statusreport===undefined){
-            statusreport="status未傳成功!"
-        }
+        console.log("type of termlist:"+typeof(termlist))
     })
     .catch(err=>{
         console.log("Term.find({}) failed !!");
@@ -370,17 +373,22 @@ async batchinput(ctx, next){
 //依參數id刪除資料
 async destroy(ctx,next){
     var statusreport=ctx.query.statusreport;
+    var status=ctx.query.status;
     console.log("gotten query:"+statusreport);
     await Project.deleteOne({_id: ctx.params.id})
     .then(()=>{
         console.log("Deleted a project....");
     statusreport="刪除單筆專案管理資料後進入本頁";
     //ctx.res.end()
-    ctx.redirect("/deep1/project/?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    if(status=="0"){    
+        ctx.redirect("/deep1/project/?statusreport="+statusreport)
+        }else{
+        ctx.redirect("/deep1/innerweb/workzone/project/?statusreport="+statusreport)   
+        }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 },
 
 //依參數id更新資料
@@ -392,26 +400,15 @@ async update(ctx,next){
     .then((newproject)=>{
         console.log("Saving new_project....:"+newproject);
     statusreport="更新單筆專案管理資料後進入本頁";
-    ctx.redirect("/deep1/project/?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-},
-//依參數id更新資料(二)
-async update(ctx,next){
-    let {_id}=ctx.request.body;
-    var {statusreport}=ctx.request.body;
-    console.log("gotten query:"+statusreport);
-    await Project.findOneAndUpdate({_id:_id}, ctx.request.body, { new: true })
-    .then((newproject)=>{
-        console.log("Saving new_project....:"+newproject);
-    statusreport="更新單筆專案管理資料後進入本頁";
-    ctx.redirect("/deep1/innerweb/?statusreport="+statusreport)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+    if(status=="0"){    
+        ctx.redirect("/deep1/project/?statusreport="+statusreport)
+        }else{
+        ctx.redirect("/deep1/innerweb/workzone/project/?statusreport="+statusreport)   
+        }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 }
 
 }//EOF export

@@ -11,7 +11,6 @@ body {
 background-color: rgb(248, 243, 243);
   height: 100vh;
   width: 100vw;
-  position: relative;
   display: flex;
   flex-direction:column;
 	 justify-content: flex-start;
@@ -21,9 +20,7 @@ background-color: rgb(248, 243, 243);
 
 #sidearea{  
 background-color: rgb(213, 218, 210);
-  height:760px;
-  width: 100vw;
-  position: relative;
+  height:720px;
   display: flex;
   flex-direction:column;
 	 justify-content: flex-start;
@@ -31,10 +28,8 @@ background-color: rgb(213, 218, 210);
   	margin: 0;
 }
 .sidepart{
-    width: 350px;
     height:240px;
-    margin-top:10px;
-    margin-left:30px;
+    padding: 10px;
     border-radius:10px
 }
 #bellcall{
@@ -57,11 +52,11 @@ background-color: rgb(213, 218, 210);
 }
 #bulletin {
     background:#def3f8;
-    height:600px;
+    height:720px;
     }
 #sharezone {
     background:#f8e8c5;
-    height:600px;
+    height:720px;
     }
 .navbar{background:#d6eff5;}
 .nav-link, .navbar-brand{color: #f4f4f4;cursor:pointer;}
@@ -226,8 +221,8 @@ background-color: rgb(213, 218, 210);
         <table border="1" class="table table-striped">
             <thead>
             <tr>
-                <th>{{items1.item1}}</th>
-                <th>{{items1.item2}}</th>
+                <!-- <th>{{items1.item1}}</th>
+                <th>{{items1.item2}}</th> -->
                 <th>{{items1.item3}}</th>                          
                 <th>{{items1.item4}}</th>    
               <!-- <th>特別註記</th> -->
@@ -235,8 +230,8 @@ background-color: rgb(213, 218, 210);
             </thead>
             <tbody id="postlist">
                 <tr v-for="post of postShow" :key="post._id">
-                <td>{{post.a10posttype}}</td>                
-                <td>{{post.a15poster}}</td>
+                <!-- <td>{{post.a10posttype}}</td>                
+                <td>{{post.a15poster}}</td> -->
                 <td>{{post.postdate}}</td>
                 <!--<td>{{post.a20postdate.getFullYear()}}/{{post.a20postdate.getMonth()}}/{{post.a20postdate.getDate()}}</td>-->
                 <td>{{post.a25posttitle}}</td>  
@@ -394,7 +389,7 @@ Vue.component("bander",{
         brief:"服務簡介",
         deliver:"服務交付流程",
         share:"免費服務項目",
-        bycate:"依管理分類",
+        bycate:"依企管分類",
         bydomain:"依知識領域",
         bycourse:"依課程類型",        
         aboutus:"認識我們",
@@ -403,7 +398,7 @@ Vue.component("bander",{
         organize:"組織架構",
         perform:"服務實績",
         CSR:"企業社會責任",
-        user:"無名",
+        user:"貴客",
         statusreport:'<%- statusreport %>'
       }
     },
@@ -416,7 +411,7 @@ Vue.component("bander",{
     props:{},
     data(){
       return{
-        statusreport:'<%- JSON.stringify(statusreport) %>',
+        statusreport:'<%- statusreport %>',
         promote:"我們依您的需求提供多種專業的整合服務！"
 
       }      
